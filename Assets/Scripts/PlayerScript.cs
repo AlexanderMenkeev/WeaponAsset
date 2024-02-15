@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.EnhancedTouch;
+using WeaponSystem;
 
 public class PlayerScript : MonoBehaviour, IDamagable
 {

@@ -27,16 +27,16 @@ public class WeaponSO : ScriptableObject
     private void InitializeParams()
     {
         Size = new Vector2(0.03f, 0.18f);
-        Lifespan = 8f;
+        Lifespan = 5f;
         MinSpeed = 3f;
-        MaxSpeed = 8f;
+        MaxSpeed = 6f;
         MinForce = 1f;
         MaxForce = 4f;
-        MaxDistance = 5f;
-        FireRate = 0.7f;
+        MaxDistance = 3f;
+        FireRate = 1f;
         FlipY = true;
-        ProjectilesInOneShot = 8;
-        ReflectiveCircleRadios = 1.8f;
+        ProjectilesInOneShot = 10;
+        ReflectiveCircleRadios = 1.5f;
     }
 
     public void OnEnable() {

@@ -18,8 +18,8 @@ MonoBehaviour:
   MaxSpeed: 8
   MinForce: 1
   MaxForce: 4
-  MaxDistance: 5
+  MaxDistance: 3
   FireRate: 0.7
   ProjectilesInOneShot: 8
-  FlipY: 1
+  FlipY: 0
   ReflectiveCircleRadios: 1.8

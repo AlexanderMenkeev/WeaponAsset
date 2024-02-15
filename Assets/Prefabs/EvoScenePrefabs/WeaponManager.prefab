@@ -44,7 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54b29d4bbb584924fa10d5d51d1154bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 0}
-  evolutionAlgorithm: {fileID: 2329988278997684025, guid: 118af84c8eaa3a24bb1a4e01a596faf0, type: 3}
-  weaponPrefab: {fileID: 2914558294282976067, guid: dbad99ff1ad0e014bb9da9627cc47f27, type: 3}
-  weapons: []
+  _weapons: []
+  _weaponPrefab: {fileID: 6968006606732759235, guid: 26a78bb400cf5494eb90b6fbdb0eea7f, type: 3}
