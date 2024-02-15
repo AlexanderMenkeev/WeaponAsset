@@ -11,12 +11,12 @@ namespace WeaponSystem {
             TemporalObjects = GameObject.Find("TemporalObjects");
             ProjectileSpawnPoint = transform.Find("ProjectileSpawnPoint");
             InitializeParams();
-            _weaponParams.UpdateParamsEvent += InitializeParams;
+            _weaponParamsGlobal.UpdateParamsEvent += InitializeParams;
         }
     
         private void OnDestroy()
         {
-            _weaponParams.UpdateParamsEvent -= InitializeParams;
+            _weaponParamsGlobal.UpdateParamsEvent -= InitializeParams;
         }
     
         private void Start()

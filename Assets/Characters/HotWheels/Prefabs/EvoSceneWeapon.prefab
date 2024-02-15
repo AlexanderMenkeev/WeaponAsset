@@ -102,18 +102,19 @@ MonoBehaviour:
   TemporalObjects: {fileID: 0}
   ProjectileSpawnPoint: {fileID: 0}
   Player: {fileID: 0}
-  _weaponParams: {fileID: 11400000, guid: c19a9d6fb40df5c42add2d58f99e106c, type: 2}
-  _size: {x: 0, y: 0}
-  _lifespan: 0
-  _minSpeed: 0
-  _maxSpeed: 0
-  _minForce: 0
-  _maxForce: 0
-  _maxDistance: 0
-  _fireRate: 0
-  _projectilesInOneShot: 0
-  _flipY: 0
-  _reflectiveCircleRadios: 0
+  _weaponParamsGlobal: {fileID: 11400000, guid: c19a9d6fb40df5c42add2d58f99e106c, type: 2}
+  _weaponParamsLocal:
+    Size: {x: 0, y: 0}
+    Lifespan: 0
+    MinSpeed: 0
+    MaxSpeed: 0
+    MinForce: 0
+    MaxForce: 0
+    NNControlDistance: 0
+    FireRate: 0
+    ProjectilesInOneShot: 0
+    FlipY: 0
+    ReflectiveCircleRadius: 0
   BirthGeneration: 0
   Connections: 0
   Nodes: 0

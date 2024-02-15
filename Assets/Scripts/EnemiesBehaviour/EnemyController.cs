@@ -1,4 +1,5 @@
 using System.Collections;
+using SODefinitions;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;

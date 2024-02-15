@@ -1,4 +1,5 @@
 using System.Collections;
+using SODefinitions;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;

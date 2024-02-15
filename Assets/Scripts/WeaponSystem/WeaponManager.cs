@@ -44,7 +44,7 @@ namespace WeaponSystem {
             float stepX = (p11.x - p00.x) / (_numberOfWeapons / 2f);
             
             for (int i = 0; i < _numberOfWeapons / 2; i++) {
-                Vector3 pos = new Vector3(p00.x + i * 0.9f * stepX + stepX * 0.25f, p00.y + stepY * 0.55f, 0);
+                Vector3 pos = new Vector3(p00.x + i * 0.9f * stepX + stepX * 0.5f, p00.y + stepY * 0.55f, 0);
                 _weapons.Add(Instantiate(_weaponPrefab, pos, Quaternion.identity, transform));
             }
 

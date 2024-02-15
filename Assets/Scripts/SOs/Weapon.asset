@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Weapon
   m_EditorClassIdentifier: 
   Size: {x: 0.03, y: 0.18}
-  Lifespan: 8
+  Lifespan: 5
   MinSpeed: 3
-  MaxSpeed: 8
+  MaxSpeed: 6
   MinForce: 1
   MaxForce: 4
-  MaxDistance: 3
-  FireRate: 0.7
-  ProjectilesInOneShot: 8
-  FlipY: 0
-  ReflectiveCircleRadios: 1.8
+  NNControlDistance: 3
+  FireRate: 1
+  ProjectilesInOneShot: 10
+  FlipY: 1
+  ReflectiveCircleRadius: 1.5

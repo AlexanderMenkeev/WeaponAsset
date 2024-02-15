@@ -10,14 +10,14 @@ namespace WeaponSystem.ProjectileStatePattern {
         public IState PreviousState { get; private set; }
     
     
-        public StraightFlightState StraightFlight;
+        public InitialFlightState InitialFlight;
         public ControlledState Controlled;
         public PauseState Pause;
         public ReflectionState Reflection;
     
         public event Action<IState> StateChanged;
         public ProjectileStateMachine(Projectile projectile) {
-            this.StraightFlight = new StraightFlightState(projectile);
+            this.InitialFlight = new InitialFlightState(projectile);
             this.Controlled = new ControlledState(projectile);
             this.Pause = new PauseState(projectile);
             this.Reflection = new ReflectionState(projectile);

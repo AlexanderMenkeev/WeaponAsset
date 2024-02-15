@@ -22,7 +22,7 @@ namespace WeaponSystem.ProjectileStatePattern.ProjectileStates {
             if (_projectile._commonVariables.IsPaused && !_projectile.IsUI) 
                 _projectile.StateMachine.TransitionTo(_projectile.StateMachine.Pause);
             
-            if (_projectile.DistanceFromOrigin / _projectile.NeuralNetworkControlDistance > math.SQRT2) 
+            if (_projectile.DistanceFromOrigin / _projectile.WeaponParamsLocal.NNControlDistance > math.SQRT2) 
                 _projectile.StateMachine.TransitionTo(_projectile.StateMachine.Reflection);
         }
         

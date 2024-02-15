@@ -27,8 +27,8 @@ namespace WeaponSystem {
             DemoWeapon.Factory = EvolutionAlgorithm.Instance.CppnGenomeFactory;
             DemoWeapon.Decoder = EvolutionAlgorithm.Instance.Decoder;
             DemoWeapon.ProjectileGenome = ProjectileGenome;
-            DistanceSlider.value = _weaponParams.MaxDistance;
-            Flip.isOn = _weaponParams.FlipY;
+            DistanceSlider.value = _weaponParamsGlobal.NNControlDistance;
+            Flip.isOn = _weaponParamsGlobal.FlipY;
         
             PickUpCanvas.SetActive(true);
         
@@ -64,15 +64,15 @@ namespace WeaponSystem {
         }
     
         private void OnSliderChanged(float distance) {
-            _weaponParams.MaxDistance = distance;
-            _weaponParams.UpdateParamsEvent.Invoke();
+            _weaponParamsGlobal.NNControlDistance = distance;
+            _weaponParamsGlobal.UpdateParamsEvent.Invoke();
             DemoWeapon.OnChangeDemoWeaponEvent?.Invoke();
         }
     
     
         private void OnFlipChanged(bool value) {
-            _weaponParams.FlipY = value;
-            _weaponParams.UpdateParamsEvent.Invoke();
+            _weaponParamsGlobal.FlipY = value;
+            _weaponParamsGlobal.UpdateParamsEvent.Invoke();
             DemoWeapon.OnChangeDemoWeaponEvent?.Invoke();
         }
 

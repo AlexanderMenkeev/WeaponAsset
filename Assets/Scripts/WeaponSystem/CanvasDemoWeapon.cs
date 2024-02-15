@@ -4,6 +4,7 @@ using System.Xml;
 using SharpNeat.Genomes.Neat;
 using UI;
 using UnityEngine;
+using WeaponSystem.ProjectileStatePattern;
 
 namespace WeaponSystem {
     public class CanvasDemoWeapon : AbstractWeapon
@@ -13,13 +14,13 @@ namespace WeaponSystem {
             TemporalObjects = GameObject.Find("TemporalObjectsUI");
             ProjectileSpawnPoint = transform.Find("ProjectileSpawnPoint");
             InitializeParams();
-            _weaponParams.UpdateParamsEvent += InitializeParams;
+            _weaponParamsGlobal.UpdateParamsEvent += InitializeParams;
             OnChangeDemoWeaponEvent += RestartCoroutine;
         }
 
         private void OnDestroy()
         {
-            _weaponParams.UpdateParamsEvent -= InitializeParams;
+            _weaponParamsGlobal.UpdateParamsEvent -= InitializeParams;
             OnChangeDemoWeaponEvent -= RestartCoroutine;
         }
 
@@ -55,56 +56,47 @@ namespace WeaponSystem {
         public override IEnumerator FireProjectile()
         {
             yield return new WaitForSeconds(0.1f);
+            
             while (true) {
                 _box = Decoder.Decode(ProjectileGenome);
-                float signY = (_flipY) ? -1 : 1;
+                float signY = (_weaponParamsLocal.FlipY) ? -1 : 1;
             
                 GameObject localCoordinateSystem = new GameObject("Local Coordinate System for projectiles");
                 localCoordinateSystem.transform.parent = TemporalObjects.transform;
-                Transform parentTransform = localCoordinateSystem.transform;
-                parentTransform.up = ProjectileSpawnPoint.up;            
-                parentTransform.right = ProjectileSpawnPoint.right;      
-                parentTransform.rotation = ProjectileSpawnPoint.rotation;
-                parentTransform.position = ProjectileSpawnPoint.position;
+                Transform localCoordinateSystemTransform = localCoordinateSystem.transform;
+                localCoordinateSystemTransform.up = ProjectileSpawnPoint.up;            
+                localCoordinateSystemTransform.right = ProjectileSpawnPoint.right;      
+                localCoordinateSystemTransform.rotation = ProjectileSpawnPoint.rotation;
+                localCoordinateSystemTransform.position = ProjectileSpawnPoint.position;
             
-                for (int i = 0; i < _projectilesInOneShot; i++) {
+                for (int i = 0; i < _weaponParamsLocal.ProjectilesInOneShot; i++) {
 
                     float signX = 0;
-                    if (_projectilesInOneShot != 1)
-                        signX = Mathf.Lerp(-1f, 1f, (float)i / (_projectilesInOneShot - 1));
+                    if (_weaponParamsLocal.ProjectilesInOneShot != 1)
+                        signX = Mathf.Lerp(-1f, 1f, (float)i / (_weaponParamsLocal.ProjectilesInOneShot - 1));
 
-                    GameObject newProjectile = Instantiate(ProjectilePrefab, ProjectileSpawnPoint.position, Quaternion.identity, parentTransform);
-                    UIProjectile newProjectileScript = newProjectile.GetComponent<UIProjectile>();
+                    GameObject projectile = Instantiate(ProjectilePrefab, ProjectileSpawnPoint.position, Quaternion.identity, localCoordinateSystemTransform);
+                    Projectile projectileScript = projectile.GetComponent<Projectile>();
 
-                    newProjectileScript.ParentTransform = parentTransform;
-                    newProjectileScript.Box = _box;
+                    projectileScript.ParentTransform = localCoordinateSystemTransform;
+                    projectileScript.Box = _box;
 
-                
-                    newProjectileScript.transform.localScale = new Vector3(_size.x, _size.y, 1);
-                    newProjectileScript.Lifespan = _lifespan;
-                    newProjectileScript.MinSpeed = _minSpeed;
-                    newProjectileScript.MaxSpeed = _maxSpeed;
-                    newProjectileScript.MinForce = _minForce;
-                    newProjectileScript.MaxForce = _maxForce;
-                    newProjectileScript.NeuralNetworkControlDistance = _maxDistance;
+                    projectileScript.WeaponParamsLocal = new WeaponParams(_weaponParamsLocal);
                     
                 
-                    newProjectileScript.SignX = signX < 0 ? -1f : 1f;
-                    newProjectileScript.SignY = signY;
+                    projectileScript.SignX = signX < 0 ? -1f : 1f;
+                    projectileScript.SignY = signY;
 
                 
                     Vector2 initialDirection = Quaternion.Euler(0, 0, 45 * signX) * transform.right;
                 
-                    newProjectileScript.InitialVelocity = initialDirection.normalized * _minSpeed;
-                    newProjectileScript.ReflectiveCircleRadius = _reflectiveCircleRadios;
-                
-                
-                    // this line is the difference between AbstractWeapon.FireProjectile and this.FireProjectile
-                    newProjectileScript.DemoWeapon = this;
+                    projectileScript.InitialVelocity = initialDirection.normalized * _weaponParamsLocal.MinSpeed;
 
+                    //projectileScript.Demo = this;
+                    
                 }
 
-                yield return new WaitForSeconds(_fireRate);
+                yield return new WaitForSeconds(_weaponParamsLocal.FireRate);
             }
         }
 

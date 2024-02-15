@@ -16,12 +16,11 @@ namespace UI {
             StateMachine = new ProjectileStateMachine(this);
         }
     
-        private void Start()
-        {
+        private void Start() {
             _inputArr = Box.InputSignalArray;
             _outputArr = Box.OutputSignalArray;
         
-            StateMachine.Initialize(StateMachine.StraightFlight);
+            StateMachine.Initialize(StateMachine.InitialFlight);
         
             _birthTime = Time.time;
             DemoWeapon.OnChangeDemoWeaponEvent += ImmediateDestroy;

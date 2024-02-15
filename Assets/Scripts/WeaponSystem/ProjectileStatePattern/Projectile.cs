@@ -1,5 +1,6 @@
 using System;
 using SharpNeat.Phenomes;
+using SODefinitions;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -17,17 +18,14 @@ namespace WeaponSystem.ProjectileStatePattern {
         [SerializeField] public CommonVariablesSO _commonVariables;
     
         protected float _birthTime;
-        public float Lifespan;
     
         public IBlackBox Box;
         protected ISignalArray _inputArr;
         protected ISignalArray _outputArr;
     
-        public float MinSpeed;
-        public float MaxSpeed;
-        public float MinForce;
-        public float MaxForce;
-        [FormerlySerializedAs("MaxDistance")] public float NeuralNetworkControlDistance;
+        
+        [SerializeField] public WeaponParams WeaponParamsLocal;
+        
         public float SignX;
         public float SignY;
         public Vector2 InitialVelocity;
@@ -40,8 +38,7 @@ namespace WeaponSystem.ProjectileStatePattern {
         [SerializeField] public ProjectileStateMachine StateMachine;
     
 
-        private void Awake()
-        {
+        private void Awake() {
             _camera = Camera.main;
             Rigidbody = GetComponent<Rigidbody2D>();
             _spriteRenderer = GetComponent<SpriteRenderer>();
@@ -56,22 +53,15 @@ namespace WeaponSystem.ProjectileStatePattern {
         {
             _inputArr = Box.InputSignalArray;
             _outputArr = Box.OutputSignalArray;
+
+            transform.localScale = WeaponParamsLocal.Size;
         
-            StateMachine.Initialize(StateMachine.StraightFlight);
+            StateMachine.Initialize(StateMachine.InitialFlight);
         
             _birthTime = Time.time;
             _currPos = Rigidbody.position;
-            _commonVariables.OnPauseResumeEvent += OnPauseResumeGame;
         }
-    
-        private void OnDestroy() {
-            _commonVariables.OnPauseResumeEvent -= OnPauseResumeGame;
-        }
-    
-        protected void OnPauseResumeGame() {
-            Rigidbody.velocity = Vector2.zero;
         
-        }
 
         protected void CheckCollision()
         {
@@ -92,24 +82,20 @@ namespace WeaponSystem.ProjectileStatePattern {
 
 
         protected float Damage;
-
-        public void DestroyYourself()
-        {
-            if (Time.time - _birthTime > Lifespan) 
+        public void DestroyYourself() {
+            if (Time.time - _birthTime > WeaponParamsLocal.Lifespan) 
                 Destroy(ParentTransform.gameObject);
         
         }
     
-
-    
-        public float ReflectiveCircleRadius;
+        
         public void ActivateBlackBox()
         {
             Box.ResetState();
         
-            _inputArr[0] = Mathf.Lerp(-1f, 1f,Math.Abs(RelativePos.x) / NeuralNetworkControlDistance);
-            _inputArr[1] = Mathf.Lerp(-1f, 1f,Math.Abs(RelativePos.y) / NeuralNetworkControlDistance);
-            _inputArr[2] = Mathf.Lerp(-1f, 1f,DistanceFromOrigin / NeuralNetworkControlDistance);
+            _inputArr[0] = Mathf.Lerp(-1f, 1f,Math.Abs(RelativePos.x) / WeaponParamsLocal.NNControlDistance);
+            _inputArr[1] = Mathf.Lerp(-1f, 1f,Math.Abs(RelativePos.y) / WeaponParamsLocal.NNControlDistance);
+            _inputArr[2] = Mathf.Lerp(-1f, 1f,DistanceFromOrigin / WeaponParamsLocal.NNControlDistance);
         
             Box.Activate();
         }
@@ -124,8 +110,8 @@ namespace WeaponSystem.ProjectileStatePattern {
             _vel = x * ParentTransform.right + y * ParentTransform.up;
         
             _hue = Mathf.Lerp(0.1f, 1f, (float)_outputArr[2]);
-            _maxSpeed = Mathf.Lerp(MinSpeed, MaxSpeed, (float)_outputArr[3]);
-            _force = Mathf.Lerp(MinForce, MaxForce, (float)_outputArr[4]);
+            _maxSpeed = Mathf.Lerp(WeaponParamsLocal.MinSpeed, WeaponParamsLocal.MaxSpeed, (float)_outputArr[3]);
+            _force = Mathf.Lerp(WeaponParamsLocal.MinForce, WeaponParamsLocal.MaxForce, (float)_outputArr[4]);
             
         
             

@@ -1,10 +1,10 @@
 using UnityEngine;
 
 namespace WeaponSystem.ProjectileStatePattern.ProjectileStates {
-    public class StraightFlightState : IState {
+    public class InitialFlightState : IState {
         private Projectile _projectile;
         public float Radius;
-        public StraightFlightState(Projectile projectile) {
+        public InitialFlightState(Projectile projectile) {
             _projectile = projectile;
         }
 
@@ -12,7 +12,7 @@ namespace WeaponSystem.ProjectileStatePattern.ProjectileStates {
         public void Enter() {
             _projectile.Rigidbody.velocity = _projectile.InitialVelocity;
             _projectile.transform.up = _projectile.Rigidbody.velocity;
-            Radius = 0.2f * _projectile.NeuralNetworkControlDistance;
+            Radius = 0.2f * _projectile.WeaponParamsLocal.NNControlDistance;
             _projectile._spriteRenderer.color = Color.white;
         }
 

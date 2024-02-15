@@ -26,12 +26,12 @@ namespace WeaponSystem.ProjectileStatePattern.ProjectileStates {
         public void FixedUpdate() {
             _normal = (_projectile.ParentTransform.position - _projectile.transform.position).normalized;
             
-            if (_projectile.DistanceFromOrigin / _projectile.NeuralNetworkControlDistance > _projectile.ReflectiveCircleRadius && !_reflected) {
+            if (_projectile.DistanceFromOrigin / _projectile.WeaponParamsLocal.NNControlDistance > _projectile.WeaponParamsLocal.ReflectiveCircleRadius && !_reflected) {
                 _projectile.Rigidbody.velocity = Vector2.Reflect(_projectile.Rigidbody.velocity, _normal);
                 _reflected = true;
             }
             
-            if (_projectile.DistanceFromOrigin / _projectile.NeuralNetworkControlDistance < _projectile.ReflectiveCircleRadius)
+            if (_projectile.DistanceFromOrigin / _projectile.WeaponParamsLocal.NNControlDistance < _projectile.WeaponParamsLocal.ReflectiveCircleRadius)
                 _reflected = false;
         }
 
@@ -40,7 +40,7 @@ namespace WeaponSystem.ProjectileStatePattern.ProjectileStates {
             if (_projectile._commonVariables.IsPaused && !_projectile.IsUI)
                 _projectile.StateMachine.TransitionTo(_projectile.StateMachine.Pause);
             
-            if (_projectile.DistanceFromOrigin / _projectile.NeuralNetworkControlDistance <= math.SQRT2) 
+            if (_projectile.DistanceFromOrigin / _projectile.WeaponParamsLocal.NNControlDistance <= math.SQRT2) 
                 _projectile.StateMachine.TransitionTo(_projectile.StateMachine.Controlled);
             
         }
