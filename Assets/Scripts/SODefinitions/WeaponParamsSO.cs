@@ -1,13 +1,11 @@
-using System;
 using Interfaces;
-using SODefinitions;
 using Unity.Mathematics;
 using UnityEngine;
 
-namespace WeaponSystem.ProjectileStatePattern {
-    [Serializable]
-    public class WeaponParams : IWeaponParams {
-    
+namespace SODefinitions {
+    [CreateAssetMenu(menuName = "ScriptableObjects/WeaponParamsSO")]
+    public class WeaponParamsSO : ScriptableObject, IWeaponParams
+    {
         [field: Header("Weapon controls")] 
         [field: SerializeField] [field: Range(0.2f, 1f)] public float FireRate { get; set; }
         [field: SerializeField] [field: Range(1, 20)] public int ProjectilesInOneShot { get; set; }
@@ -32,29 +30,39 @@ namespace WeaponSystem.ProjectileStatePattern {
         [field: SerializeField] [field:Range(0.5f, 3f)] public float InitialSpeed { get; set; }
         [field: SerializeField] [field:Range(10, 180)] public int Angle { get; set; }
         
-        public WeaponParams(IWeaponParams weaponParams) {
-            FireRate = weaponParams.FireRate;
-            ProjectilesInOneShot = weaponParams.ProjectilesInOneShot;
-            
-            Size = weaponParams.Size;
-            Lifespan = weaponParams.Lifespan;
         
-            MinSpeed = weaponParams.MinSpeed;
-            MaxSpeed = weaponParams.MaxSpeed;
-            MinForce = weaponParams.MinForce;
-            MaxForce = weaponParams.MaxForce;
-            NNControlDistance = weaponParams.NNControlDistance;
-            FlipY = weaponParams.FlipY;
+        public delegate void UpdateDelegate();
+        public UpdateDelegate UpdateParamsEvent;
+    
+        private void InitializeParams() {
+            FireRate = 1f;
+            ProjectilesInOneShot = 10;
             
-            ReflectiveCircleRadius = weaponParams.ReflectiveCircleRadius;
+            Size = new Vector2(0.03f, 0.18f);
+            Lifespan = 6f;
             
-            InitialFlightRadius = weaponParams.InitialFlightRadius;
-            InitialSpeed = weaponParams.InitialSpeed;
-            Angle = weaponParams.Angle;
+            MinSpeed = 3f;
+            MaxSpeed = 6f;
+            MinForce = 1f;
+            MaxForce = 4f;
+            NNControlDistance = 3f;
+            FlipY = true;
+            
+            ReflectiveCircleRadius = 1.5f;
+
+            InitialFlightRadius = 0.1f;
+            InitialSpeed = 1f;
+            Angle = 45;
         }
-        
-        public WeaponParams() {
-        
+
+        public void OnEnable() {
+            InitializeParams();
         }
+
+        private void OnValidate() {
+            UpdateParamsEvent?.Invoke();
+        }
+
+        
     }
 }

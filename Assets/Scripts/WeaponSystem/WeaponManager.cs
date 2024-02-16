@@ -10,12 +10,10 @@ namespace WeaponSystem {
         private EvolutionAlgorithm _evolutionAlgorithm;
         private int _numberOfWeapons;
         private IList<NeatGenome> _genomeList;
-        
         [SerializeField] private List<GameObject> _weapons;
         
         // assigned from the editor
         [SerializeField] private GameObject _weaponPrefab;
-        
         
         private void Awake() {
             _camera = Camera.main;
@@ -26,14 +24,14 @@ namespace WeaponSystem {
             _numberOfWeapons = _evolutionAlgorithm.PopulationSize;
         
             InstantiateWeapons();
-            _genomeList = _evolutionAlgorithm.GetComponent<EvolutionAlgorithm>().GenomeList;
+            _genomeList = _evolutionAlgorithm.GenomeList;
             InitializeWeapons();
         
-            _evolutionAlgorithm.NewGenEvent += UpdateWeapons;
+            _evolutionAlgorithm.NewGenEvent += InitializeWeapons;
         }
 
         private void OnDestroy() {
-            _evolutionAlgorithm.NewGenEvent -= UpdateWeapons;
+            _evolutionAlgorithm.NewGenEvent -= InitializeWeapons;
         }
 
         private void InstantiateWeapons() {
@@ -41,51 +39,24 @@ namespace WeaponSystem {
             Vector2 p00 = _camera.ViewportToWorldPoint(new Vector3(0, 0, _camera.nearClipPlane));
 
             float stepY = (p11.y - p00.y) / 2f;
-            float stepX = (p11.x - p00.x) / (_numberOfWeapons / 2f);
+            float stepX = 2f * (p11.x - p00.x) / _numberOfWeapons;
             
             for (int i = 0; i < _numberOfWeapons / 2; i++) {
-                Vector3 pos = new Vector3(p00.x + i * 0.9f * stepX + stepX * 0.5f, p00.y + stepY * 0.55f, 0);
-                _weapons.Add(Instantiate(_weaponPrefab, pos, Quaternion.identity, transform));
-            }
-
-            int weaponsCount = _weapons.Count;
-            for (int i = 0; i < _numberOfWeapons - weaponsCount; i++) {
                 Vector3 pos = new Vector3(p00.x + i * 0.9f * stepX + stepX * 0.75f, p11.y - stepY * 0.55f, 0);
                 _weapons.Add(Instantiate(_weaponPrefab, pos, Quaternion.identity, transform));
             }
-        }
-
-        private void InitializeWeapons()
-        {
-            for (int i = 0; i < _numberOfWeapons; i++)
-            {
-                Weapon weapon = _weapons[i].GetComponent<Weapon>();
             
-                weapon.ProjectileGenome = _genomeList[i];
-                weapon.ID = _genomeList[i].Id;
-                weapon.BirthGeneration = _genomeList[i].BirthGeneration;
-                weapon.Connections = _genomeList[i].Complexity;
-                weapon.IsEvaluated = _genomeList[i].EvaluationInfo.IsEvaluated;
-            
-                weapon.Nodes = _genomeList[i].NodeList.Count;
-            
-                weapon.Decoder = _evolutionAlgorithm.GetComponent<EvolutionAlgorithm>().Decoder;
-                weapon.Factory = _evolutionAlgorithm.GetComponent<EvolutionAlgorithm>().CppnGenomeFactory;
+            int weaponsCount = _weapons.Count;
+            for (int i = 0; i <_numberOfWeapons - weaponsCount; i++) {
+                Vector3 pos = new Vector3(p00.x + i * 0.9f * stepX + stepX * 0.5f, p00.y + stepY * 0.55f, 0);
+                _weapons.Add(Instantiate(_weaponPrefab, pos, Quaternion.identity, transform));
             }
         }
-        private void UpdateWeapons()
-        {
-            for (int i = 0; i < _numberOfWeapons; i++)
-            {
+
+        private void InitializeWeapons() {
+            for (int i = 0; i < _numberOfWeapons; i++) {
                 Weapon weapon = _weapons[i].GetComponent<Weapon>();
-            
-                weapon.ProjectileGenome = _genomeList[i];
-                weapon.ID = _genomeList[i].Id;
-                weapon.BirthGeneration = _genomeList[i].BirthGeneration;
-                weapon.Connections = _genomeList[i].Complexity;
-                weapon.IsEvaluated = _genomeList[i].EvaluationInfo.IsEvaluated;
-            
-                weapon.Nodes = _genomeList[i].NodeList.Count;
+                weapon.GenomeStats = new GenomeStats(_genomeList[i], _evolutionAlgorithm.Decoder, _evolutionAlgorithm.CppnGenomeFactory);
             }
         }
     

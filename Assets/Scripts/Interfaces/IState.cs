@@ -1,13 +1,15 @@
-public interface IState {
+namespace Interfaces {
+    public interface IState {
   
-    public void Enter();
+        public void Enter();
 
-    public void Update();
+        public void Update();
     
-    public void FixedUpdate();
+        public void FixedUpdate();
     
-    public void LateUpdate();
+        public void LateUpdate();
     
-    public void Exit();
+        public void Exit();
 
+    }
 }

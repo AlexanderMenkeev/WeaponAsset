@@ -1,3 +1,4 @@
+using Interfaces;
 using UnityEngine;
 
 namespace WeaponSystem.ProjectileStatePattern.ProjectileStates {

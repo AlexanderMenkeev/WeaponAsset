@@ -12,29 +12,21 @@ using WeaponSystem.ProjectileStatePattern;
 namespace WeaponSystem {
     public abstract class AbstractWeapon : MonoBehaviour
     {
-        public GameObject ProjectilePrefab;
-        public GameObject TemporalObjects;
-        public NeatGenome ProjectileGenome;
-        public Transform ProjectileSpawnPoint;
-    
+        // assigned from the editor
         [SerializeField] protected WeaponParamsSO _weaponParamsGlobal;
+        public GameObject ProjectilePrefab;
+        
         [SerializeField] protected WeaponParams _weaponParamsLocal;
-       
-    
-        [Header("NeatGenome stats")]
-        public uint BirthGeneration;
-        public uint ID { get; set; }
-        public double Connections;
-        public int Nodes;
-    
-        public bool IsEvaluated;
+        
+        // initialized from WeaponManager
+        public GenomeStats GenomeStats;
+        
+        [Header("Genome controls")]
         public bool Save;
-        public bool ChangeOnBestGenome;
-    
-        public NeatGenomeDecoder Decoder;
-        public CppnGenomeFactory Factory;
-    
-        protected IBlackBox _box;
+        public bool LoadGenome;
+        
+        [HideInInspector] public GameObject TemporalObjects;
+        [HideInInspector] public Transform ProjectileSpawnPoint;
         
         protected virtual void OnAwakeFunc() {
             TemporalObjects = GameObject.FindWithTag("TemporalObjects");
@@ -51,7 +43,7 @@ namespace WeaponSystem {
             FireCoroutine = StartCoroutine(FireProjectile());
         }
 
-        public void InitializeParams() {
+        protected void InitializeParams() {
             _weaponParamsLocal = new WeaponParams(_weaponParamsGlobal);
         }
     
@@ -59,40 +51,34 @@ namespace WeaponSystem {
         public virtual IEnumerator FireProjectile()
         {
             while (true) {
-                _box = Decoder.Decode(ProjectileGenome);
                 float signY = (_weaponParamsLocal.FlipY) ? -1 : 1;
-            
-                GameObject localCoordinateSystem = new GameObject("Local Coordinate System for projectiles");
+                
+                GameObject localCoordinateSystem = new GameObject("Local Coordinate System");
                 localCoordinateSystem.transform.parent = TemporalObjects.transform;
-                Transform localCoordinateSystemTransform = localCoordinateSystem.transform;
-                localCoordinateSystemTransform.up = ProjectileSpawnPoint.up;            
-                localCoordinateSystemTransform.right = ProjectileSpawnPoint.right;      
-                localCoordinateSystemTransform.rotation = ProjectileSpawnPoint.rotation;
-                localCoordinateSystemTransform.position = ProjectileSpawnPoint.position;
+                localCoordinateSystem.transform.up = ProjectileSpawnPoint.up;            
+                localCoordinateSystem.transform.right = ProjectileSpawnPoint.right;      
+                localCoordinateSystem.transform.rotation = ProjectileSpawnPoint.rotation;
+                localCoordinateSystem.transform.position = ProjectileSpawnPoint.position;
             
                 for (int i = 0; i < _weaponParamsLocal.ProjectilesInOneShot; i++) {
-
-                    float signX = 0;
+                    // offset for InitialFlight
+                    float offset = 0;
                     if (_weaponParamsLocal.ProjectilesInOneShot != 1)
-                        signX = Mathf.Lerp(-1f, 1f, (float)i / (_weaponParamsLocal.ProjectilesInOneShot - 1));
+                        offset = Mathf.Lerp(-1f, 1f, (float)i / (_weaponParamsLocal.ProjectilesInOneShot - 1));
 
-                    GameObject projectile = Instantiate(ProjectilePrefab, ProjectileSpawnPoint.position, Quaternion.identity, localCoordinateSystemTransform);
+                    GameObject projectile = Instantiate(ProjectilePrefab, ProjectileSpawnPoint.position, Quaternion.identity, localCoordinateSystem.transform);
                     Projectile projectileScript = projectile.GetComponent<Projectile>();
 
-                    projectileScript.ParentTransform = localCoordinateSystemTransform;
-                    projectileScript.Box = _box;
+                    projectileScript.ParentTransform = localCoordinateSystem.transform;
+                    projectileScript.Box = GenomeStats.Box;
 
                     projectileScript.WeaponParamsLocal = new WeaponParams(_weaponParamsLocal);
                     
-                
-                    projectileScript.SignX = signX < 0 ? -1f : 1f;
+                    projectileScript.SignX = offset < 0 ? -1f : 1f;
                     projectileScript.SignY = signY;
                     
-                
-                    Vector2 initialDirection = Quaternion.Euler(0, 0, 45 * signX) * transform.right;
-                
-                    projectileScript.InitialVelocity = initialDirection.normalized * _weaponParamsLocal.MinSpeed;
-
+                    Vector2 initialDirection = Quaternion.Euler(0, 0, _weaponParamsLocal.Angle * offset) * transform.right;
+                    projectileScript.InitialVelocity = initialDirection.normalized * _weaponParamsLocal.InitialSpeed;
                 }
 
                 yield return new WaitForSeconds(_weaponParamsLocal.FireRate);

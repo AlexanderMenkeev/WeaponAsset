@@ -12,14 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cebc8a280d174624f9a112ce9a9088a1, type: 3}
   m_Name: Weapon
   m_EditorClassIdentifier: 
-  Size: {x: 0.03, y: 0.18}
-  Lifespan: 5
-  MinSpeed: 3
-  MaxSpeed: 6
-  MinForce: 1
-  MaxForce: 4
-  NNControlDistance: 3
-  FireRate: 1
-  ProjectilesInOneShot: 10
-  FlipY: 1
-  ReflectiveCircleRadius: 1.5
+  <FireRate>k__BackingField: 1
+  <ProjectilesInOneShot>k__BackingField: 10
+  <Size>k__BackingField: {x: 0.03, y: 0.18}
+  <Lifespan>k__BackingField: 6
+  <MinSpeed>k__BackingField: 3
+  <MaxSpeed>k__BackingField: 6
+  <MinForce>k__BackingField: 1
+  <MaxForce>k__BackingField: 4
+  <NNControlDistance>k__BackingField: 3
+  <FlipY>k__BackingField: 1
+  <ReflectiveCircleRadius>k__BackingField: 1.5
+  <InitialFlightRadius>k__BackingField: 0.1
+  <InitialSpeed>k__BackingField: 1
+  <Angle>k__BackingField: 45

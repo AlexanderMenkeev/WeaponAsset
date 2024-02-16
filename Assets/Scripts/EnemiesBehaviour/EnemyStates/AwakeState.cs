@@ -1,3 +1,5 @@
+using Interfaces;
+
 namespace EnemyStates {
 
     public class AwakeState : IState {

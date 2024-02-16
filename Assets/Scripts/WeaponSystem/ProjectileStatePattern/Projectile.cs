@@ -1,4 +1,5 @@
 using System;
+using Interfaces;
 using SharpNeat.Phenomes;
 using SODefinitions;
 using UnityEngine;

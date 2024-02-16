@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using EnemyStates;
+using Interfaces;
 using UnityEngine;
 
 public class EnemyStateMachine {

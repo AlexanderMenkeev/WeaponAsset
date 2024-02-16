@@ -14,7 +14,7 @@ namespace WeaponSystem {
     public class EvolutionAlgorithm : MonoBehaviour
     {
         public IList<NeatGenome> GenomeList;
-
+        
         public event Action NewGenEvent;
         public NeatGenomeDecoder Decoder;
         public CppnGenomeFactory CppnGenomeFactory;
@@ -29,8 +29,7 @@ namespace WeaponSystem {
         [field: SerializeField] public int SexualOffspringCount { private set; get; }
     
         public static EvolutionAlgorithm Instance;
-        private void Awake()
-        {
+        private void Awake() {
             if (Instance == null) {
                 Instance = this;
             }
@@ -48,8 +47,8 @@ namespace WeaponSystem {
             Generation = 0;
             InputCount = 3;
             OutputCount = 5;
-            CloneOffspringCount = PopulationSize - 2;
-            SexualOffspringCount = 2;
+            CloneOffspringCount = 2;
+            SexualOffspringCount = PopulationSize - 2;
         }
         private void InitializeEvolutionAlgorithm() {
             Decoder = new NeatGenomeDecoder(_activationScheme);
@@ -62,7 +61,7 @@ namespace WeaponSystem {
         
             _activationFunctionLib = new DefaultActivationFunctionLibrary(fnList);;
             NeatGenomeParameters neatGenomeParams = new NeatGenomeParameters();
-            neatGenomeParams.InitialInterconnectionsProportion = 0.9;
+            neatGenomeParams.InitialInterconnectionsProportion = 0.8;
             neatGenomeParams.AddConnectionMutationProbability = 0.9;
             neatGenomeParams.AddNodeMutationProbability = 0.9;
             neatGenomeParams.ConnectionWeightMutationProbability = 0.9;
@@ -104,6 +103,19 @@ namespace WeaponSystem {
     
                 NewGenEvent?.Invoke();
             }
+        }
+        
+        public void CreateRandomPopulation() {
+            Debug.Log("Created random population!");
+
+            Generation = 0;
+            CppnGenomeFactory.GenomeIdGenerator.Reset();
+            for (int i = 0; i < PopulationSize; i++) {
+                CppnGenomeFactory.InnovationIdGenerator.Reset();
+                GenomeList[i] = CppnGenomeFactory.CreateGenome(Generation);
+            }
+            
+            NewGenEvent?.Invoke();
         }
     
     
