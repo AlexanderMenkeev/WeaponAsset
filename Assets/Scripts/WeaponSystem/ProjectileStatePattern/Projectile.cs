@@ -64,22 +64,22 @@ namespace WeaponSystem.ProjectileStatePattern {
         }
         
 
-        protected void CheckCollision()
-        {
-            int layerMask = 0b_0000_0000_1000;
-            Vector2 startPoint = _pivotPoint.position;
-            RaycastHit2D hit = Physics2D.CircleCast(startPoint, transform.localScale.x, -transform.up, transform.localScale.y, layerMask);
-        
-        
-            if (ReferenceEquals(hit.collider, null))
-                return;
-        
-            IDamagable objectToDamage = hit.transform.GetComponent<IDamagable>();
-            LocalGameManager.Instance.DamageObject(objectToDamage, Damage);
-            Debug.Log(objectToDamage);
-        
-            Destroy(gameObject);
-        }
+        // protected void CheckCollision()
+        // {
+        //     int layerMask = 0b_0000_0000_1000;
+        //     Vector2 startPoint = _pivotPoint.position;
+        //     RaycastHit2D hit = Physics2D.CircleCast(startPoint, transform.localScale.x, -transform.up, transform.localScale.y, layerMask);
+        //
+        //
+        //     if (ReferenceEquals(hit.collider, null))
+        //         return;
+        //
+        //     IDamagable objectToDamage = hit.transform.GetComponent<IDamagable>();
+        //     LocalGameManager.Instance.DamageObject(objectToDamage, Damage);
+        //     Debug.Log(objectToDamage);
+        //
+        //     Destroy(gameObject);
+        // }
 
 
         protected float Damage;
@@ -142,7 +142,7 @@ namespace WeaponSystem.ProjectileStatePattern {
             CalcProjectileStats();
             StateMachine.FixedUpdate();
             transform.up = Rigidbody.velocity;
-            CheckCollision();
+            //CheckCollision();
         }
 
         private void LateUpdate() {

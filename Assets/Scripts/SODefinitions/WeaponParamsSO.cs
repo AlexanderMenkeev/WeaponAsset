@@ -44,7 +44,7 @@ namespace SODefinitions {
             MinSpeed = 3f;
             MaxSpeed = 6f;
             MinForce = 1f;
-            MaxForce = 4f;
+            MaxForce = 3f;
             NNControlDistance = 3f;
             FlipY = true;
             

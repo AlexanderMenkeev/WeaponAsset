@@ -19,7 +19,7 @@ MonoBehaviour:
   <MinSpeed>k__BackingField: 3
   <MaxSpeed>k__BackingField: 6
   <MinForce>k__BackingField: 1
-  <MaxForce>k__BackingField: 4
+  <MaxForce>k__BackingField: 3
   <NNControlDistance>k__BackingField: 3
   <FlipY>k__BackingField: 1
   <ReflectiveCircleRadius>k__BackingField: 1.5
