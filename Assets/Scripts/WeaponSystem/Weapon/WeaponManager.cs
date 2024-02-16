@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using SharpNeat.Genomes.Neat;
 using UnityEngine;
+using WeaponSystem.NEAT;
 
-namespace WeaponSystem {
+namespace WeaponSystem.Weapon {
     public class WeaponManager : MonoBehaviour
     {
         private Camera _camera;

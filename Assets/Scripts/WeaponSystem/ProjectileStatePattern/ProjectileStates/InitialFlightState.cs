@@ -14,7 +14,7 @@ namespace WeaponSystem.ProjectileStatePattern.ProjectileStates {
             _projectile.Rigidbody.velocity = _projectile.InitialVelocity;
             _projectile.transform.up = _projectile.Rigidbody.velocity;
             InitialFlightRadius = _projectile.WeaponParamsLocal.NNControlDistance * _projectile.WeaponParamsLocal.InitialFlightRadius;
-            _projectile._spriteRenderer.color = Color.white;
+            _projectile.SpriteRenderer.color = Color.white;
         }
 
         public void Update() { }
@@ -27,7 +27,7 @@ namespace WeaponSystem.ProjectileStatePattern.ProjectileStates {
             if (_projectile.DistanceFromOrigin > InitialFlightRadius)
                 _projectile.StateMachine.TransitionTo(_projectile.StateMachine.Controlled);
 
-            if (_projectile._commonVariables.IsPaused && !_projectile.IsUI)
+            if (_projectile.GlobalVariables.IsPaused)
                 _projectile.StateMachine.TransitionTo(_projectile.StateMachine.Pause);
 
 

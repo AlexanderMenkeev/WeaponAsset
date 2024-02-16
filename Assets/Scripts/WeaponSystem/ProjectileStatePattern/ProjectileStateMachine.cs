@@ -9,8 +9,7 @@ namespace WeaponSystem.ProjectileStatePattern {
     public class ProjectileStateMachine {
         public IState CurrentState { get; private set; }
         public IState PreviousState { get; private set; }
-    
-    
+        
         public InitialFlightState InitialFlight;
         public ControlledState Controlled;
         public PauseState Pause;
@@ -18,13 +17,12 @@ namespace WeaponSystem.ProjectileStatePattern {
     
         public event Action<IState> StateChanged;
         public ProjectileStateMachine(Projectile projectile) {
-            this.InitialFlight = new InitialFlightState(projectile);
-            this.Controlled = new ControlledState(projectile);
-            this.Pause = new PauseState(projectile);
-            this.Reflection = new ReflectionState(projectile);
+            InitialFlight = new InitialFlightState(projectile);
+            Controlled = new ControlledState(projectile);
+            Pause = new PauseState(projectile);
+            Reflection = new ReflectionState(projectile);
         }
-    
-    
+        
     
         public void Initialize(IState initialState) {
             CurrentState = initialState;

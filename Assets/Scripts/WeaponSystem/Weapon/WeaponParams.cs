@@ -1,10 +1,9 @@
 using System;
 using Interfaces;
-using SODefinitions;
 using Unity.Mathematics;
 using UnityEngine;
 
-namespace WeaponSystem.ProjectileStatePattern {
+namespace WeaponSystem.Weapon {
     [Serializable]
     public class WeaponParams : IWeaponParams {
     
@@ -19,7 +18,7 @@ namespace WeaponSystem.ProjectileStatePattern {
         [field: Header("NN Pattern controls")] 
         [field: SerializeField] [field: Range(1f, 5f)] public float MinSpeed { get; set; }
         [field: SerializeField] [field: Range(5f, 8f)] public float MaxSpeed { get; set; }
-        [field: SerializeField] [field: Range(1f, 2f)] public float MinForce { get; set; }
+        [field: SerializeField] [field: Range(0.5f, 2f)] public float MinForce { get; set; }
         [field: SerializeField] [field: Range(2f, 5f)] public float MaxForce { get; set; }
         [field: SerializeField] [field: Range(1f, 7f)] public float NNControlDistance { get; set; }
         [field: SerializeField] public bool FlipY { get; set; }
@@ -28,7 +27,7 @@ namespace WeaponSystem.ProjectileStatePattern {
         [field: SerializeField] [field:Range(math.SQRT2, 2f)] public float ReflectiveCircleRadius { get; set; }
         
         [field:Header("Initial Flight controls")] 
-        [field: SerializeField] [field:Range(0.05f, 0.2f)] public float InitialFlightRadius { get; set; }
+        [field: SerializeField] [field:Range(0.05f, 0.4f)] public float InitialFlightRadius { get; set; }
         [field: SerializeField] [field:Range(0.5f, 3f)] public float InitialSpeed { get; set; }
         [field: SerializeField] [field:Range(10, 180)] public int Angle { get; set; }
         

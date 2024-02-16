@@ -19,16 +19,9 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
         _camera = Camera.main;
-
     }
-
-
-    public void ExitApplication() {
-        Application.Quit();
-    }
-
-    private void Start()
-    {
+    
+    private void Start() {
         Application.targetFrameRate = 60;
     }
 

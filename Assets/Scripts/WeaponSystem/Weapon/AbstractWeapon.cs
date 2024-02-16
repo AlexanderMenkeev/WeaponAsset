@@ -1,15 +1,10 @@
-using System;
 using System.Collections;
-using SharpNeat.Decoders.Neat;
-using SharpNeat.Genomes.HyperNeat;
-using SharpNeat.Genomes.Neat;
-using SharpNeat.Phenomes;
 using SODefinitions;
-using Unity.Mathematics;
 using UnityEngine;
+using WeaponSystem.NEAT;
 using WeaponSystem.ProjectileStatePattern;
 
-namespace WeaponSystem {
+namespace WeaponSystem.Weapon {
     public abstract class AbstractWeapon : MonoBehaviour
     {
         // assigned from the editor
@@ -69,7 +64,7 @@ namespace WeaponSystem {
                     GameObject projectile = Instantiate(ProjectilePrefab, ProjectileSpawnPoint.position, Quaternion.identity, localCoordinateSystem.transform);
                     Projectile projectileScript = projectile.GetComponent<Projectile>();
 
-                    projectileScript.ParentTransform = localCoordinateSystem.transform;
+                    projectileScript.OriginTransform = localCoordinateSystem.transform;
                     projectileScript.Box = GenomeStats.Box;
 
                     projectileScript.WeaponParamsLocal = new WeaponParams(_weaponParamsLocal);
@@ -87,6 +82,7 @@ namespace WeaponSystem {
     
     
         private void OnDrawGizmosSelected() {
+            Gizmos.DrawWireSphere(ProjectileSpawnPoint.position, _weaponParamsLocal.NNControlDistance * _weaponParamsLocal.InitialFlightRadius);
             Gizmos.DrawWireSphere(ProjectileSpawnPoint.position, _weaponParamsLocal.NNControlDistance * Mathf.Sqrt(2));
             Gizmos.DrawWireSphere(ProjectileSpawnPoint.position, _weaponParamsLocal.NNControlDistance * _weaponParamsLocal.ReflectiveCircleRadius);
         }

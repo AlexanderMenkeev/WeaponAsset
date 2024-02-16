@@ -25,7 +25,7 @@ public class PauseState : IState {
 
     
     public void LateUpdate() {
-        if (!_projectile._commonVariables.IsPaused)
+        if (!_projectile.GlobalVariables.IsPaused)
             _projectile.StateMachine.TransitionTo(_projectile.StateMachine.PreviousState);
     }
 

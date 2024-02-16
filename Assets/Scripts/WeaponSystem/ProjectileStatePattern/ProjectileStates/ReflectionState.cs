@@ -13,7 +13,7 @@ namespace WeaponSystem.ProjectileStatePattern.ProjectileStates {
 
         
         public void Enter() {
-            _projectile._spriteRenderer.color = Color.white;
+            _projectile.SpriteRenderer.color = Color.white;
             _reflected = false;
         }
         
@@ -25,7 +25,7 @@ namespace WeaponSystem.ProjectileStatePattern.ProjectileStates {
         private Vector2 _normal;
         private bool _reflected;
         public void FixedUpdate() {
-            _normal = (_projectile.ParentTransform.position - _projectile.transform.position).normalized;
+            _normal = (_projectile.OriginTransform.position - _projectile.transform.position).normalized;
             
             if (_projectile.DistanceFromOrigin / _projectile.WeaponParamsLocal.NNControlDistance > _projectile.WeaponParamsLocal.ReflectiveCircleRadius && !_reflected) {
                 _projectile.Rigidbody.velocity = Vector2.Reflect(_projectile.Rigidbody.velocity, _normal);
@@ -38,7 +38,7 @@ namespace WeaponSystem.ProjectileStatePattern.ProjectileStates {
 
         
         public void LateUpdate() {
-            if (_projectile._commonVariables.IsPaused && !_projectile.IsUI)
+            if (_projectile.GlobalVariables.IsPaused)
                 _projectile.StateMachine.TransitionTo(_projectile.StateMachine.Pause);
             
             if (_projectile.DistanceFromOrigin / _projectile.WeaponParamsLocal.NNControlDistance <= math.SQRT2) 

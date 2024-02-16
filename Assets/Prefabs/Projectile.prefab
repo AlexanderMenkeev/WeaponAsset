@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9531785167353919}
   m_Layer: 7
-  m_Name: PivotPoint
+  m_Name: Tip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 4817065910354735128}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.492, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -58,14 +58,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7436203280466141197}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.0023915088, w: 0.9999972}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.05, y: 0.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9531785167353919}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0.274}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2791714370305127103
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -131,22 +131,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Rigidbody: {fileID: 0}
-  _spriteRenderer: {fileID: 0}
-  ParentTransform: {fileID: 0}
-  _pivotPoint: {fileID: 0}
-  _camera: {fileID: 0}
-  _temporalObjects: {fileID: 0}
-  _commonVariables: {fileID: 11400000, guid: 804253ef160b2814a8589ded616acc2e, type: 2}
-  Lifespan: 0
-  MinSpeed: 0
-  MaxSpeed: 0
-  MinForce: 0
-  MaxForce: 0
-  NeuralNetworkControlDistance: 0
+  SpriteRenderer: {fileID: 0}
+  GlobalVariables: {fileID: 11400000, guid: 804253ef160b2814a8589ded616acc2e, type: 2}
+  WeaponParamsLocal:
+    <FireRate>k__BackingField: 0
+    <ProjectilesInOneShot>k__BackingField: 0
+    <Size>k__BackingField: {x: 0, y: 0}
+    <Lifespan>k__BackingField: 0
+    <MinSpeed>k__BackingField: 0
+    <MaxSpeed>k__BackingField: 0
+    <MinForce>k__BackingField: 0
+    <MaxForce>k__BackingField: 0
+    <NNControlDistance>k__BackingField: 0
+    <FlipY>k__BackingField: 0
+    <ReflectiveCircleRadius>k__BackingField: 0
+    <InitialFlightRadius>k__BackingField: 0
+    <InitialSpeed>k__BackingField: 0
+    <Angle>k__BackingField: 0
+  OriginTransform: {fileID: 0}
   SignX: 0
   SignY: 0
   InitialVelocity: {x: 0, y: 0}
-  ReflectiveCircleRadius: 0
+  RelativePos: {x: 0, y: 0}
+  DistanceFromOrigin: 0
+  ActualVelocity: {x: 0, y: 0}
 --- !u!50 &817819079783222836
 Rigidbody2D:
   serializedVersion: 4

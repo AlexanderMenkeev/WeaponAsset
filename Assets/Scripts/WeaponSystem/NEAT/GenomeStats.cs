@@ -3,9 +3,8 @@ using SharpNeat.Decoders.Neat;
 using SharpNeat.Genomes.HyperNeat;
 using SharpNeat.Genomes.Neat;
 using SharpNeat.Phenomes;
-using UnityEngine;
 
-namespace WeaponSystem {
+namespace WeaponSystem.NEAT {
     [Serializable]
     public class GenomeStats {
         public NeatGenome Genome;

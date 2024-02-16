@@ -20,7 +20,7 @@ namespace WeaponSystem.ProjectileStatePattern.ProjectileStates {
         }
         
         public void LateUpdate() {
-            if (_projectile._commonVariables.IsPaused && !_projectile.IsUI) 
+            if (_projectile.GlobalVariables.IsPaused) 
                 _projectile.StateMachine.TransitionTo(_projectile.StateMachine.Pause);
             
             if (_projectile.DistanceFromOrigin / _projectile.WeaponParamsLocal.NNControlDistance > math.SQRT2) 

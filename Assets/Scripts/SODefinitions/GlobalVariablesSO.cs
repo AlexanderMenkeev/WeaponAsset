@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace SODefinitions {
     [CreateAssetMenu(menuName = "ScriptableObjects/CommonVariablesSO")]
-    public class CommonVariablesSO : ScriptableObject
+    public class GlobalVariablesSO : ScriptableObject
     {
         public event Action OnPauseResumeEvent;
         [SerializeField] private bool _isPaused; 
@@ -36,7 +36,6 @@ namespace SODefinitions {
         }
     
         public void OnEnable() {
-            Debug.Log("OnEnable in CommonVariables is called!");
             IsPaused = false;
             _pauseTime = 0f;
             _resumeTime = 0f;

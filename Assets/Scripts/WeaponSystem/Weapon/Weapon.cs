@@ -1,10 +1,4 @@
-using System.Collections.Generic;
-using System.IO;
-using System.Xml;
-using SharpNeat.Genomes.Neat;
-using UnityEngine;
-
-namespace WeaponSystem {
+namespace WeaponSystem.Weapon {
     public class Weapon : AbstractWeapon
     {
         private void Awake() {
@@ -59,7 +53,6 @@ namespace WeaponSystem {
         }
         
         
-
    
     }
 }
