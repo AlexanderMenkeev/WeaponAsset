@@ -14,6 +14,7 @@ namespace Interfaces {
         float MinForce { get; set; }
         float MaxForce { get; set; }
         float NNControlDistance { get; set; }
+        float MaxPolarAngle { get; set; }
         bool FlipY { get; set; }
 
         float ReflectiveCircleRadius { get; set; }

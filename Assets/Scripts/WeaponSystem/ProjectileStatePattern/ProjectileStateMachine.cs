@@ -2,7 +2,8 @@ using System;
 using System.Collections;
 using Interfaces;
 using UnityEngine;
-using WeaponSystem.ProjectileStatePattern.ProjectileStates;
+using WeaponSystem.ProjectileStatePattern.ProjectileStates.Common;
+using WeaponSystem.ProjectileStatePattern.ProjectileStates.DefaultMode;
 
 namespace WeaponSystem.ProjectileStatePattern {
     [Serializable]

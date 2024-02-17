@@ -20,6 +20,7 @@ namespace SODefinitions {
         [field: SerializeField] [field: Range(0.5f, 2f)] public float MinForce { get; set; }
         [field: SerializeField] [field: Range(2f, 5f)] public float MaxForce { get; set; }
         [field: SerializeField] [field: Range(1f, 7f)] public float NNControlDistance { get; set; }
+        [field: SerializeField] [field: Range(10f, 180f)] public float MaxPolarAngle { get; set; }
         [field: SerializeField] public bool FlipY { get; set; }
         
         [field:Header("Reflection controls")] 
@@ -46,6 +47,7 @@ namespace SODefinitions {
             MinForce = 1f;
             MaxForce = 3f;
             NNControlDistance = 3f;
+            MaxPolarAngle = 15f;
             FlipY = true;
             
             ReflectiveCircleRadius = 1.5f;

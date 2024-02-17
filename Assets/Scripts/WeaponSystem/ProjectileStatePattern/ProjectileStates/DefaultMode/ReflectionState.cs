@@ -2,7 +2,7 @@ using Interfaces;
 using Unity.Mathematics;
 using UnityEngine;
 
-namespace WeaponSystem.ProjectileStatePattern.ProjectileStates {
+namespace WeaponSystem.ProjectileStatePattern.ProjectileStates.DefaultMode {
     public class ReflectionState : IState {
         private Projectile _projectile;
         

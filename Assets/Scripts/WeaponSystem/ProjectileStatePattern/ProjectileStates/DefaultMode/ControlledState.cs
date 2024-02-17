@@ -1,7 +1,7 @@
 using Interfaces;
 using Unity.Mathematics;
 
-namespace WeaponSystem.ProjectileStatePattern.ProjectileStates {
+namespace WeaponSystem.ProjectileStatePattern.ProjectileStates.DefaultMode {
     public class ControlledState : IState {
         private Projectile _projectile;
 
@@ -13,7 +13,7 @@ namespace WeaponSystem.ProjectileStatePattern.ProjectileStates {
         public void Update() { }
 
         public void FixedUpdate() {
-            _projectile.ActivateBlackBox();
+            _projectile.ActivateBlackBoxPolar();
             _projectile.ReadDataFromBlackBox();
             _projectile.LimitMaxSpeed();
             _projectile.DestroyYourself();

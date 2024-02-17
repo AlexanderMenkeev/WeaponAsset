@@ -13,5 +13,69 @@ MonoBehaviour:
   m_Name: hotWheels.map
   m_EditorClassIdentifier: 
   lookup:
-    entries: []
-  data: []
+    entries:
+    - key:
+        serializedVersion: 2
+        rgba: 4280001529
+      value: {x: 0, y: 0}
+    - key:
+        serializedVersion: 2
+        rgba: 4282637212
+      value: {x: 1, y: 0}
+    - key:
+        serializedVersion: 2
+        rgba: 4278872826
+      value: {x: 0, y: 1}
+    - key:
+        serializedVersion: 2
+        rgba: 4284805846
+      value: {x: 1, y: 1}
+    - key:
+        serializedVersion: 2
+        rgba: 4280499935
+      value: {x: 0, y: 2}
+    - key:
+        serializedVersion: 2
+        rgba: 4282449151
+      value: {x: 1, y: 2}
+    - key:
+        serializedVersion: 2
+        rgba: 4280950964
+      value: {x: 0, y: 3}
+    - key:
+        serializedVersion: 2
+        rgba: 4282504703
+      value: {x: 1, y: 3}
+  data:
+  - serializedVersion: 2
+    rgba: 4280001529
+  - serializedVersion: 2
+    rgba: 4282637212
+  - serializedVersion: 2
+    rgba: 4447132
+  - serializedVersion: 2
+    rgba: 4447132
+  - serializedVersion: 2
+    rgba: 4278872826
+  - serializedVersion: 2
+    rgba: 4284805846
+  - serializedVersion: 2
+    rgba: 6615766
+  - serializedVersion: 2
+    rgba: 6615766
+  - serializedVersion: 2
+    rgba: 4280499935
+  - serializedVersion: 2
+    rgba: 4282449151
+  - serializedVersion: 2
+    rgba: 4259071
+  - serializedVersion: 2
+    rgba: 4259071
+  - serializedVersion: 2
+    rgba: 4280950964
+  - serializedVersion: 2
+    rgba: 4282504703
+  - serializedVersion: 2
+    rgba: 4314623
+  - serializedVersion: 2
+    rgba: 4314623

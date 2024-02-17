@@ -1,7 +1,7 @@
 using Interfaces;
 using UnityEngine;
 
-namespace WeaponSystem.ProjectileStatePattern.ProjectileStates {
+namespace WeaponSystem.ProjectileStatePattern.ProjectileStates.Common {
     
 public class PauseState : IState {
     private Projectile _projectile;

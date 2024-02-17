@@ -1,34 +1,29 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Timeline;
-using Random = UnityEngine.Random;
 
-public class GameManager : MonoBehaviour
-{
-    public static GameManager Instance;
-    private Camera _camera;
-    private void Awake()
+namespace Managers {
+    public class GameManager : MonoBehaviour
     {
-        if (Instance == null) {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
+        public static GameManager Instance;
+        private void Awake()
+        {
+            if (Instance == null) {
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else {
+                Destroy(gameObject);
+            }
         }
-        else {
-            Destroy(gameObject);
-        }
-        _camera = Camera.main;
-    }
     
-    private void Start() {
-        Application.targetFrameRate = 60;
+        private void Start() {
+            Application.targetFrameRate = 60;
+        }
+
+
+
+
+
+
+
     }
-
-
-
-
-
-
-
 }

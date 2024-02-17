@@ -13,16 +13,17 @@ MonoBehaviour:
   m_Name: WeaponParams
   m_EditorClassIdentifier: 
   <FireRate>k__BackingField: 1
-  <ProjectilesInOneShot>k__BackingField: 10
+  <ProjectilesInOneShot>k__BackingField: 20
   <Size>k__BackingField: {x: 0.03, y: 0.18}
   <Lifespan>k__BackingField: 6
   <MinSpeed>k__BackingField: 3
   <MaxSpeed>k__BackingField: 6
   <MinForce>k__BackingField: 1
   <MaxForce>k__BackingField: 3
-  <NNControlDistance>k__BackingField: 3
+  <NNControlDistance>k__BackingField: 2.88
+  <MaxPolarAngle>k__BackingField: 180
   <FlipY>k__BackingField: 1
-  <ReflectiveCircleRadius>k__BackingField: 1.5
-  <InitialFlightRadius>k__BackingField: 0.1
-  <InitialSpeed>k__BackingField: 1
-  <Angle>k__BackingField: 45
+  <ReflectiveCircleRadius>k__BackingField: 1.4142135
+  <InitialFlightRadius>k__BackingField: 0.05
+  <InitialSpeed>k__BackingField: 0.5
+  <Angle>k__BackingField: 10

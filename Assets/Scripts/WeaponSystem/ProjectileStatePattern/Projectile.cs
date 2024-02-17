@@ -64,6 +64,24 @@ namespace WeaponSystem.ProjectileStatePattern {
             Box.Activate();
         }
         
+        public void ActivateBlackBoxPolar() {
+            Box.ResetState();
+            
+            float maxPhi = WeaponParamsLocal.MaxPolarAngle;
+            float NNControlDistance = WeaponParamsLocal.NNControlDistance;
+            
+            float x = Math.Abs( DistanceFromOrigin * Mathf.Cos(Phi) );
+            float y = Math.Abs( DistanceFromOrigin * Mathf.Sin(Phi) );
+            
+            float y_denominator = maxPhi >= 90f ? NNControlDistance : NNControlDistance * Mathf.Sin(maxPhi * Mathf.Deg2Rad);
+            
+            _inputArr[0] = Mathf.Lerp(-1f, 1f,x / NNControlDistance);
+            _inputArr[1] = Mathf.Lerp(-1f, 1f,y / y_denominator);
+            _inputArr[2] = Mathf.Lerp(-1f, 1f,DistanceFromOrigin / NNControlDistance);
+        
+            Box.Activate();
+        }
+        
         private float _hue, _saturation, _brightness, _maxSpeed, _force;
         private Vector2 _vel;
         public void ReadDataFromBlackBox() {
@@ -91,6 +109,7 @@ namespace WeaponSystem.ProjectileStatePattern {
         }
 
         private void Update() {
+            DestroyYourself();
             StateMachine.Update();
         }
         
@@ -103,17 +122,27 @@ namespace WeaponSystem.ProjectileStatePattern {
         private void LateUpdate() {
             StateMachine.LateUpdate();
         }
-    
-    
+
+        private void OnDrawGizmosSelected() {
+            Gizmos.DrawRay(OriginTransform.position, RelativePosDir);
+            Gizmos.DrawRay(OriginTransform.position, OriginTransform.up);
+        }
+
+
         public Vector2 RelativePos;
+        public Vector2 RelativePosDir;
         public float DistanceFromOrigin;
+        public float Phi;
+        
         private Vector2 _prevPos;
         private Vector2 _currPos;
         public Vector2 ActualVelocity;
         private void CalcProjectileStats() {
-            RelativePos = OriginTransform.InverseTransformPoint(transform.position);
+            RelativePosDir = transform.position - OriginTransform.position;
+            RelativePos = transform.localPosition;
             DistanceFromOrigin = RelativePos.magnitude;
-        
+            Phi = Vector2.Angle(OriginTransform.up, RelativePosDir) * Mathf.Deg2Rad;
+            
             _prevPos = _currPos;
             _currPos = Rigidbody.position;
             ActualVelocity = (_currPos - _prevPos) / Time.fixedDeltaTime;
