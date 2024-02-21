@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using SODefinitions;
+using UnityEditor;
 using UnityEngine;
 using WeaponSystem.NEAT;
 using WeaponSystem.ProjectileStatePattern;
@@ -8,7 +10,7 @@ namespace WeaponSystem.Weapon {
     public abstract class AbstractWeapon : MonoBehaviour
     {
         // assigned from the editor
-        [SerializeField] protected WeaponParamsSO _weaponParamsGlobal;
+        [SerializeField] protected WeaponParamsSO _weaponSO;
         public GameObject ProjectilePrefab;
         
         [SerializeField] protected WeaponParams _weaponParamsLocal;
@@ -27,19 +29,21 @@ namespace WeaponSystem.Weapon {
             TemporalObjects = GameObject.FindWithTag("TemporalObjects");
             ProjectileSpawnPoint = transform.Find("ProjectileSpawnPoint");
             InitializeParams();
-            _weaponParamsGlobal.UpdateParamsEvent += InitializeParams;
+            
+            
+            _weaponSO.UpdateParamsEvent += InitializeParams;
         }
 
         protected virtual void OnDestroyFunc() {
-            _weaponParamsGlobal.UpdateParamsEvent -= InitializeParams;
+            _weaponSO.UpdateParamsEvent -= InitializeParams;
         }
 
         protected virtual void OnStartFunc() {
             FireCoroutine = StartCoroutine(FireProjectile());
         }
 
-        protected void InitializeParams() {
-            _weaponParamsLocal = new WeaponParams(_weaponParamsGlobal);
+        private void InitializeParams() {
+            _weaponParamsLocal = new WeaponParams(_weaponSO);
         }
     
         public Coroutine FireCoroutine;
@@ -81,10 +85,48 @@ namespace WeaponSystem.Weapon {
         }
     
     
+        private float _borderRayDirX, _borderRayDirY;
+        private Vector2 _upperBorderRayDir, _lowerBorderRayDir;
         private void OnDrawGizmosSelected() {
-            Gizmos.DrawWireSphere(ProjectileSpawnPoint.position, _weaponParamsLocal.NNControlDistance * _weaponParamsLocal.InitialFlightRadius);
-            Gizmos.DrawWireSphere(ProjectileSpawnPoint.position, _weaponParamsLocal.NNControlDistance * Mathf.Sqrt(2));
-            Gizmos.DrawWireSphere(ProjectileSpawnPoint.position, _weaponParamsLocal.NNControlDistance * _weaponParamsLocal.ReflectiveCircleRadius);
+            switch (_weaponParamsLocal.Mode) {
+
+                case ProjectileMode.CircleReflection:
+                    Gizmos.DrawWireSphere(ProjectileSpawnPoint.position, _weaponParamsLocal.NNControlDistance * _weaponParamsLocal.InitialFlightRadius);
+                    Gizmos.DrawWireSphere(ProjectileSpawnPoint.position, _weaponParamsLocal.NNControlDistance * Mathf.Sqrt(2));
+                    Gizmos.DrawWireSphere(ProjectileSpawnPoint.position, _weaponParamsLocal.NNControlDistance * _weaponParamsLocal.ReflectiveCircleRadius);
+                    break;
+                
+                case ProjectileMode.Polar:
+                    
+                    _borderRayDirX = _weaponParamsLocal.NNControlDistance * Mathf.Sin(_weaponParamsLocal.MaxPolarAngleDeg * Mathf.Deg2Rad);
+                    _borderRayDirY = _weaponParamsLocal.NNControlDistance * Mathf.Cos(_weaponParamsLocal.MaxPolarAngleDeg * Mathf.Deg2Rad);
+                    
+                    _upperBorderRayDir= ProjectileSpawnPoint.transform.TransformVector(new Vector2(- _borderRayDirX, _borderRayDirY)).normalized;
+                    _lowerBorderRayDir = ProjectileSpawnPoint.transform.TransformVector(new Vector2(_borderRayDirX, _borderRayDirY)).normalized;
+                    _upperBorderRayDir *= _weaponParamsLocal.NNControlDistance * Mathf.Sqrt(2);
+                    _lowerBorderRayDir *= _weaponParamsLocal.NNControlDistance * Mathf.Sqrt(2);
+                    
+                    Gizmos.DrawWireSphere(ProjectileSpawnPoint.position, _weaponParamsLocal.NNControlDistance * Mathf.Sqrt(2));
+                    Gizmos.DrawWireSphere(ProjectileSpawnPoint.position, _weaponParamsLocal.NNControlDistance * _weaponParamsLocal.InitialFlightRadius);
+                    Gizmos.DrawRay(ProjectileSpawnPoint.position, _upperBorderRayDir);
+                    Gizmos.DrawRay(ProjectileSpawnPoint.position, _lowerBorderRayDir);
+                    
+                    
+                    
+                    break;
+
+
+                case ProjectileMode.RectangleReflection:
+                    float maxX = _weaponParamsLocal.RectDimensions.x * _weaponParamsLocal.NNControlDistance;
+                    float maxY = _weaponParamsLocal.RectDimensions.y * _weaponParamsLocal.NNControlDistance;
+                    
+                    Gizmos.DrawWireCube(ProjectileSpawnPoint.position, new Vector2(maxY * 2f, maxX * 2f));
+                    Gizmos.DrawWireSphere(ProjectileSpawnPoint.position, _weaponParamsLocal.NNControlDistance * _weaponParamsLocal.InitialFlightRadius);
+                    break;
+                    
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
     
     

@@ -489,14 +489,6 @@ PrefabInstance:
       value: EvolutionAlgorithm
       objectReference: {fileID: 0}
     - target: {fileID: 7517832590295984766, guid: 118af84c8eaa3a24bb1a4e01a596faf0, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7517832590295984766, guid: 118af84c8eaa3a24bb1a4e01a596faf0, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7517832590295984766, guid: 118af84c8eaa3a24bb1a4e01a596faf0, type: 3}
       propertyPath: m_LocalPosition.x
       value: -8.97
       objectReference: {fileID: 0}
@@ -1206,10 +1198,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: WeaponManager
       objectReference: {fileID: 0}
-    - target: {fileID: 9057224953290180268, guid: 5726d4950407a0d4eaa9b9cd8ee71f40, type: 3}
-      propertyPath: _weaponPrefab
-      value: 
-      objectReference: {fileID: 6968006606732759235, guid: 479585a3b928b3c468e0a68e5f77009f, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

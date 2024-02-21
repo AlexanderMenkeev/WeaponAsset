@@ -2,8 +2,10 @@ using System;
 using System.Collections;
 using Interfaces;
 using UnityEngine;
+using WeaponSystem.ProjectileStatePattern.ProjectileStates.CircleMode;
 using WeaponSystem.ProjectileStatePattern.ProjectileStates.Common;
-using WeaponSystem.ProjectileStatePattern.ProjectileStates.DefaultMode;
+using WeaponSystem.ProjectileStatePattern.ProjectileStates.PolarMode;
+using WeaponSystem.ProjectileStatePattern.ProjectileStates.RectMode;
 
 namespace WeaponSystem.ProjectileStatePattern {
     [Serializable]
@@ -11,17 +13,25 @@ namespace WeaponSystem.ProjectileStatePattern {
         public IState CurrentState { get; private set; }
         public IState PreviousState { get; private set; }
         
-        public InitialFlightState InitialFlight;
         public ControlledState Controlled;
+        public InitialFlightState InitialFlight;
         public PauseState Pause;
-        public ReflectionState Reflection;
+        
+        public CircleReflectionState CircleReflection;
+        public ReflectionPolarState ConeReflection;
+        public RectReflectionState RectReflection;
     
         public event Action<IState> StateChanged;
+        
         public ProjectileStateMachine(Projectile projectile) {
-            InitialFlight = new InitialFlightState(projectile);
+            
             Controlled = new ControlledState(projectile);
+            InitialFlight = new InitialFlightState(projectile);
             Pause = new PauseState(projectile);
-            Reflection = new ReflectionState(projectile);
+
+            CircleReflection = new CircleReflectionState(projectile);
+            ConeReflection = new ReflectionPolarState(projectile);
+            RectReflection = new RectReflectionState(projectile);
         }
         
     

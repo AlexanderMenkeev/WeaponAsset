@@ -1,9 +1,8 @@
 using System;
-using Interfaces;
 using SharpNeat.Phenomes;
 using SODefinitions;
+using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.Serialization;
 using WeaponSystem.Weapon;
 
 namespace WeaponSystem.ProjectileStatePattern {
@@ -54,29 +53,46 @@ namespace WeaponSystem.ProjectileStatePattern {
                 Destroy(OriginTransform.gameObject);
         }
         
-        public void ActivateBlackBox() {
+        public void ActivateBlackBoxCircle() {
             Box.ResetState();
-        
+
+            float maxDistance = WeaponParamsLocal.NNControlDistance * math.SQRT2;
+            
             _inputArr[0] = Mathf.Lerp(-1f, 1f,Math.Abs(RelativePos.x) / WeaponParamsLocal.NNControlDistance);
             _inputArr[1] = Mathf.Lerp(-1f, 1f,Math.Abs(RelativePos.y) / WeaponParamsLocal.NNControlDistance);
-            _inputArr[2] = Mathf.Lerp(-1f, 1f,DistanceFromOrigin / WeaponParamsLocal.NNControlDistance);
-        
+            _inputArr[2] = Mathf.Lerp(-1f, 1f,DistanceFromOrigin / maxDistance);
+            
             Box.Activate();
         }
         
+        public void ActivateBlackBoxRect() {
+            Box.ResetState();
+            
+            float maxX = WeaponParamsLocal.RectDimensions.x * WeaponParamsLocal.NNControlDistance;
+            float maxY = WeaponParamsLocal.RectDimensions.y * WeaponParamsLocal.NNControlDistance;
+            float maxDistance = maxX > maxY ? maxX : maxY;
+            
+            _inputArr[0] = Mathf.Lerp(-1f, 1f,Math.Abs(RelativePos.x) / maxX);
+            _inputArr[1] = Mathf.Lerp(-1f, 1f,Math.Abs(RelativePos.y) / maxY);
+            _inputArr[2] = Mathf.Lerp(-1f, 1f,DistanceFromOrigin / maxDistance);
+            
+            Box.Activate();
+        }
+
+       
         public void ActivateBlackBoxPolar() {
             Box.ResetState();
             
-            float maxPhi = WeaponParamsLocal.MaxPolarAngle;
+            float maxPhi = WeaponParamsLocal.MaxPolarAngleDeg * Mathf.Deg2Rad;
             float NNControlDistance = WeaponParamsLocal.NNControlDistance;
             
-            float x = Math.Abs( DistanceFromOrigin * Mathf.Cos(Phi) );
-            float y = Math.Abs( DistanceFromOrigin * Mathf.Sin(Phi) );
+            float x = Math.Abs( DistanceFromOrigin * Mathf.Sin(PhiRad) );
+            float y = Math.Abs( DistanceFromOrigin * Mathf.Cos(PhiRad) );
             
-            float y_denominator = maxPhi >= 90f ? NNControlDistance : NNControlDistance * Mathf.Sin(maxPhi * Mathf.Deg2Rad);
+            float x_denominator = maxPhi >= 90f ? NNControlDistance : NNControlDistance * Mathf.Sin(maxPhi);
             
-            _inputArr[0] = Mathf.Lerp(-1f, 1f,x / NNControlDistance);
-            _inputArr[1] = Mathf.Lerp(-1f, 1f,y / y_denominator);
+            _inputArr[0] = Mathf.Lerp(-1f, 1f,x / x_denominator);
+            _inputArr[1] = Mathf.Lerp(-1f, 1f,y / NNControlDistance);
             _inputArr[2] = Mathf.Lerp(-1f, 1f,DistanceFromOrigin / NNControlDistance);
         
             Box.Activate();
@@ -100,12 +116,19 @@ namespace WeaponSystem.ProjectileStatePattern {
             SpriteRenderer.color = Color.HSVToRGB(_hue, _saturation, _brightness);
             
             Rigidbody.AddForce(_vel * _force);
+            
+            
+            if (WeaponParamsLocal.ForwardForce)
+                Rigidbody.AddForce(OriginTransform.up * _force);
         }
 
         public void LimitMaxSpeed() {
             float speed = Rigidbody.velocity.magnitude;
             if (speed > _maxSpeed)
                 Rigidbody.velocity = Rigidbody.velocity.normalized * _maxSpeed;
+            
+            // if (speed < WeaponParamsLocal.MinSpeed)
+            //     Rigidbody.velocity = Rigidbody.velocity.normalized * WeaponParamsLocal.MinSpeed;
         }
 
         private void Update() {
@@ -114,12 +137,17 @@ namespace WeaponSystem.ProjectileStatePattern {
         }
         
         private void FixedUpdate() {
+            
             CalcProjectileStats();
             StateMachine.FixedUpdate();
             transform.up = Rigidbody.velocity;
         }
 
         private void LateUpdate() {
+            // Transition to PauseState is common to any state, so we check it here
+            if (GlobalVariables.IsPaused)
+                StateMachine.TransitionTo(StateMachine.Pause);
+            
             StateMachine.LateUpdate();
         }
 
@@ -132,7 +160,7 @@ namespace WeaponSystem.ProjectileStatePattern {
         public Vector2 RelativePos;
         public Vector2 RelativePosDir;
         public float DistanceFromOrigin;
-        public float Phi;
+        public float PhiRad;
         
         private Vector2 _prevPos;
         private Vector2 _currPos;
@@ -141,7 +169,7 @@ namespace WeaponSystem.ProjectileStatePattern {
             RelativePosDir = transform.position - OriginTransform.position;
             RelativePos = transform.localPosition;
             DistanceFromOrigin = RelativePos.magnitude;
-            Phi = Vector2.Angle(OriginTransform.up, RelativePosDir) * Mathf.Deg2Rad;
+            PhiRad = Vector2.Angle(OriginTransform.up, RelativePosDir) * Mathf.Deg2Rad;
             
             _prevPos = _currPos;
             _currPos = Rigidbody.position;

@@ -1,3 +1,4 @@
+using Editor.MinMaxRangeAttribute;
 using Interfaces;
 using Unity.Mathematics;
 using UnityEngine;
@@ -20,7 +21,7 @@ namespace SODefinitions {
         [field: SerializeField] [field: Range(0.5f, 2f)] public float MinForce { get; set; }
         [field: SerializeField] [field: Range(2f, 5f)] public float MaxForce { get; set; }
         [field: SerializeField] [field: Range(1f, 7f)] public float NNControlDistance { get; set; }
-        [field: SerializeField] [field: Range(10f, 180f)] public float MaxPolarAngle { get; set; }
+        [field: SerializeField] [field: Range(10f, 180f)] public float MaxPolarAngleDeg { get; set; }
         [field: SerializeField] public bool FlipY { get; set; }
         
         [field:Header("Reflection controls")] 
@@ -31,6 +32,19 @@ namespace SODefinitions {
         [field: SerializeField] [field:Range(0.5f, 3f)] public float InitialSpeed { get; set; }
         [field: SerializeField] [field:Range(10, 180)] public int Angle { get; set; }
         
+        [field: SerializeField] public Vector2 RectDimensions { get; set; }
+        
+        [field: SerializeField] public bool FlipXOnReflect { get; set; }
+        [field: SerializeField] public bool FlipYOnReflect { get; set; }
+        [field: SerializeField] public bool ForwardForce { get; set; }
+
+        [field: SerializeField] public ProjectileMode Mode { get; set; }
+
+        [SerializeField] public TextAsset asset;
+        
+        
+        [MinMaxRange(0f, 10f, 1)]
+        [SerializeField] private Vector2 _optimalSpeed = new Vector2(3.141f, 5.789f);
         
         public delegate void UpdateDelegate();
         public UpdateDelegate UpdateParamsEvent;
@@ -47,7 +61,7 @@ namespace SODefinitions {
             MinForce = 1f;
             MaxForce = 3f;
             NNControlDistance = 3f;
-            MaxPolarAngle = 15f;
+            MaxPolarAngleDeg = 15f;
             FlipY = true;
             
             ReflectiveCircleRadius = 1.5f;
@@ -55,6 +69,13 @@ namespace SODefinitions {
             InitialFlightRadius = 0.1f;
             InitialSpeed = 1f;
             Angle = 45;
+
+            RectDimensions = new Vector2(1f, 2f);
+            FlipXOnReflect = true;
+            FlipYOnReflect = true;
+            ForwardForce = false;
+
+            Mode = ProjectileMode.CircleReflection;
         }
 
         public void OnEnable() {
@@ -66,5 +87,12 @@ namespace SODefinitions {
         }
 
         
+    }
+    
+    
+    public enum ProjectileMode {
+        CircleReflection,
+        RectangleReflection,
+        Polar
     }
 }

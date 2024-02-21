@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a9e473ee9c572349b8997c9b28d445f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _weaponParamsGlobal: {fileID: 11400000, guid: c19a9d6fb40df5c42add2d58f99e106c, type: 2}
+  _weaponSO: {fileID: 11400000, guid: c19a9d6fb40df5c42add2d58f99e106c, type: 2}
   ProjectilePrefab: {fileID: 7436203280466141197, guid: e589d491ebef9bd489845df13bf2078c, type: 3}
   _weaponParamsLocal:
     <FireRate>k__BackingField: 0
@@ -110,11 +110,14 @@ MonoBehaviour:
     <MinForce>k__BackingField: 0
     <MaxForce>k__BackingField: 0
     <NNControlDistance>k__BackingField: 0
+    <MaxPolarAngleDeg>k__BackingField: 0
     <FlipY>k__BackingField: 0
     <ReflectiveCircleRadius>k__BackingField: 1.4142135
     <InitialFlightRadius>k__BackingField: 0
     <InitialSpeed>k__BackingField: 0
     <Angle>k__BackingField: 0
+    <RectDimensions>k__BackingField: {x: 0, y: 0}
+    <Mode>k__BackingField: 0
   GenomeStats:
     Id: 0
     BirthGeneration: 0

@@ -9,8 +9,7 @@ public class PauseState : IState {
     public PauseState(Projectile projectile) {
         _projectile = projectile;
     }
-
-
+    
     private Vector2 _prevVelocity;
     public void Enter() {
         _prevVelocity = _projectile.ActualVelocity;
