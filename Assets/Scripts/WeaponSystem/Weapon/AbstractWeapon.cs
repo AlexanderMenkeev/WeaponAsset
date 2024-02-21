@@ -106,7 +106,6 @@ namespace WeaponSystem.Weapon {
                     _upperBorderRayDir *= _weaponParamsLocal.NNControlDistance * Mathf.Sqrt(2);
                     _lowerBorderRayDir *= _weaponParamsLocal.NNControlDistance * Mathf.Sqrt(2);
                     
-                    Gizmos.DrawWireSphere(ProjectileSpawnPoint.position, _weaponParamsLocal.NNControlDistance * Mathf.Sqrt(2));
                     Gizmos.DrawWireSphere(ProjectileSpawnPoint.position, _weaponParamsLocal.NNControlDistance * _weaponParamsLocal.InitialFlightRadius);
                     Gizmos.DrawRay(ProjectileSpawnPoint.position, _upperBorderRayDir);
                     Gizmos.DrawRay(ProjectileSpawnPoint.position, _lowerBorderRayDir);

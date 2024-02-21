@@ -16,21 +16,20 @@ MonoBehaviour:
   <ProjectilesInOneShot>k__BackingField: 10
   <Size>k__BackingField: {x: 0.03, y: 0.18}
   <Lifespan>k__BackingField: 6
-  <MinSpeed>k__BackingField: 3
-  <MaxSpeed>k__BackingField: 6
-  <MinForce>k__BackingField: 1
-  <MaxForce>k__BackingField: 3
-  <NNControlDistance>k__BackingField: 7
+  <HueRange>k__BackingField: {x: 0, y: 1}
+  <Saturation>k__BackingField: 0.9
+  <Brightness>k__BackingField: 0.9
+  <SpeedRange>k__BackingField: {x: 3, y: 6}
+  <ForceRange>k__BackingField: {x: 1, y: 3}
+  <NNControlDistance>k__BackingField: 3
   <MaxPolarAngleDeg>k__BackingField: 15
   <FlipY>k__BackingField: 1
   <ReflectiveCircleRadius>k__BackingField: 1.5
-  <InitialFlightRadius>k__BackingField: 0.135
-  <InitialSpeed>k__BackingField: 3
-  <Angle>k__BackingField: 10
+  <InitialFlightRadius>k__BackingField: 0.1
+  <InitialSpeed>k__BackingField: 1
+  <Angle>k__BackingField: 45
   <RectDimensions>k__BackingField: {x: 1, y: 2}
   <FlipXOnReflect>k__BackingField: 1
   <FlipYOnReflect>k__BackingField: 1
-  <ForwardForce>k__BackingField: 1
-  <Mode>k__BackingField: 2
-  asset: {fileID: 4900000, guid: 9af3787b804e1b242bc822a408d18e9e, type: 3}
-  _optimalSpeed: {x: 1.0294878, y: 1.9765172}
+  <ForwardForce>k__BackingField: 0
+  <Mode>k__BackingField: 0

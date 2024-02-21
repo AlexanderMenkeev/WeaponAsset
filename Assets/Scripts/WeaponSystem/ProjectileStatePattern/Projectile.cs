@@ -10,6 +10,8 @@ namespace WeaponSystem.ProjectileStatePattern {
     {
         [HideInInspector] public Rigidbody2D Rigidbody;
         [HideInInspector] public SpriteRenderer SpriteRenderer;
+        
+        // StartPoint for RayCast 
         private Transform _tipTransform;
         
         // assigned from the editor
@@ -98,7 +100,7 @@ namespace WeaponSystem.ProjectileStatePattern {
             Box.Activate();
         }
         
-        private float _hue, _saturation, _brightness, _maxSpeed, _force;
+        private float _hue, _maxSpeed, _force;
         private Vector2 _vel;
         public void ReadDataFromBlackBox() {
             float x = Mathf.Lerp(-1f, 1f, (float)_outputArr[0]) * SignX;
@@ -106,17 +108,13 @@ namespace WeaponSystem.ProjectileStatePattern {
         
             _vel = x * OriginTransform.right + y * OriginTransform.up;
         
-            _hue = Mathf.Lerp(0.1f, 1f, (float)_outputArr[2]);
+            _hue = Mathf.Lerp(WeaponParamsLocal.HueRange.x, WeaponParamsLocal.HueRange.y, (float)_outputArr[2]);
+            _maxSpeed = Mathf.Lerp(WeaponParamsLocal.SpeedRange.x, WeaponParamsLocal.SpeedRange.y, (float)_outputArr[3]);
+            _force = Mathf.Lerp(WeaponParamsLocal.ForceRange.x, WeaponParamsLocal.ForceRange.y, (float)_outputArr[4]);
             
-            _maxSpeed = Mathf.Lerp(WeaponParamsLocal.MinSpeed, WeaponParamsLocal.MaxSpeed, (float)_outputArr[3]);
-            _force = Mathf.Lerp(WeaponParamsLocal.MinForce, WeaponParamsLocal.MaxForce, (float)_outputArr[4]);
             
-            _saturation = 0.95f;
-            _brightness = 0.95f;
-            SpriteRenderer.color = Color.HSVToRGB(_hue, _saturation, _brightness);
-            
+            SpriteRenderer.color = Color.HSVToRGB(_hue, WeaponParamsLocal.Saturation, WeaponParamsLocal.Brightness);
             Rigidbody.AddForce(_vel * _force);
-            
             
             if (WeaponParamsLocal.ForwardForce)
                 Rigidbody.AddForce(OriginTransform.up * _force);
@@ -126,9 +124,6 @@ namespace WeaponSystem.ProjectileStatePattern {
             float speed = Rigidbody.velocity.magnitude;
             if (speed > _maxSpeed)
                 Rigidbody.velocity = Rigidbody.velocity.normalized * _maxSpeed;
-            
-            // if (speed < WeaponParamsLocal.MinSpeed)
-            //     Rigidbody.velocity = Rigidbody.velocity.normalized * WeaponParamsLocal.MinSpeed;
         }
 
         private void Update() {
@@ -151,9 +146,11 @@ namespace WeaponSystem.ProjectileStatePattern {
             StateMachine.LateUpdate();
         }
 
+        
         private void OnDrawGizmosSelected() {
             Gizmos.DrawRay(OriginTransform.position, RelativePosDir);
             Gizmos.DrawRay(OriginTransform.position, OriginTransform.up);
+            Gizmos.DrawRay(OriginTransform.position, OriginTransform.right);
         }
 
 

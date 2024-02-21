@@ -8,12 +8,16 @@ namespace Interfaces {
         int ProjectilesInOneShot { get; set; }
         
         Vector2 Size { get; set; }
+        Vector2 HueRange { get; set; }
+        float Saturation { get; set; }
+        float Brightness { get; set; }
         float Lifespan { get; set; }
         
-        float MinSpeed { get; set; }
-        float MaxSpeed { get; set; }
-        float MinForce { get; set; }
-        float MaxForce { get; set; }
+        Vector2 SpeedRange { get; set; }
+        Vector2 ForceRange { get; set; }
+        
+        
+        
         float NNControlDistance { get; set; }
         float MaxPolarAngleDeg { get; set; }
         bool FlipY { get; set; }

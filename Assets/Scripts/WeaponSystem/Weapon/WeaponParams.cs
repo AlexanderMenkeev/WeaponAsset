@@ -1,4 +1,5 @@
 using System;
+using Editor.MinMaxRangeAttribute;
 using Interfaces;
 using SODefinitions;
 using Unity.Mathematics;
@@ -14,13 +15,14 @@ namespace WeaponSystem.Weapon {
         
         [field: Header("Projectile controls")]
         [field: SerializeField] public Vector2 Size { get; set; }
+        [field: SerializeField] [field: MinMaxRange(0f, 1f)] public Vector2 HueRange { get; set; }
+        [field: SerializeField] [field: Range(0f, 1f)] public float Saturation { get; set; }
+        [field: SerializeField] [field: Range(0f, 1f)] public float Brightness { get; set; }
         [field: SerializeField] [field: Range(2f, 10f)] public float Lifespan { get; set; }
 
         [field: Header("NN Pattern controls")] 
-        [field: SerializeField] [field: Range(1f, 5f)] public float MinSpeed { get; set; }
-        [field: SerializeField] [field: Range(5f, 8f)] public float MaxSpeed { get; set; }
-        [field: SerializeField] [field: Range(0.5f, 2f)] public float MinForce { get; set; }
-        [field: SerializeField] [field: Range(2f, 5f)] public float MaxForce { get; set; }
+        [field: SerializeField] [field: MinMaxRange(1f, 8f)] public Vector2 SpeedRange { get; set; }
+        [field: SerializeField] [field: MinMaxRange(0.5f, 5f)] public Vector2 ForceRange { get; set; }
         [field: SerializeField] [field: Range(1f, 12f)] public float NNControlDistance { get; set; }
         [field: SerializeField] [field: Range(5f, 180f)] public float MaxPolarAngleDeg { get; set; }
         [field: SerializeField] public bool FlipY { get; set; }
@@ -47,12 +49,13 @@ namespace WeaponSystem.Weapon {
             ProjectilesInOneShot = weaponParams.ProjectilesInOneShot;
             
             Size = weaponParams.Size;
+            HueRange = weaponParams.HueRange;
+            Saturation = weaponParams.Saturation;
+            Brightness = weaponParams.Brightness;
             Lifespan = weaponParams.Lifespan;
         
-            MinSpeed = weaponParams.MinSpeed;
-            MaxSpeed = weaponParams.MaxSpeed;
-            MinForce = weaponParams.MinForce;
-            MaxForce = weaponParams.MaxForce;
+            SpeedRange = weaponParams.SpeedRange;
+            ForceRange = weaponParams.ForceRange;
             NNControlDistance = weaponParams.NNControlDistance;
             MaxPolarAngleDeg = weaponParams.MaxPolarAngleDeg;
             
