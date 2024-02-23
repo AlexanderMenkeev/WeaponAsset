@@ -19,7 +19,7 @@ namespace WeaponSystem.NEAT {
         public NeatGenomeDecoder Decoder;
         public CppnGenomeFactory CppnGenomeFactory;
         private NetworkActivationScheme _activationScheme;
-        private IActivationFunctionLibrary _activationFunctionLib;
+        public IActivationFunctionLibrary ActivationFunctionLib;
 
         [field: SerializeField] public int PopulationSize { private set; get; }
         [field: SerializeField] public uint Generation { private set; get; }
@@ -59,7 +59,7 @@ namespace WeaponSystem.NEAT {
             fnList.Add(new ActivationFunctionInfo(2, 0.3, Gaussian.__DefaultInstance));
             fnList.Add(new ActivationFunctionInfo(3, 0.3, Sine.__DefaultInstance));
         
-            _activationFunctionLib = new DefaultActivationFunctionLibrary(fnList);;
+            ActivationFunctionLib = new DefaultActivationFunctionLibrary(fnList);;
             NeatGenomeParameters neatGenomeParams = new NeatGenomeParameters();
             neatGenomeParams.InitialInterconnectionsProportion = 0.8;
             neatGenomeParams.AddConnectionMutationProbability = 0.9;
@@ -69,7 +69,7 @@ namespace WeaponSystem.NEAT {
             neatGenomeParams.NodeAuxStateMutationProbability = 0.2;
             neatGenomeParams.FeedforwardOnly = true;
         
-            CppnGenomeFactory = new CppnGenomeFactory(InputCount, OutputCount, _activationFunctionLib, neatGenomeParams);
+            CppnGenomeFactory = new CppnGenomeFactory(InputCount, OutputCount, ActivationFunctionLib, neatGenomeParams);
             GenomeList = CppnGenomeFactory.CreateGenomeList(PopulationSize, Generation);
         }
 

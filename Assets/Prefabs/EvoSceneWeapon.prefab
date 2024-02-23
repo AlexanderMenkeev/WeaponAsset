@@ -105,29 +105,31 @@ MonoBehaviour:
     <ProjectilesInOneShot>k__BackingField: 0
     <Size>k__BackingField: {x: 0, y: 0}
     <Lifespan>k__BackingField: 0
-    <MinSpeed>k__BackingField: 0
-    <MaxSpeed>k__BackingField: 0
-    <MinForce>k__BackingField: 0
-    <MaxForce>k__BackingField: 0
+    <HueRange>k__BackingField: {x: 0.4440266, y: 1}
+    <Saturation>k__BackingField: 0
+    <Brightness>k__BackingField: 0
+    <SpeedRange>k__BackingField: {x: 3.9105558, y: 7.0198193}
+    <ForceRange>k__BackingField: {x: 2.729013, y: 4.45963}
     <NNControlDistance>k__BackingField: 0
-    <MaxPolarAngleDeg>k__BackingField: 0
     <FlipY>k__BackingField: 0
-    <ReflectiveCircleRadius>k__BackingField: 1.4142135
+    <ForwardForce>k__BackingField: 0
     <InitialFlightRadius>k__BackingField: 0
     <InitialSpeed>k__BackingField: 0
     <Angle>k__BackingField: 0
-    <RectDimensions>k__BackingField: {x: 0, y: 0}
+    <FlipXOnReflect>k__BackingField: 0
+    <FlipYOnReflect>k__BackingField: 0
     <Mode>k__BackingField: 0
+    <ReflectiveCircleRadius>k__BackingField: 1.4142135
+    <RectDimensions>k__BackingField: {x: 0, y: 0}
+    <MaxPolarAngleDeg>k__BackingField: 0
   GenomeStats:
     Id: 0
     BirthGeneration: 0
     ConnectionCount: 0
     NodeCount: 0
     IsEvaluated: 0
-  Save: 0
-  LoadGenome: 0
   TemporalObjects: {fileID: 0}
-  ProjectileSpawnPoint: {fileID: 0}
+  ProjectileSpawnPoint: {fileID: 4956941618858505240}
 --- !u!1 &8346746276762657820
 GameObject:
   m_ObjectHideFlags: 0

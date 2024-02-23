@@ -3,6 +3,7 @@ using SharpNeat.Phenomes;
 using SODefinitions;
 using Unity.Mathematics;
 using UnityEngine;
+using WeaponSystem.NEAT;
 using WeaponSystem.Weapon;
 
 namespace WeaponSystem.ProjectileStatePattern {
@@ -19,6 +20,7 @@ namespace WeaponSystem.ProjectileStatePattern {
         
         // assigned from the AbstractWeapon
         [SerializeField] public WeaponParams WeaponParamsLocal;
+        [SerializeField] public WeaponParamsSO WeaponSo;
         [HideInInspector] public Transform OriginTransform;
         public float SignX;
         public float SignY;
@@ -48,9 +50,21 @@ namespace WeaponSystem.ProjectileStatePattern {
         
             _birthTime = Time.time;
             _currPos = Rigidbody.position;
+
+            EvolutionAlgorithm.Instance.NewGenEvent += DestroyYourselfImmediately;
+            WeaponSo.DestroyProjectilesEvent += DestroyYourselfImmediately;
+        }
+
+        private void OnDestroy() {
+            EvolutionAlgorithm.Instance.NewGenEvent -= DestroyYourselfImmediately;
+            WeaponSo.DestroyProjectilesEvent -= DestroyYourselfImmediately;
+        }
+
+        private void DestroyYourselfImmediately() {
+            Destroy(OriginTransform.gameObject);
         }
         
-        public void DestroyYourself() {
+        private void DestroyYourself() {
             if (Time.time - _birthTime > WeaponParamsLocal.Lifespan) 
                 Destroy(OriginTransform.gameObject);
         }

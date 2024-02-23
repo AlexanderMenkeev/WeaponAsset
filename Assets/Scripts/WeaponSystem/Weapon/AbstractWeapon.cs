@@ -1,5 +1,8 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Xml;
+using SharpNeat.Genomes.Neat;
 using SODefinitions;
 using UnityEditor;
 using UnityEngine;
@@ -10,6 +13,7 @@ namespace WeaponSystem.Weapon {
     public abstract class AbstractWeapon : MonoBehaviour
     {
         // assigned from the editor
+        [Tooltip("If you change it in runtime, the change would not be detected")]
         [SerializeField] protected WeaponParamsSO _weaponSO;
         public GameObject ProjectilePrefab;
         
@@ -18,19 +22,13 @@ namespace WeaponSystem.Weapon {
         // initialized from WeaponManager
         public GenomeStats GenomeStats;
         
-        [Header("Genome controls")]
-        public bool Save;
-        public bool LoadGenome;
-        
         [HideInInspector] public GameObject TemporalObjects;
         [HideInInspector] public Transform ProjectileSpawnPoint;
         
         protected virtual void OnAwakeFunc() {
             TemporalObjects = GameObject.FindWithTag("TemporalObjects");
             ProjectileSpawnPoint = transform.Find("ProjectileSpawnPoint");
-            InitializeParams();
-            
-            
+           
             _weaponSO.UpdateParamsEvent += InitializeParams;
         }
 
@@ -39,11 +37,24 @@ namespace WeaponSystem.Weapon {
         }
 
         protected virtual void OnStartFunc() {
+            InitializeParams();
             FireCoroutine = StartCoroutine(FireProjectile());
         }
 
-        private void InitializeParams() {
+        private void TryToLoadGenomeFromSO() {
+            if (_weaponSO.GenomeXml == null) 
+                return;
+            
+            XmlDocument genomeXml = new XmlDocument();
+            genomeXml.LoadXml(_weaponSO.GenomeXml.text);
+            
+            List<NeatGenome> genomeList = NeatGenomeXmlIO.LoadCompleteGenomeList(genomeXml, true, EvolutionAlgorithm.Instance.CppnGenomeFactory);
+            GenomeStats = new GenomeStats(genomeList[0], EvolutionAlgorithm.Instance.Decoder, EvolutionAlgorithm.Instance.CppnGenomeFactory);
+        }
+        
+        protected virtual void InitializeParams() {
             _weaponParamsLocal = new WeaponParams(_weaponSO);
+            TryToLoadGenomeFromSO();
         }
     
         public Coroutine FireCoroutine;
@@ -72,6 +83,7 @@ namespace WeaponSystem.Weapon {
                     projectileScript.Box = GenomeStats.Box;
 
                     projectileScript.WeaponParamsLocal = new WeaponParams(_weaponParamsLocal);
+                    projectileScript.WeaponSo = _weaponSO;
                     
                     projectileScript.SignX = offset < 0 ? -1f : 1f;
                     projectileScript.SignY = signY;
@@ -97,7 +109,6 @@ namespace WeaponSystem.Weapon {
                     break;
                 
                 case ProjectileMode.Polar:
-                    
                     _borderRayDirX = _weaponParamsLocal.NNControlDistance * Mathf.Sin(_weaponParamsLocal.MaxPolarAngleDeg * Mathf.Deg2Rad);
                     _borderRayDirY = _weaponParamsLocal.NNControlDistance * Mathf.Cos(_weaponParamsLocal.MaxPolarAngleDeg * Mathf.Deg2Rad);
                     
@@ -109,12 +120,8 @@ namespace WeaponSystem.Weapon {
                     Gizmos.DrawWireSphere(ProjectileSpawnPoint.position, _weaponParamsLocal.NNControlDistance * _weaponParamsLocal.InitialFlightRadius);
                     Gizmos.DrawRay(ProjectileSpawnPoint.position, _upperBorderRayDir);
                     Gizmos.DrawRay(ProjectileSpawnPoint.position, _lowerBorderRayDir);
-                    
-                    
-                    
                     break;
-
-
+                
                 case ProjectileMode.RectangleReflection:
                     float maxX = _weaponParamsLocal.RectDimensions.x * _weaponParamsLocal.NNControlDistance;
                     float maxY = _weaponParamsLocal.RectDimensions.y * _weaponParamsLocal.NNControlDistance;
@@ -127,8 +134,7 @@ namespace WeaponSystem.Weapon {
                     throw new ArgumentOutOfRangeException();
             }
         }
-    
-    
-    
+        
+        
     }
 }

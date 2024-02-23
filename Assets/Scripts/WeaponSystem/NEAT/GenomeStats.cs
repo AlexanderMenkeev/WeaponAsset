@@ -3,9 +3,10 @@ using SharpNeat.Decoders.Neat;
 using SharpNeat.Genomes.HyperNeat;
 using SharpNeat.Genomes.Neat;
 using SharpNeat.Phenomes;
+using UnityEngine;
 
 namespace WeaponSystem.NEAT {
-    [Serializable]
+    [Serializable] [Tooltip("These stats are readonly, your changes won't have effect on evolution algorithm.")]
     public class GenomeStats {
         public NeatGenome Genome;
         
@@ -33,6 +34,18 @@ namespace WeaponSystem.NEAT {
             Factory = factory;
             
             Box = decoder.Decode(genome);
+        }
+
+        public void UpdateGenomeStats(NeatGenome genome) {
+            Genome = genome;
+            
+            Id = genome.Id;
+            BirthGeneration = genome.BirthGeneration;
+            ConnectionCount = genome.Complexity;
+            NodeCount = genome.NodeList.Count;
+            IsEvaluated = genome.EvaluationInfo.IsEvaluated;
+            
+            Box = Decoder.Decode(genome);
         }
         
         

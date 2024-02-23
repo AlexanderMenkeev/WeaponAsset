@@ -40,6 +40,7 @@ namespace Editor.MinMaxRangeAttribute
 				return;
 			}
 
+			
 			var minLimit = minMaxAttribute.MinLimit;
 			var maxLimit = minMaxAttribute.MaxLimit;
 			_decimals = minMaxAttribute.Decimals;
@@ -80,11 +81,10 @@ namespace Editor.MinMaxRangeAttribute
 				ref float y, Func<float, GUIContent> buildLabel)
 			{
 				var consumedX = 0f;
-				var firstLineRect = new Rect(position) { height = position.height / 2 - VerticalSpacing};
+				var firstLineRect = new Rect(position) {height = position.height / 2 - VerticalSpacing};
 				
 				// Field name
 				consumedX += DrawFieldName(firstLineRect, property);
-				
 				// Min label
 				var minLabel = buildLabel(min);
 				consumedX += DrawLabel(firstLineRect, consumedX, minLabel);
@@ -120,7 +120,7 @@ namespace Editor.MinMaxRangeAttribute
 				static float DrawLabel(Rect position, float xOffset, GUIContent label)
 				{
 					var size = LabelStyle.CalcSize(label);
-					var minLabelPosition = new Rect(position) { x = position.x + xOffset, width = size.x};
+					var minLabelPosition = new Rect(position) { x = position.x + xOffset, width = size.x + 100f};
 					EditorGUI.LabelField(minLabelPosition, label, LabelStyle);
 					return size.x;
 				}
@@ -134,7 +134,7 @@ namespace Editor.MinMaxRangeAttribute
 					var offset = SliderHandlerWidth / 2 + (applyExtraOffset ? -labelSize.x : 0);
 					var totalWidth = position.width - SliderHandlerWidth;
 					var x = position.x + relativePosition * totalWidth + offset;
-					var labelPosition = new Rect(position) { x = x, width = labelSize.x };
+					var labelPosition = new Rect(position) { x = x, width = labelSize.x + 100f };
 					EditorGUI.LabelField(labelPosition, label, LabelStyle);
 				}
 			}
