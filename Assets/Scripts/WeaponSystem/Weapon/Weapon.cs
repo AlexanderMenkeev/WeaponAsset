@@ -14,7 +14,6 @@ namespace WeaponSystem.Weapon {
 
         private void OnDestroy() { base.OnDestroyFunc(); }
         
-
         private string GenerateHash() {
             return DateTime.Now.Ticks.GetHashCode().ToString("x").ToUpper();
         }
@@ -36,8 +35,8 @@ namespace WeaponSystem.Weapon {
             _savePath += generateName ? _hash : fileName;
             Directory.CreateDirectory(_savePath);
             
-            string genomeFileName = "Genome_" + _hash + ".xml";
-            string paramsFileName = "Params_" + _hash + ".json";
+            string genomeFileName = "Genome_" + (generateName ? _hash : fileName) + ".xml";
+            string paramsFileName = "Params_" + (generateName ? _hash : fileName) + ".json";
             
             using(XmlWriter xw = XmlWriter.Create(Path.Combine(_savePath, genomeFileName), xwSettings)) {
                 NeatGenomeXmlIO.WriteComplete(xw, GenomeStats.Genome, true);
@@ -50,7 +49,7 @@ namespace WeaponSystem.Weapon {
                 }
             }
             
-            Debug.Log($"Genome and weapon params saved to path [{Path.Combine(_savePath, genomeFileName)}]");
+            Debug.Log($"Genome and weapon params saved to path [{_savePath}]");
             
             #if UNITY_EDITOR
             UnityEditor.AssetDatabase.Refresh ();
@@ -87,13 +86,13 @@ namespace WeaponSystem.Weapon {
             GenomeStats.Genome.EvaluationInfo.SetFitness(10);
         }
         
-        
         private void Start() {
             base.OnStartFunc();
         }
 
         public void UpdateWeaponSO(WeaponParamsSO weaponSo) {
-            StopCoroutine(FireCoroutine);
+            if (FireCoroutine != null) 
+                StopCoroutine(FireCoroutine);
             
             _weaponSO.DestroyProjectilesEvent?.Invoke();
             _weaponSO = weaponSo;

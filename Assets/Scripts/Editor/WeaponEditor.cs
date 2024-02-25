@@ -35,7 +35,7 @@ namespace Editor {
             Weapon weapon = target as Weapon;
             if (weapon == null)
                 return;
-            
+            _selectedAsParent = weapon.GenomeStats.IsEvaluated;
             
             using(new GUILayout.VerticalScope(EditorStyles.helpBox)) {
                 GUILayout.Space(5);
@@ -43,11 +43,13 @@ namespace Editor {
                 GUILayout.Label("Genome controls", EditorStyles.boldLabel);
                 
                 GUILayout.Space(3);
-
+                
+                
                 if (!_selectedAsParent) {
                     if (GUILayout.Button("Select as parent for next gen")) {
                         weapon.EvaluateGenome();
                         _selectedAsParent = true;
+                        weapon.GenomeStats.IsEvaluated = true;
                     }
                 }
                 else {
@@ -58,7 +60,7 @@ namespace Editor {
 
                 GUILayout.Space(2);
                 
-                _generateUniqueName = EditorGUILayout.ToggleLeft("Generate unique name", _generateUniqueName, GUILayout.ExpandWidth(false));
+                _generateUniqueName = EditorGUILayout.ToggleLeft("Generate unique hash name", _generateUniqueName, GUILayout.ExpandWidth(false));
                 
                 using(new GUILayout.HorizontalScope()) {
                     if (GUILayout.Button("Save") )

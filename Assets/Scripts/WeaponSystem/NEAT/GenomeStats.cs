@@ -6,7 +6,7 @@ using SharpNeat.Phenomes;
 using UnityEngine;
 
 namespace WeaponSystem.NEAT {
-    [Serializable] [Tooltip("These stats are readonly, your changes won't have effect on evolution algorithm.")]
+    [Serializable]
     public class GenomeStats {
         public NeatGenome Genome;
         

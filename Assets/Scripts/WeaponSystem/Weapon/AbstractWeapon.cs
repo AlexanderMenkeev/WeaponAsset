@@ -17,13 +17,15 @@ namespace WeaponSystem.Weapon {
         [SerializeField] protected WeaponParamsSO _weaponSO;
         public GameObject ProjectilePrefab;
         
+        public GameObject TemporalObjects;
+        public Transform ProjectileSpawnPoint;
+        
         [SerializeField] protected WeaponParams _weaponParamsLocal;
         
         // initialized from WeaponManager
+        [Tooltip("These stats are readonly, changes won't have effect on evolution algorithm.")]
         public GenomeStats GenomeStats;
         
-        [HideInInspector] public GameObject TemporalObjects;
-        [HideInInspector] public Transform ProjectileSpawnPoint;
         
         protected virtual void OnAwakeFunc() {
             TemporalObjects = GameObject.FindWithTag("TemporalObjects");

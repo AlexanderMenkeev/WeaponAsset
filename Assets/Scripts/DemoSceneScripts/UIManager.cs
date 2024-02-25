@@ -9,11 +9,12 @@ using WeaponSystem.Weapon;
 
 namespace DemoSceneScripts {
     public class UIManager : MonoBehaviour {
+        
+        // assigned from the editor
         [SerializeField] private Button _prevBtn;
         [SerializeField] private Button _nextBtn;
         [SerializeField] private TextMeshProUGUI _weaponText;
-        [SerializeField] private Weapon _weapon;
-
+        [SerializeField] private Weapon _demoWeapon;
         [SerializeField] private WeaponParamsSO[] _SObjectsList;
 
         
@@ -34,7 +35,7 @@ namespace DemoSceneScripts {
 
         private void Start() {
             _weaponText.text = $"{_SObjectsList[_counter].name} #{_counter}";
-            _weapon.UpdateWeaponSO(_SObjectsList[_counter]);
+            _demoWeapon.UpdateWeaponSO(_SObjectsList[_counter]);
         }
 
         private void OnNextBtnClick() {
@@ -45,7 +46,7 @@ namespace DemoSceneScripts {
 
             _weaponText.text = $"{_SObjectsList[_counter].name} #{_counter}";
             
-            _weapon.UpdateWeaponSO(_SObjectsList[_counter]);
+            _demoWeapon.UpdateWeaponSO(_SObjectsList[_counter]);
         }
         
         private void OnPrevBtnClick() {
@@ -56,7 +57,7 @@ namespace DemoSceneScripts {
             
             _weaponText.text = $"{_SObjectsList[_counter].name} #{_counter}";
             
-            _weapon.UpdateWeaponSO(_SObjectsList[_counter]);
+            _demoWeapon.UpdateWeaponSO(_SObjectsList[_counter]);
         }
         
         

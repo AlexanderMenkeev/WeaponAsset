@@ -19,7 +19,7 @@ namespace WeaponSystem.NEAT {
         public NeatGenomeDecoder Decoder;
         public CppnGenomeFactory CppnGenomeFactory;
         private NetworkActivationScheme _activationScheme;
-        public IActivationFunctionLibrary ActivationFunctionLib;
+        private IActivationFunctionLibrary _activationFunctionLib;
 
         [field: SerializeField] public int PopulationSize { private set; get; }
         [field: SerializeField] public uint Generation { private set; get; }
@@ -59,50 +59,64 @@ namespace WeaponSystem.NEAT {
             fnList.Add(new ActivationFunctionInfo(2, 0.3, Gaussian.__DefaultInstance));
             fnList.Add(new ActivationFunctionInfo(3, 0.3, Sine.__DefaultInstance));
         
-            ActivationFunctionLib = new DefaultActivationFunctionLibrary(fnList);;
+            _activationFunctionLib = new DefaultActivationFunctionLibrary(fnList);;
             NeatGenomeParameters neatGenomeParams = new NeatGenomeParameters();
             neatGenomeParams.InitialInterconnectionsProportion = 0.8;
-            neatGenomeParams.AddConnectionMutationProbability = 0.9;
-            neatGenomeParams.AddNodeMutationProbability = 0.9;
-            neatGenomeParams.ConnectionWeightMutationProbability = 0.9;
-            neatGenomeParams.DisjointExcessGenesRecombinedProbability = 0.9;
+            neatGenomeParams.AddConnectionMutationProbability = 0.8;
+            neatGenomeParams.AddNodeMutationProbability = 0.8;
+            neatGenomeParams.ConnectionWeightMutationProbability = 0.8;
+            neatGenomeParams.DisjointExcessGenesRecombinedProbability = 0.5;
             neatGenomeParams.NodeAuxStateMutationProbability = 0.2;
             neatGenomeParams.FeedforwardOnly = true;
         
-            CppnGenomeFactory = new CppnGenomeFactory(InputCount, OutputCount, ActivationFunctionLib, neatGenomeParams);
+            CppnGenomeFactory = new CppnGenomeFactory(InputCount, OutputCount, _activationFunctionLib, neatGenomeParams);
             GenomeList = CppnGenomeFactory.CreateGenomeList(PopulationSize, Generation);
         }
 
     
         public void CreateNewGeneration() {
-            Debug.Log("Created new gen!");
+            Debug.Log("Created new generation!");
         
             Generation++;
-            List<NeatGenome> tempList = GenomeList.Where(genome => genome.EvaluationInfo.IsEvaluated).ToList();
-
-            int randInt1, randInt2;
-            do {
-                randInt1 = Random.Range(0, GenomeList.Count - 1);
-                randInt2 = Random.Range(0, GenomeList.Count - 1);
-            } while (randInt1 == randInt2);
-
-            if (tempList.Count == 0) {
-                tempList.Add(GenomeList[randInt1]);
-                tempList.Add(GenomeList[randInt2]);
+            List<NeatGenome> selectedGenomes = GenomeList.Where(genome => genome.EvaluationInfo.IsEvaluated).ToList();
+            List<NeatGenome> rejectedGenomes = GenomeList.Where(genome => !genome.EvaluationInfo.IsEvaluated).ToList();
+            
+            // if no genomes were selected => select two randomly
+            if (selectedGenomes.Count == 0) {
+                int randInt1, randInt2;
+                do {
+                    randInt1 = Random.Range(0, GenomeList.Count);
+                    randInt2 = Random.Range(0, GenomeList.Count);
+                } while (randInt1 == randInt2);
+                
+                selectedGenomes.Add(GenomeList[randInt1]);
+                selectedGenomes.Add(GenomeList[randInt2]);
             }
-    
-            if (tempList.Count != 2)
-                Debug.Log("You must choose exactly two genomes!");
-            else
-            {
-                for (int i = 0; i < SexualOffspringCount; i++)
-                    GenomeList[i] = tempList[0].CreateOffspring(tempList[1], Generation);
-
-                for (int i = SexualOffspringCount; i < PopulationSize; i++)
-                    GenomeList[i] = tempList[i % 2].CreateOffspring(Generation);
-    
-                NewGenEvent?.Invoke();
+            
+            int count = selectedGenomes.Count;
+            // if one genome was selected => pair it up with rejected genomes for sexual reproduction
+            if (count == 1) {
+                for (int i = 0; i < SexualOffspringCount; i++) 
+                    GenomeList[i] = rejectedGenomes[i].CreateOffspring(selectedGenomes[0], Generation);
+            } 
+            // if number of selected genomes is sufficient => breed them with each other
+            else {
+                for (int i = 0; i < SexualOffspringCount; i++) {
+                    int indexA, indexB = i % count; 
+                    do {
+                        indexA = Random.Range(0, count);
+                    } while (indexA == indexB);
+                    
+                    GenomeList[i] = selectedGenomes[indexA].CreateOffspring(selectedGenomes[indexB], Generation);
+                }
             }
+            
+            // asexual reproduction is the same for both cases
+            for (int i = SexualOffspringCount; i < PopulationSize; i++)
+                GenomeList[i] = selectedGenomes[i % count].CreateOffspring(Generation);
+            
+            
+            NewGenEvent?.Invoke();
         }
         
         public void CreateRandomPopulation() {
