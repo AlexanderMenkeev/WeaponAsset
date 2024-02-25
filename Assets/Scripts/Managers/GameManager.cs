@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Managers {
     public class GameManager : MonoBehaviour
@@ -18,11 +19,11 @@ namespace Managers {
         private void Start() {
             Application.targetFrameRate = 60;
         }
-
-
-
-
-
+        
+        public void LoadScene(string sceneName) {
+            SceneManager.LoadSceneAsync(sceneName);
+        }
+        
 
 
     }

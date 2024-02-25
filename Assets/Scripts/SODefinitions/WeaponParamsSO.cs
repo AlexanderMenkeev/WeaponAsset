@@ -89,6 +89,7 @@ namespace SODefinitions {
         }
         
         public void ResetFunc() {
+            Debug.Log(this.name);
             InitializeParamsParticles();
             UpdateParamsEvent?.Invoke();
         }

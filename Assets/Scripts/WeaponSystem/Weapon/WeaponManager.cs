@@ -1,5 +1,9 @@
+using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using SharpNeat.Genomes.Neat;
+using SODefinitions;
+using Unity.Mathematics;
 using UnityEngine;
 using WeaponSystem.NEAT;
 
@@ -15,6 +19,7 @@ namespace WeaponSystem.Weapon {
         
         // assigned from the editor
         [SerializeField] private GameObject _weaponPrefab;
+        [SerializeField] private WeaponParamsSO _weaponSo;
         
         private void Awake() {
             _camera = Camera.main;
@@ -35,21 +40,22 @@ namespace WeaponSystem.Weapon {
             _evolutionAlgorithm.NewGenEvent -= InitializeWeapons;
         }
 
+        
         private void InstantiateWeapons() {
             Vector2 p11 = _camera.ViewportToWorldPoint(new Vector3(1, 1, _camera.nearClipPlane));
             Vector2 p00 = _camera.ViewportToWorldPoint(new Vector3(0, 0, _camera.nearClipPlane));
-
-            float stepY = (p11.y - p00.y) / 2f;
-            float stepX = 2f * (p11.x - p00.x) / _numberOfWeapons;
             
+            float horizontalSpacing = _weaponSo.NNControlDistance * math.SQRT2 * 2.2f;
+            float marginY = _weaponSo.NNControlDistance * math.SQRT2;
+                
             for (int i = 0; i < _numberOfWeapons / 2; i++) {
-                Vector3 pos = new Vector3(p00.x + i * 0.9f * stepX + stepX * 0.75f, p11.y - stepY * 0.55f, 0);
+                Vector3 pos = new Vector3(p00.x + i * horizontalSpacing + horizontalSpacing, p11.y - marginY, 0);
                 _weapons.Add(Instantiate(_weaponPrefab, pos, Quaternion.identity, transform));
             }
             
             int weaponsCount = _weapons.Count;
             for (int i = 0; i <_numberOfWeapons - weaponsCount; i++) {
-                Vector3 pos = new Vector3(p00.x + i * 0.9f * stepX + stepX * 0.5f, p00.y + stepY * 0.55f, 0);
+                Vector3 pos = new Vector3(p00.x + i * horizontalSpacing + horizontalSpacing * 0.5f, p00.y + marginY, 0);
                 _weapons.Add(Instantiate(_weaponPrefab, pos, Quaternion.identity, transform));
             }
         }
@@ -60,8 +66,9 @@ namespace WeaponSystem.Weapon {
                 weapon.GenomeStats = new GenomeStats(_genomeList[i], _evolutionAlgorithm.Decoder, _evolutionAlgorithm.CppnGenomeFactory);
             }
         }
-    
-    
+
+
+
 
     }
 }
