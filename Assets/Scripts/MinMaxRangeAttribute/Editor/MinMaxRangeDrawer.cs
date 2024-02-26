@@ -2,9 +2,9 @@ using System;
 using UnityEditor;
 using UnityEngine;
 
-namespace Editor.MinMaxRangeAttribute
+namespace MinMaxRangeAttribute.Editor
 {
-	[CustomPropertyDrawer(typeof(MinMaxRangeAttribute))]
+	[CustomPropertyDrawer(typeof(global::MinMaxRangeAttribute.MinMaxRangeAttribute))]
 	internal class MinMaxRangeDrawer : PropertyDrawer
 	{
 		#region Fields
@@ -34,7 +34,7 @@ namespace Editor.MinMaxRangeAttribute
 
 		public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
 		{
-			if (attribute is not MinMaxRangeAttribute minMaxAttribute)
+			if (attribute is not global::MinMaxRangeAttribute.MinMaxRangeAttribute minMaxAttribute)
 			{
 				Debug.LogError("Min max range attribute failed to draw.");
 				return;

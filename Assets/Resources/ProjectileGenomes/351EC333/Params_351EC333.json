@@ -1,0 +1,38 @@
+{
+    "<FireRate>k__BackingField": 1.0,
+    "<ProjectilesInOneShot>k__BackingField": 20,
+    "<Size>k__BackingField": {
+        "x": 0.05999999865889549,
+        "y": 0.05999999865889549
+    },
+    "<Lifespan>k__BackingField": 8.0,
+    "<HueRange>k__BackingField": {
+        "x": 0.0,
+        "y": 0.39999985694885256
+    },
+    "<Saturation>k__BackingField": 1.0,
+    "<Brightness>k__BackingField": 1.0,
+    "<SpeedRange>k__BackingField": {
+        "x": 3.0247371196746828,
+        "y": 6.024734973907471
+    },
+    "<ForceRange>k__BackingField": {
+        "x": 0.9615160822868347,
+        "y": 2.9615166187286379
+    },
+    "<NNControlDistance>k__BackingField": 2.5,
+    "<FlipY>k__BackingField": false,
+    "<ForwardForce>k__BackingField": true,
+    "<InitialFlightRadius>k__BackingField": 0.05000000074505806,
+    "<InitialSpeed>k__BackingField": 0.5,
+    "<Angle>k__BackingField": 30.0,
+    "<FlipXOnReflect>k__BackingField": true,
+    "<FlipYOnReflect>k__BackingField": false,
+    "<Mode>k__BackingField": 0,
+    "<ReflectiveCircleRadius>k__BackingField": 1.600000023841858,
+    "<RectDimensions>k__BackingField": {
+        "x": 1.0,
+        "y": 2.0
+    },
+    "<MaxPolarAngleDeg>k__BackingField": 45.0
+}

@@ -1,5 +1,4 @@
 using System;
-using Editor.MinMaxRangeAttribute;
 using Interfaces;
 using SODefinitions;
 using Unity.Mathematics;
@@ -17,13 +16,13 @@ namespace WeaponSystem.Weapon {
         [field: SerializeField] public Vector2 Size { get; set; }
         [field: SerializeField] [field: Range(2f, 10f)] public float Lifespan { get; set; }
         
-        [field: SerializeField] [field: MinMaxRange(0f, 1f, 2)] public Vector2 HueRange { get; set; }
+        [field: SerializeField] [field: MinMaxRangeAttribute.MinMaxRange(0f, 1f, 2)] public Vector2 HueRange { get; set; }
         [field: SerializeField] [field: Range(0f, 1f)] public float Saturation { get; set; }
         [field: SerializeField] [field: Range(0f, 1f)] public float Brightness { get; set; }
         
         [field: Header("NN Pattern controls")] 
-        [field: SerializeField] [field: MinMaxRange(1f, 8f)] public Vector2 SpeedRange { get; set; }
-        [field: SerializeField] [field: MinMaxRange(0.5f, 5f)] public Vector2 ForceRange { get; set; }
+        [field: SerializeField] [field: MinMaxRangeAttribute.MinMaxRange(1f, 8f)] public Vector2 SpeedRange { get; set; }
+        [field: SerializeField] [field: MinMaxRangeAttribute.MinMaxRange(0.5f, 5f)] public Vector2 ForceRange { get; set; }
         [field: SerializeField] [field: Range(1f, 8f)] public float NNControlDistance { get; set; }
         [field: SerializeField] public bool FlipY { get; set; }
         [field: SerializeField] public bool ForwardForce { get; set; }

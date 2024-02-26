@@ -18,20 +18,20 @@ MonoBehaviour:
   <ProjectilesInOneShot>k__BackingField: 20
   <Size>k__BackingField: {x: 0.07, y: 0.07}
   <Lifespan>k__BackingField: 8
-  <HueRange>k__BackingField: {x: 0, y: 0.49586958}
+  <HueRange>k__BackingField: {x: 0.1, y: 0.5}
   <Saturation>k__BackingField: 0.9
-  <Brightness>k__BackingField: 1
-  <SpeedRange>k__BackingField: {x: 3, y: 6}
+  <Brightness>k__BackingField: 0.95
+  <SpeedRange>k__BackingField: {x: 1, y: 4}
   <ForceRange>k__BackingField: {x: 1, y: 3}
-  <NNControlDistance>k__BackingField: 8
-  <FlipY>k__BackingField: 1
+  <NNControlDistance>k__BackingField: 3
+  <FlipY>k__BackingField: 0
   <ForwardForce>k__BackingField: 1
-  <InitialFlightRadius>k__BackingField: 0.1
-  <InitialSpeed>k__BackingField: 3
-  <Angle>k__BackingField: 15.3
+  <InitialFlightRadius>k__BackingField: 0.05
+  <InitialSpeed>k__BackingField: 5
+  <Angle>k__BackingField: 150
   <FlipXOnReflect>k__BackingField: 1
-  <FlipYOnReflect>k__BackingField: 0
-  <Mode>k__BackingField: 2
+  <FlipYOnReflect>k__BackingField: 1
+  <Mode>k__BackingField: 0
   <ReflectiveCircleRadius>k__BackingField: 1.4142135
-  <RectDimensions>k__BackingField: {x: 1, y: 2}
-  <MaxPolarAngleDeg>k__BackingField: 24.5
+  <RectDimensions>k__BackingField: {x: 1, y: 1}
+  <MaxPolarAngleDeg>k__BackingField: 45

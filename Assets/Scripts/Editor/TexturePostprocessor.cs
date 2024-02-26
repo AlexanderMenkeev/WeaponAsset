@@ -97,12 +97,9 @@ namespace Editor
         private static PixelMap FindPixelMap(string fileName)
         {
             var guids = AssetDatabase.FindAssets("t:" + nameof(PixelMap));
-
             foreach (var guid in guids)
             {
-                var asset = AssetDatabase.LoadMainAssetAtPath(
-                    AssetDatabase.GUIDToAssetPath(guid)
-                ) as PixelMap;
+                var asset = AssetDatabase.LoadMainAssetAtPath(AssetDatabase.GUIDToAssetPath(guid)) as PixelMap;
 
                 if (asset != null && asset.name == fileName)
                     return asset;

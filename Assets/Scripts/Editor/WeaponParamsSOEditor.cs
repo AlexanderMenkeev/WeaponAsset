@@ -1,9 +1,11 @@
 using System;
+using System.Linq;
 using SODefinitions;
 using UnityEditor;
 using UnityEditor.TerrainTools;
 using UnityEngine;
 using WeaponSystem.Weapon;
+using Object = UnityEngine.Object;
 
 namespace Editor {
     [CanEditMultipleObjects]
@@ -80,35 +82,54 @@ namespace Editor {
             
             Mode = _so.FindProperty($"<{nameof(WeaponParamsSO.Mode)}>k__BackingField");
         }
-
-
+        private bool _rename = true;
         public override void OnInspectorGUI() {
-            
-            WeaponParamsSO wParams = target as WeaponParamsSO;
-            if (wParams == null)
-                return;
+            _so = serializedObject;
             
             _so.Update();
             
+            WeaponParamsSO[] wParamsArray = Array.ConvertAll(_so.targetObjects, item => (WeaponParamsSO)item);;
+            if (wParamsArray.Length == 0) {
+                Debug.Log("Zero elements in wParamsArray");
+                return;
+            }
+
+
+
             GUILayout.Space(8);
             
             if ( GUILayout.Button("Reset to default values") )
-                wParams.ResetFunc();
+                foreach (WeaponParamsSO wp in wParamsArray) {
+                    wp.ResetFunc();
+                }
             
             GUILayout.Space(8);
             
             GUILayout.Label("Load files", EditorStyles.boldLabel);
             using(new GUILayout.VerticalScope(EditorStyles.helpBox)) {
                 GUILayout.Space(2);
+                using(new GUILayout.HorizontalScope()) {
+                    if (GUILayout.Button("Load files from folder")) {
+                        foreach (WeaponParamsSO wp in wParamsArray) {
+                            wp.LoadGenomeAndParamsFromFolder(_rename);
+                        }
+                        return;
+                    }
+                    _rename = EditorGUILayout.ToggleLeft("Rename", _rename, GUILayout.ExpandWidth(false));
+                }
+            
+                GUILayout.Space(5);
                 
                 EditorGUILayout.PropertyField(GenomeXml);
                 using(new GUILayout.HorizontalScope()) {
                     EditorGUILayout.PropertyField(WeaponParamsJson);
                     
-                    if (wParams.WeaponParamsJson == null)
+                    if (wParamsArray[0].WeaponParamsJson == null)
                         GUI.enabled = false;
                     if ( GUILayout.Button("Load") )
-                        wParams.LoadParamsFromJson();
+                        foreach (WeaponParamsSO wp in wParamsArray) {
+                            wp.LoadParamsFromJson();
+                        }
                     GUI.enabled = true;
                 }
                 
@@ -134,7 +155,7 @@ namespace Editor {
                 EditorGUILayout.PropertyField(Size);
                 EditorGUILayout.PropertyField(Lifespan);
                 GUILayout.Space(5);
-
+            
                 GUILayout.Label("Color", EditorStyles.miniBoldLabel);
                 using(new GUILayout.VerticalScope(EditorStyles.helpBox)) {
                     GUILayout.Space(2);
@@ -192,7 +213,7 @@ namespace Editor {
                 }
                 
                 switch (weaponSO.Mode) {
-
+            
                     case ProjectileMode.CircleReflection:
                         EditorGUILayout.PropertyField(ReflectiveCircleRadius);
                         break;

@@ -40,7 +40,8 @@ namespace WeaponSystem.Weapon {
 
         protected virtual void OnStartFunc() {
             InitializeParams();
-            FireCoroutine = StartCoroutine(FireProjectile());
+            if (FireCoroutine == null)
+                FireCoroutine = StartCoroutine(FireProjectile());
         }
 
         private void TryToLoadGenomeFromSO() {

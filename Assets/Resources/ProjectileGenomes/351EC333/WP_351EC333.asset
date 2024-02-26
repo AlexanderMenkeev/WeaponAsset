@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cebc8a280d174624f9a112ce9a9088a1, type: 3}
+  m_Name: WP_351EC333
+  m_EditorClassIdentifier: 
+  GenomeXml: {fileID: 4900000, guid: 79a61d7847bcd114d93e559ae6d4bbd6, type: 3}
+  WeaponParamsJson: {fileID: 4900000, guid: a86b52b7476dcdb439cb60ceec084e0c, type: 3}
+  <FireRate>k__BackingField: 1
+  <ProjectilesInOneShot>k__BackingField: 20
+  <Size>k__BackingField: {x: 0.06, y: 0.06}
+  <Lifespan>k__BackingField: 8
+  <HueRange>k__BackingField: {x: 0, y: 0.40153417}
+  <Saturation>k__BackingField: 1
+  <Brightness>k__BackingField: 1
+  <SpeedRange>k__BackingField: {x: 3, y: 6}
+  <ForceRange>k__BackingField: {x: 1, y: 3}
+  <NNControlDistance>k__BackingField: 2.5
+  <FlipY>k__BackingField: 0
+  <ForwardForce>k__BackingField: 1
+  <InitialFlightRadius>k__BackingField: 0.05
+  <InitialSpeed>k__BackingField: 0.5
+  <Angle>k__BackingField: 30
+  <FlipXOnReflect>k__BackingField: 1
+  <FlipYOnReflect>k__BackingField: 0
+  <Mode>k__BackingField: 0
+  <ReflectiveCircleRadius>k__BackingField: 1.6
+  <RectDimensions>k__BackingField: {x: 1, y: 2}
+  <MaxPolarAngleDeg>k__BackingField: 45
