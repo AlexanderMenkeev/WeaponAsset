@@ -1,20 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
 using SODefinitions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using WeaponSystem.Weapon;
 
-namespace DemoSceneScripts {
+namespace DemoScene {
     public class UIManager : MonoBehaviour {
         
         // assigned from the editor
         [SerializeField] private Button _prevBtn;
         [SerializeField] private Button _nextBtn;
         [SerializeField] private TextMeshProUGUI _weaponText;
-        [SerializeField] private Weapon _demoWeapon;
+        [SerializeField] private DemoWeapon _demoWeapon;
         [SerializeField] private WeaponParamsSO[] _SObjectsList;
 
         

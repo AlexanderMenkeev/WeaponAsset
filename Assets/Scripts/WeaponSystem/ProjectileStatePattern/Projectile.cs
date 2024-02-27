@@ -50,13 +50,11 @@ namespace WeaponSystem.ProjectileStatePattern {
         
             _birthTime = Time.time;
             _currPos = Rigidbody.position;
-
-            EvolutionAlgorithm.Instance.NewGenEvent += DestroyYourselfImmediately;
+            
             WeaponSo.DestroyProjectilesEvent += DestroyYourselfImmediately;
         }
 
         private void OnDestroy() {
-            EvolutionAlgorithm.Instance.NewGenEvent -= DestroyYourselfImmediately;
             WeaponSo.DestroyProjectilesEvent -= DestroyYourselfImmediately;
         }
 
@@ -141,13 +139,14 @@ namespace WeaponSystem.ProjectileStatePattern {
         }
 
         private void Update() {
+            CalcProjectileStats();
             DestroyYourself();
             StateMachine.Update();
         }
         
         private void FixedUpdate() {
             
-            CalcProjectileStats();
+            
             StateMachine.FixedUpdate();
             transform.up = Rigidbody.velocity;
         }

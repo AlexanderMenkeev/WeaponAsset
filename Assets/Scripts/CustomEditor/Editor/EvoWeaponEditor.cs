@@ -1,15 +1,13 @@
-using System;
-using SODefinitions;
+using EvolutionScene;
 using UnityEditor;
-using UnityEditor.TerrainTools;
 using UnityEngine;
 using WeaponSystem.Weapon;
 using Object = UnityEngine.Object;
 
-namespace Editor {
+namespace CustomEditor.Editor {
     [CanEditMultipleObjects]
-    [CustomEditor(typeof(Weapon))]
-    public class WeaponEditor : UnityEditor.Editor {
+    [UnityEditor.CustomEditor(typeof(EvoWeapon))]
+    public class EvoWeaponEditor : UnityEditor.Editor {
         
         private TextAsset _genomeTextAsset;
         private string _genomeFileName;
@@ -32,7 +30,7 @@ namespace Editor {
             
             GUILayout.Space(10);
             
-            Weapon weapon = target as Weapon;
+            EvoWeapon weapon = target as EvoWeapon;
             if (weapon == null)
                 return;
             _selectedAsParent = weapon.GenomeStats.IsEvaluated;

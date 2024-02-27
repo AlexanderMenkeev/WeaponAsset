@@ -1,13 +1,11 @@
-using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using SharpNeat.Genomes.Neat;
 using SODefinitions;
 using Unity.Mathematics;
 using UnityEngine;
 using WeaponSystem.NEAT;
 
-namespace WeaponSystem.Weapon {
+namespace EvolutionScene {
     public class WeaponManager : MonoBehaviour
     {
         private Camera _camera;
@@ -61,14 +59,20 @@ namespace WeaponSystem.Weapon {
         }
 
         private void InitializeWeapons() {
+            
+            _weaponSo.DestroyProjectilesEvent?.Invoke();
             for (int i = 0; i < _numberOfWeapons; i++) {
-                Weapon weapon = _weapons[i].GetComponent<Weapon>();
+                
+                EvoWeapon weapon = _weapons[i].GetComponent<EvoWeapon>();
+                if (weapon.FireCoroutine != null) 
+                    StopCoroutine(weapon.FireCoroutine);
+                
                 weapon.GenomeStats = new GenomeStats(_genomeList[i], _evolutionAlgorithm.Decoder, _evolutionAlgorithm.CppnGenomeFactory);
+                
+                weapon.FireCoroutine = StartCoroutine(weapon.FireProjectile());
             }
         }
 
-
-
-
+        
     }
 }

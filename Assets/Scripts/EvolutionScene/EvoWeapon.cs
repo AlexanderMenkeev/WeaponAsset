@@ -1,18 +1,33 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
+using Interfaces;
 using SharpNeat.Genomes.Neat;
-using SODefinitions;
 using UnityEngine;
 using WeaponSystem.NEAT;
+using WeaponSystem.Weapon;
 
-namespace WeaponSystem.Weapon {
-    public class Weapon : AbstractWeapon
+namespace EvolutionScene {
+    public class EvoWeapon : AbstractWeapon
     {
-        private void Awake() { base.OnAwakeFunc(); }
-
-        private void OnDestroy() { base.OnDestroyFunc(); }
+        private void Awake() {
+            TemporalObjects = GameObject.FindWithTag("TemporalObjects");
+            ProjectileSpawnPoint = transform.Find("ProjectileSpawnPoint");
+           
+            _weaponSO.UpdateParamsEvent += InitializeParams;
+        }
+        
+        private void OnDestroy() {
+            _weaponSO.UpdateParamsEvent -= InitializeParams;
+        }
+        
+        private void Start() {
+            InitializeParams();
+            if (FireCoroutine == null)
+                FireCoroutine = StartCoroutine(FireProjectile());
+        }
         
         private string GenerateHash() {
             return DateTime.Now.Ticks.GetHashCode().ToString("x").ToUpper();
@@ -84,21 +99,6 @@ namespace WeaponSystem.Weapon {
             }
                 
             GenomeStats.Genome.EvaluationInfo.SetFitness(10);
-        }
-        
-        private void Start() {
-            base.OnStartFunc();
-        }
-
-        public void UpdateWeaponSO(WeaponParamsSO weaponSo) {
-            if (FireCoroutine != null) 
-                StopCoroutine(FireCoroutine);
-            
-            _weaponSO.DestroyProjectilesEvent?.Invoke();
-            _weaponSO = weaponSo;
-            base.InitializeParams();
-
-            FireCoroutine = StartCoroutine(FireProjectile());
         }
         
         

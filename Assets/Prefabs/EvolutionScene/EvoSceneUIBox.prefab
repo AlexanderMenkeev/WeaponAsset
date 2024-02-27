@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8344191477141465594}
   - component: {fileID: 481963959234779788}
   m_Layer: 5
-  m_Name: Box
+  m_Name: EvoSceneUIBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -139,7 +139,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2878843715901983882, guid: 962a2dc395d6e6547a8c3818a226aa14, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 300
+      value: 260
       objectReference: {fileID: 0}
     - target: {fileID: 2878843715901983882, guid: 962a2dc395d6e6547a8c3818a226aa14, type: 3}
       propertyPath: m_SizeDelta.y
@@ -199,7 +199,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8483845702497041316, guid: 962a2dc395d6e6547a8c3818a226aa14, type: 3}
       propertyPath: m_fontSize
-      value: 22
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8483845702497041316, guid: 962a2dc395d6e6547a8c3818a226aa14, type: 3}
       propertyPath: m_fontStyle
@@ -207,7 +207,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8483845702497041316, guid: 962a2dc395d6e6547a8c3818a226aa14, type: 3}
       propertyPath: m_fontSizeBase
-      value: 22
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 9075532656380623165, guid: 962a2dc395d6e6547a8c3818a226aa14, type: 3}
       propertyPath: m_Name
@@ -257,7 +257,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2878843715901983882, guid: 962a2dc395d6e6547a8c3818a226aa14, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 300
+      value: 260
       objectReference: {fileID: 0}
     - target: {fileID: 2878843715901983882, guid: 962a2dc395d6e6547a8c3818a226aa14, type: 3}
       propertyPath: m_SizeDelta.y
@@ -321,11 +321,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8483845702497041316, guid: 962a2dc395d6e6547a8c3818a226aa14, type: 3}
       propertyPath: m_fontSize
-      value: 22
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8483845702497041316, guid: 962a2dc395d6e6547a8c3818a226aa14, type: 3}
       propertyPath: m_fontSizeBase
-      value: 22
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 9075532656380623165, guid: 962a2dc395d6e6547a8c3818a226aa14, type: 3}
       propertyPath: m_Name
@@ -375,7 +375,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2878843715901983882, guid: 962a2dc395d6e6547a8c3818a226aa14, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 300
+      value: 260
       objectReference: {fileID: 0}
     - target: {fileID: 2878843715901983882, guid: 962a2dc395d6e6547a8c3818a226aa14, type: 3}
       propertyPath: m_SizeDelta.y
@@ -455,7 +455,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8483845702497041316, guid: 962a2dc395d6e6547a8c3818a226aa14, type: 3}
       propertyPath: m_fontSize
-      value: 22
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8483845702497041316, guid: 962a2dc395d6e6547a8c3818a226aa14, type: 3}
       propertyPath: m_fontStyle
@@ -463,7 +463,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8483845702497041316, guid: 962a2dc395d6e6547a8c3818a226aa14, type: 3}
       propertyPath: m_fontSizeBase
-      value: 22
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 9075532656380623165, guid: 962a2dc395d6e6547a8c3818a226aa14, type: 3}
       propertyPath: m_Name

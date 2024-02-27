@@ -14,7 +14,7 @@ namespace WeaponSystem.NEAT {
         public uint BirthGeneration;
         public double ConnectionCount;
         public int NodeCount;
-        public bool IsEvaluated;
+        [HideInInspector] public bool IsEvaluated;
         
         public NeatGenomeDecoder Decoder;
         public CppnGenomeFactory Factory;

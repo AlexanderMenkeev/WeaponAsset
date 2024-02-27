@@ -1,15 +1,11 @@
 using System;
-using System.Linq;
 using SODefinitions;
 using UnityEditor;
-using UnityEditor.TerrainTools;
 using UnityEngine;
-using WeaponSystem.Weapon;
-using Object = UnityEngine.Object;
 
-namespace Editor {
+namespace CustomEditor.Editor {
     [CanEditMultipleObjects]
-    [CustomEditor(typeof(WeaponParamsSO))]
+    [UnityEditor.CustomEditor(typeof(WeaponParamsSO))]
     public class WeaponParamsSOEditor : UnityEditor.Editor {
         
         private SerializedObject _so;
@@ -19,83 +15,79 @@ namespace Editor {
         
         private SerializedProperty FireRate;
         private SerializedProperty ProjectilesInOneShot;
+        
         private SerializedProperty Size;
         private SerializedProperty Lifespan;
+        
         private SerializedProperty HueRange;
         private SerializedProperty Saturation;
         private SerializedProperty Brightness;
         
         private SerializedProperty SpeedRange;
         private SerializedProperty ForceRange;
-        
         private SerializedProperty NNControlDistance;
-        private SerializedProperty MaxPolarAngleDeg;
         private SerializedProperty FlipY;
-        
-        private SerializedProperty ReflectiveCircleRadius;
+        private SerializedProperty ForwardForce;
         
         private SerializedProperty InitialFlightRadius;
         private SerializedProperty InitialSpeed;
         private SerializedProperty Angle;
         
-        private SerializedProperty RectDimensions;
-        
         private SerializedProperty FlipXOnReflect;
         private SerializedProperty FlipYOnReflect;
-        private SerializedProperty ForwardForce;
-        
         private SerializedProperty Mode;
+        
+        private SerializedProperty ReflectiveCircleRadius;
+        private SerializedProperty RectDimensions;
+        private SerializedProperty MaxPolarAngleDeg;
         
         
         private void OnEnable() {
             _so = serializedObject;
 
-            GenomeXml = _so.FindProperty("GenomeXml");
-            WeaponParamsJson = _so.FindProperty("WeaponParamsJson");
+            GenomeXml = _so.FindProperty(nameof(WeaponParamsSO.GenomeXml));
+            WeaponParamsJson = _so.FindProperty(nameof(WeaponParamsSO.WeaponParamsJson));
             
             FireRate = _so.FindProperty($"<{nameof(WeaponParamsSO.FireRate)}>k__BackingField");
             ProjectilesInOneShot = _so.FindProperty($"<{nameof(WeaponParamsSO.ProjectilesInOneShot)}>k__BackingField");
+            
             Size = _so.FindProperty($"<{nameof(WeaponParamsSO.Size)}>k__BackingField");
             Lifespan = _so.FindProperty($"<{nameof(WeaponParamsSO.Lifespan)}>k__BackingField");
+            
             HueRange = _so.FindProperty($"<{nameof(WeaponParamsSO.HueRange)}>k__BackingField");
             Saturation = _so.FindProperty($"<{nameof(WeaponParamsSO.Saturation)}>k__BackingField");
             Brightness = _so.FindProperty($"<{nameof(WeaponParamsSO.Brightness)}>k__BackingField");
             
             SpeedRange = _so.FindProperty($"<{nameof(WeaponParamsSO.SpeedRange)}>k__BackingField");
             ForceRange = _so.FindProperty($"<{nameof(WeaponParamsSO.ForceRange)}>k__BackingField");
-            
             NNControlDistance = _so.FindProperty($"<{nameof(WeaponParamsSO.NNControlDistance)}>k__BackingField");
-            MaxPolarAngleDeg = _so.FindProperty($"<{nameof(WeaponParamsSO.MaxPolarAngleDeg)}>k__BackingField");
             FlipY = _so.FindProperty($"<{nameof(WeaponParamsSO.FlipY)}>k__BackingField");
-            
-            ReflectiveCircleRadius = _so.FindProperty($"<{nameof(WeaponParamsSO.ReflectiveCircleRadius)}>k__BackingField");
+            ForwardForce = _so.FindProperty($"<{nameof(WeaponParamsSO.ForwardForce)}>k__BackingField");
             
             InitialFlightRadius = _so.FindProperty($"<{nameof(WeaponParamsSO.InitialFlightRadius)}>k__BackingField");
             InitialSpeed = _so.FindProperty($"<{nameof(WeaponParamsSO.InitialSpeed)}>k__BackingField");
             Angle = _so.FindProperty($"<{nameof(WeaponParamsSO.Angle)}>k__BackingField");
             
-            RectDimensions = _so.FindProperty($"<{nameof(WeaponParamsSO.RectDimensions)}>k__BackingField");
-            
+            Mode = _so.FindProperty($"<{nameof(WeaponParamsSO.Mode)}>k__BackingField");
             FlipXOnReflect = _so.FindProperty($"<{nameof(WeaponParamsSO.FlipXOnReflect)}>k__BackingField");
             FlipYOnReflect = _so.FindProperty($"<{nameof(WeaponParamsSO.FlipYOnReflect)}>k__BackingField");
-            ForwardForce = _so.FindProperty($"<{nameof(WeaponParamsSO.ForwardForce)}>k__BackingField");
             
-            Mode = _so.FindProperty($"<{nameof(WeaponParamsSO.Mode)}>k__BackingField");
+            ReflectiveCircleRadius = _so.FindProperty($"<{nameof(WeaponParamsSO.ReflectiveCircleRadius)}>k__BackingField");
+            RectDimensions = _so.FindProperty($"<{nameof(WeaponParamsSO.RectDimensions)}>k__BackingField");
+            MaxPolarAngleDeg = _so.FindProperty($"<{nameof(WeaponParamsSO.MaxPolarAngleDeg)}>k__BackingField");
         }
+        
         private bool _rename = true;
         public override void OnInspectorGUI() {
-            _so = serializedObject;
             
             _so.Update();
             
-            WeaponParamsSO[] wParamsArray = Array.ConvertAll(_so.targetObjects, item => (WeaponParamsSO)item);;
+            WeaponParamsSO[] wParamsArray = Array.ConvertAll(_so.targetObjects, item => (WeaponParamsSO)item);
             if (wParamsArray.Length == 0) {
                 Debug.Log("Zero elements in wParamsArray");
                 return;
             }
-
-
-
+            
             GUILayout.Space(8);
             
             if ( GUILayout.Button("Reset to default values") )
@@ -109,10 +101,13 @@ namespace Editor {
             using(new GUILayout.VerticalScope(EditorStyles.helpBox)) {
                 GUILayout.Space(2);
                 using(new GUILayout.HorizontalScope()) {
+                    
                     if (GUILayout.Button("Load files from folder")) {
                         foreach (WeaponParamsSO wp in wParamsArray) {
                             wp.LoadGenomeAndParamsFromFolder(_rename);
                         }
+                        _so.Update();
+                        _so.ApplyModifiedProperties();
                         return;
                     }
                     _rename = EditorGUILayout.ToggleLeft("Rename", _rename, GUILayout.ExpandWidth(false));
@@ -143,6 +138,13 @@ namespace Editor {
                 GUILayout.Space(2);
                 EditorGUILayout.PropertyField(FireRate);
                 EditorGUILayout.PropertyField(ProjectilesInOneShot);
+                GUILayout.Space(3);
+                
+                if ( GUILayout.Button("Destroy projectiles") )
+                    foreach (WeaponParamsSO wp in wParamsArray) {
+                        wp.DestroyProjectilesEvent?.Invoke();
+                    }
+                
                 GUILayout.Space(3);
             }
             
@@ -240,6 +242,10 @@ namespace Editor {
             _so.ApplyModifiedProperties();
         }
 
+        
+        
+        
+        
     }
 }
 

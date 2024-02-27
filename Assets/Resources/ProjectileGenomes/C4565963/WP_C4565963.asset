@@ -18,7 +18,7 @@ MonoBehaviour:
   <ProjectilesInOneShot>k__BackingField: 20
   <Size>k__BackingField: {x: 0.07, y: 0.07}
   <Lifespan>k__BackingField: 8
-  <HueRange>k__BackingField: {x: 0, y: 0.40153417}
+  <HueRange>k__BackingField: {x: 0.5984659, y: 1}
   <Saturation>k__BackingField: 0.9
   <Brightness>k__BackingField: 0.95
   <SpeedRange>k__BackingField: {x: 3, y: 6}

@@ -13,7 +13,6 @@ namespace WeaponSystem.Weapon {
     public abstract class AbstractWeapon : MonoBehaviour
     {
         // assigned from the editor
-        [Tooltip("If you change it in runtime, the change would not be detected")]
         [SerializeField] protected WeaponParamsSO _weaponSO;
         public GameObject ProjectilePrefab;
         
@@ -22,28 +21,16 @@ namespace WeaponSystem.Weapon {
         
         [SerializeField] protected WeaponParams _weaponParamsLocal;
         
-        // initialized from WeaponManager
+        // initialized and updated from WeaponManager
         [Tooltip("These stats are readonly, changes won't have effect on evolution algorithm.")]
         public GenomeStats GenomeStats;
+
         
+        protected virtual void InitializeParams() {
+            _weaponParamsLocal = new WeaponParams(_weaponSO);
+            TryToLoadGenomeFromSO();
+        }
         
-        protected virtual void OnAwakeFunc() {
-            TemporalObjects = GameObject.FindWithTag("TemporalObjects");
-            ProjectileSpawnPoint = transform.Find("ProjectileSpawnPoint");
-           
-            _weaponSO.UpdateParamsEvent += InitializeParams;
-        }
-
-        protected virtual void OnDestroyFunc() {
-            _weaponSO.UpdateParamsEvent -= InitializeParams;
-        }
-
-        protected virtual void OnStartFunc() {
-            InitializeParams();
-            if (FireCoroutine == null)
-                FireCoroutine = StartCoroutine(FireProjectile());
-        }
-
         private void TryToLoadGenomeFromSO() {
             if (_weaponSO.GenomeXml == null) 
                 return;
@@ -53,11 +40,6 @@ namespace WeaponSystem.Weapon {
             
             List<NeatGenome> genomeList = NeatGenomeXmlIO.LoadCompleteGenomeList(genomeXml, true, EvolutionAlgorithm.Instance.CppnGenomeFactory);
             GenomeStats = new GenomeStats(genomeList[0], EvolutionAlgorithm.Instance.Decoder, EvolutionAlgorithm.Instance.CppnGenomeFactory);
-        }
-        
-        protected virtual void InitializeParams() {
-            _weaponParamsLocal = new WeaponParams(_weaponSO);
-            TryToLoadGenomeFromSO();
         }
     
         public Coroutine FireCoroutine;
@@ -100,6 +82,9 @@ namespace WeaponSystem.Weapon {
         }
     
     
+        
+        
+        
         private float _borderRayDirX, _borderRayDirY;
         private Vector2 _upperBorderRayDir, _lowerBorderRayDir;
         private void OnDrawGizmosSelected() {

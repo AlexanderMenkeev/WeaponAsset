@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using CustomEditor.MinMaxRangeAttribute;
 using Interfaces;
 using Unity.Mathematics;
 using UnityEditor;
@@ -20,12 +21,12 @@ namespace SODefinitions {
         [field: SerializeField] public Vector2 Size { get; set; }
         [field: SerializeField] [field: Range(2f, 10f)] public float Lifespan { get; set; }
         
-        [field: SerializeField] [field: MinMaxRangeAttribute.MinMaxRange(0f, 1f, 2)] public Vector2 HueRange { get; set; }
+        [field: SerializeField] [field: MinMaxRange(0f, 1f, 2)] public Vector2 HueRange { get; set; }
         [field: SerializeField] [field: Range(0f, 1f)] public float Saturation { get; set; }
         [field: SerializeField] [field: Range(0f, 1f)] public float Brightness { get; set; }
         
-        [field: SerializeField] [field: MinMaxRangeAttribute.MinMaxRange(1f, 8f)] public Vector2 SpeedRange { get; set; }
-        [field: SerializeField] [field: MinMaxRangeAttribute.MinMaxRange(0.5f, 5f)] public Vector2 ForceRange { get; set; }
+        [field: SerializeField] [field: MinMaxRange(1f, 8f)] public Vector2 SpeedRange { get; set; }
+        [field: SerializeField] [field: MinMaxRange(0.5f, 5f)] public Vector2 ForceRange { get; set; }
         [field: SerializeField] [field: Range(1f, 8f)] public float NNControlDistance { get; set; }
         [field: SerializeField] public bool FlipY { get; set; }
         [field: SerializeField] public bool ForwardForce { get; set; }
@@ -116,6 +117,9 @@ namespace SODefinitions {
             UpdateParamsEvent?.Invoke();
         }
 
+        
+        
+        
         public void LoadParamsFromJson() {
             if (WeaponParamsJson == null){
                 Debug.LogWarning("Could not load. Json is null.");
@@ -128,12 +132,11 @@ namespace SODefinitions {
         }
 
         
-        
+        #if UNITY_EDITOR
         public void LoadGenomeAndParamsFromFolder(bool rename = false) {
             string folderName = Path.GetDirectoryName(AssetDatabase.GetAssetPath(this));
             string[] genomeGuid = AssetDatabase.FindAssets("Genome_ t:Object", new[] {folderName});
             string[] paramsGuid = AssetDatabase.FindAssets("Params_ t:Object", new[] {folderName});
-
             
             if (genomeGuid.Length != 1 || paramsGuid.Length != 1) {
                 Debug.LogWarning($"Could not load. There must be exactly one genome_file and one params_file in {folderName}.");
@@ -142,17 +145,16 @@ namespace SODefinitions {
             
             GenomeXml = AssetDatabase.LoadAssetAtPath<TextAsset>(AssetDatabase.GUIDToAssetPath(genomeGuid[0]));
             WeaponParamsJson = AssetDatabase.LoadAssetAtPath<TextAsset>(AssetDatabase.GUIDToAssetPath(paramsGuid[0]));
-
+            
             if (rename) {
                 string fileName = "WP_" + GenomeXml.name.Split("_")[1];
                 AssetDatabase.RenameAsset(AssetDatabase.GetAssetPath(this), fileName);
             }
-            LoadParamsFromJson();
+            
         }
-        
+        #endif
         
 
-        
         
     }
     

@@ -18,11 +18,11 @@ MonoBehaviour:
   <ProjectilesInOneShot>k__BackingField: 20
   <Size>k__BackingField: {x: 0.06, y: 0.06}
   <Lifespan>k__BackingField: 8
-  <HueRange>k__BackingField: {x: 0, y: 0.40153417}
+  <HueRange>k__BackingField: {x: 0, y: 0.39999986}
   <Saturation>k__BackingField: 1
   <Brightness>k__BackingField: 1
-  <SpeedRange>k__BackingField: {x: 3, y: 6}
-  <ForceRange>k__BackingField: {x: 1, y: 3}
+  <SpeedRange>k__BackingField: {x: 3.0247371, y: 6.024735}
+  <ForceRange>k__BackingField: {x: 0.9615161, y: 2.9615166}
   <NNControlDistance>k__BackingField: 2.5
   <FlipY>k__BackingField: 0
   <ForwardForce>k__BackingField: 1
