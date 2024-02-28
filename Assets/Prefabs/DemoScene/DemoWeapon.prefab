@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4934370364820781234}
   - component: {fileID: 4488651057292860731}
   - component: {fileID: 6435578565002770920}
+  - component: {fileID: 7422533582873500229}
   m_Layer: 3
   m_Name: DemoWeapon
   m_TagString: Untagged
@@ -54,7 +55,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 44e24a6949249b040879b96864bca843, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -75,12 +76,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -182246066, guid: 80aab7692c0341145bb65020b7bfab64, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b542001872acd3b448b754510dd01df4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 3.5, y: 0.8125}
+  m_Size: {x: 1.25, y: 0.8125}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -130,6 +131,33 @@ MonoBehaviour:
     ConnectionCount: 0
     NodeCount: 0
     IsEvaluated: 0
+--- !u!50 &7422533582873500229
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7383995614615835555}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &8834646183283002120
 GameObject:
   m_ObjectHideFlags: 0
