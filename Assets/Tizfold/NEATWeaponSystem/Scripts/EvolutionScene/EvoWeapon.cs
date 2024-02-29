@@ -22,7 +22,7 @@ namespace Tizfold.NEATWeaponSystem.Scripts.EvolutionScene {
         }
         
         private void Start() {
-            InitializeParams();
+            base.InitializeParams();
             if (FireCoroutine == null)
                 FireCoroutine = StartCoroutine(FireProjectile());
         }

@@ -2,6 +2,7 @@ using Tizfold.NEATWeaponSystem.Scripts.SODefinitions;
 using UnityEngine;
 
 namespace Tizfold.NEATWeaponSystem.Scripts.Interfaces {
+    
     public interface IWeaponParams {
         
         float FireRate { get; set; }

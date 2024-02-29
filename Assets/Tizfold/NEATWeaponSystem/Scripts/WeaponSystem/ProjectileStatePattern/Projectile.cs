@@ -1,12 +1,14 @@
 using System;
 using SharpNeat.Phenomes;
+using Tizfold.NEATWeaponSystem.Scripts.Interfaces;
+using Tizfold.NEATWeaponSystem.Scripts.Managers;
 using Tizfold.NEATWeaponSystem.Scripts.SODefinitions;
 using Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.Weapon;
 using Unity.Mathematics;
 using UnityEngine;
 
 namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.ProjectileStatePattern {
-    public class Projectile : MonoBehaviour
+    public class Projectile : MonoBehaviour, IDamagable
     {
         [HideInInspector] public Rigidbody2D Rigidbody;
         [HideInInspector] public SpriteRenderer SpriteRenderer;
@@ -144,8 +146,7 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.ProjectileStatePattern {
         }
         
         private void FixedUpdate() {
-            
-            
+            CheckCollision();
             StateMachine.FixedUpdate();
             transform.up = Rigidbody.velocity;
         }
@@ -184,6 +185,31 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.ProjectileStatePattern {
             _currPos = Rigidbody.position;
             ActualVelocity = (_currPos - _prevPos) / Time.fixedDeltaTime;
         }
-    
+
+
+        [SerializeField] private int _layerMask = 0b_0000_0000_1000;
+        [SerializeField] private float _damage = 1f;
+        private void CheckCollision() {
+            Vector2 startPoint = _tipTransform.position;
+            RaycastHit2D hit = Physics2D.CircleCast(startPoint, transform.localScale.x, -transform.up, transform.localScale.y, _layerMask);
+            
+            if (ReferenceEquals(hit.collider, null))
+                return;
+        
+            IDamagable objectToDamage = hit.transform.GetComponent<IDamagable>();
+            LocalGameManager.Instance.DamageObject(objectToDamage, _damage);
+            //Debug.Log(objectToDamage);
+        
+            Destroy(gameObject);
+        }
+
+
+        [field: SerializeField] public float HealthPoints { get; set; } = 2f;
+        public void TakeDamage(float damage) {
+            HealthPoints -= damage;
+            if (HealthPoints <= 0)
+                Destroy(gameObject);
+        }
+
     }
 }

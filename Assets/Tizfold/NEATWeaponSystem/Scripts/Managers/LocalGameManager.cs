@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 
 namespace Tizfold.NEATWeaponSystem.Scripts.Managers {
+    
+    // Enemy spawning, PauseCanvas activation and common functions
     public class LocalGameManager : MonoBehaviour {
         public static LocalGameManager Instance;
         private Camera _camera;
@@ -64,9 +66,7 @@ namespace Tizfold.NEATWeaponSystem.Scripts.Managers {
                 StopCoroutine(SpawnEnemiesCoroutine);
             else
                 SpawnEnemiesCoroutine = StartCoroutine(SpawnEnemies());
-
-
-
+            
         }
 
 

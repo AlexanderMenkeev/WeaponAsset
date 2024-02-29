@@ -1,4 +1,5 @@
 namespace Tizfold.NEATWeaponSystem.Scripts.Interfaces {
+    
     public interface IState {
   
         public void Enter();

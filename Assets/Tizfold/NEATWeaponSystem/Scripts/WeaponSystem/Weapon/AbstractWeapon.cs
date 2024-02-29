@@ -14,9 +14,9 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.Weapon {
         // assigned from the editor
         [SerializeField] protected WeaponParamsSO _weaponSO;
         public GameObject ProjectilePrefab;
-        
         public GameObject TemporalObjects;
-        public Transform ProjectileSpawnPoint;
+        [SerializeField] public Transform ProjectileSpawnPoint;
+        
         
         [SerializeField] protected WeaponParams _weaponParamsLocal;
         
@@ -72,11 +72,44 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.Weapon {
                     projectileScript.SignX = offset < 0 ? -1f : 1f;
                     projectileScript.SignY = signY;
                     
-                    Vector2 initialDirection = Quaternion.Euler(0, 0, _weaponParamsLocal.Angle * offset) * transform.right;
+                    Vector2 initialDirection = Quaternion.Euler(0, 0, _weaponParamsLocal.Angle * offset) * ProjectileSpawnPoint.up;
                     projectileScript.InitialVelocity = initialDirection.normalized * _weaponParamsLocal.InitialSpeed;
                 }
 
                 yield return new WaitForSeconds(_weaponParamsLocal.FireRate);
+            }
+        }
+
+        public void FireProjectileOnce() {
+            float signY = (_weaponParamsLocal.FlipY) ? -1 : 1;
+                
+            GameObject localCoordinateSystem = new GameObject("Local Coordinate System");
+            localCoordinateSystem.transform.parent = TemporalObjects.transform;
+            localCoordinateSystem.transform.up = ProjectileSpawnPoint.up;            
+            localCoordinateSystem.transform.right = ProjectileSpawnPoint.right;      
+            localCoordinateSystem.transform.rotation = ProjectileSpawnPoint.rotation;
+            localCoordinateSystem.transform.position = ProjectileSpawnPoint.position;
+            
+            for (int i = 0; i < _weaponParamsLocal.ProjectilesInOneShot; i++) {
+                // offset for InitialFlight
+                float offset = 0;
+                if (_weaponParamsLocal.ProjectilesInOneShot != 1)
+                    offset = Mathf.Lerp(-1f, 1f, (float)i / (_weaponParamsLocal.ProjectilesInOneShot - 1));
+
+                GameObject projectile = Instantiate(ProjectilePrefab, ProjectileSpawnPoint.position, Quaternion.identity, localCoordinateSystem.transform);
+                Projectile projectileScript = projectile.GetComponent<Projectile>();
+
+                projectileScript.OriginTransform = localCoordinateSystem.transform;
+                projectileScript.Box = GenomeStats.Box;
+
+                projectileScript.WeaponParamsLocal = new WeaponParams(_weaponParamsLocal);
+                projectileScript.WeaponSo = _weaponSO;
+                    
+                projectileScript.SignX = offset < 0 ? -1f : 1f;
+                projectileScript.SignY = signY;
+                    
+                Vector2 initialDirection = Quaternion.Euler(0, 0, _weaponParamsLocal.Angle * offset) * ProjectileSpawnPoint.up;
+                projectileScript.InitialVelocity = initialDirection.normalized * _weaponParamsLocal.InitialSpeed;
             }
         }
     

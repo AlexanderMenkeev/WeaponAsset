@@ -10,59 +10,69 @@ using UnityEngine.InputSystem;
 namespace Tizfold.NEATWeaponSystem.Scripts {
     public class Player : MonoBehaviour, IDamagable
     {
+        // assigned from the editor
+        [SerializeField] private GlobalVariablesSO _globalVariables;
+        
+        
         [SerializeField] public Rigidbody2D _rigidbody;
         private SpriteRenderer _spriteRenderer;
-        private InputAction _moveAction;
-        private InputAction _aimAction;
-
-        [SerializeField] private float _speed;
-
-        //private GameSceneWeapon _weapon;
-        private InputManager _inputManager;
-    
-        [SerializeField] private GlobalVariablesSO _commonVariables;
-    
-        public float HealthPoints { get; set; }
-        public void TakeDamage(float damage) {
-            HealthPoints -= damage;
+        private Gun _gun;
+        private void Awake() {
+            _rigidbody = GetComponent<Rigidbody2D>();
+            _spriteRenderer = GetComponent<SpriteRenderer>();
+            _gun = GetComponentInChildren<Gun>();
         }
 
-        private void Initialize()
-        {
+        
+        private InputManager _inputManager;
+        private InputAction _moveAction;
+        private InputAction _aimAction;
+    
+        public float HealthPoints { get; set; }
+        [SerializeField] private float _speed;
+        
+        private void Initialize() {
             _inputManager = InputManager.Instance;
             _moveAction = _inputManager.PlayerActionMap.moveAction;
             _aimAction = _inputManager.PlayerActionMap.aimAction;
 
             HealthPoints = 10f;
-        }
-    
-        private void Awake() {
-        
-            _rigidbody = GetComponent<Rigidbody2D>();
-            _spriteRenderer = GetComponent<SpriteRenderer>();
-        
-            //_weapon = GetComponentInChildren<GameSceneWeapon>();
+            _speed = 4f;
         }
     
     
-        public void OnPauseResumeGame() {
-            _rigidbody.velocity = Vector2.zero;
+        public void TakeDamage(float damage) {
+            HealthPoints -= damage;
         }
+    
 
         private void Start() {
             Initialize();
         
-            _speed = 3f;
             _aimAction.started += StartShooting;
             _aimAction.canceled += StopShooting;
-            _commonVariables.OnPauseResumeEvent += OnPauseResumeGame;
-            _lastPos = transform.position;
+            _globalVariables.OnPauseResumeEvent += OnPauseResumeGame;
+            _currPos = transform.position;
         }
 
         private void OnDestroy() {
             _aimAction.started -= StartShooting;
             _aimAction.canceled -= StopShooting;
-            _commonVariables.OnPauseResumeEvent -= OnPauseResumeGame;
+            _globalVariables.OnPauseResumeEvent -= OnPauseResumeGame;
+        }
+        
+        private void StartShooting(InputAction.CallbackContext context) {
+            //Debug.Log("started shooting");
+            _gun.FireCoroutine = StartCoroutine(_gun.FireProjectile());
+        }
+        
+        private void StopShooting(InputAction.CallbackContext context) {
+            //Debug.Log("stopped shooting");
+            StopCoroutine(_gun.FireCoroutine);
+        }
+        
+        private void OnPauseResumeGame() {
+            _rigidbody.velocity = Vector2.zero;
         }
 
         public Vector2 Move { get; private set; }
@@ -71,71 +81,38 @@ namespace Tizfold.NEATWeaponSystem.Scripts {
             Move = _moveAction.ReadValue<Vector2>().normalized;
             Aim = _aimAction.ReadValue<Vector2>().normalized;
         }
+        
     
-    
-
-        private void StartShooting(InputAction.CallbackContext context)
-        {
-            Debug.Log("started shooting");
-            //_weapon.FireCoroutine = StartCoroutine(_weapon.FireProjectile());
-        }
-        private void StopShooting(InputAction.CallbackContext context)
-        {
-            Debug.Log("stopped shooting");
-            //StopCoroutine(_weapon.FireCoroutine);
-        }
-    
-        public Vector3 ActualVelocity;
-        private Vector3 _lastPos;
+        private Vector2 _prevPos;
+        private Vector2 _currPos;
+        public Vector2 ActualVelocity;
         private void FixedUpdate() {
-            if (_commonVariables.IsPaused)
+            if (_globalVariables.IsPaused)
                 return;
 
             _rigidbody.velocity = Move * _speed;
             
-            float angleDeg = Vector3.Angle(Vector3.up, Move);
-            if (Move.x <= 0f) {
+            float angleDeg = Vector3.SignedAngle(Vector3.up, Move, Vector3.forward);
+
+            // For some reason <tranform.up = Move;> did not work correctly, so instead we use Quaternions
+            if (Move != Vector2.zero) {
                 transform.rotation = Quaternion.AngleAxis( angleDeg, Vector3.forward );
             }
-            else {
-                transform.rotation = Quaternion.AngleAxis( -angleDeg, Vector3.forward );
-            }
             
-            
-            
-            // Debug.Log(_rigidbody.velocity);
-            // Quaternion.AngleAxis(1f, Vector3.forward);
-            // if (_rigidbody.velocity != Vector2.zero)
-            //     transform.rotation *= Quaternion.AngleAxis(1f, Vector3.forward);;
-            //
-            //transform.up = new Vector3(_rigidbody.velocity.x, _rigidbody.velocity.y, 0f);
-           // transform.up = new Vector2(_rigidbody.velocity.x, _rigidbody.velocity.y);
-           //.
-           // transform.up = Vector3.RotateTowards(transform.up, _rigidbody.velocity, math.PI, 1f);
             if (Aim != Vector2.zero) {
-                //_weapon.transform.right = Aim;
-            
+                _gun.transform.up = Aim;
             }
         
-            ActualVelocity = (transform.position - _lastPos);
-            _lastPos = transform.position;
-        
-        
+            // ActualVelocity is needed for MapReposition
+            // Using rigidbody.velocity is not reliable
+            _prevPos = _currPos;
+            _currPos = transform.position;
+            ActualVelocity = (_currPos - _prevPos) / Time.fixedDeltaTime;
         }
 
     
         private void OnDrawGizmos() {
             Gizmos.DrawRay(gameObject.transform.position, Aim * 10f);
-        }
-
-
-        private void LateUpdate() {
-            if (Move.x != 0) {
-                _spriteRenderer.flipX = Move.x < 0;
-            } else if (Aim != Vector2.zero) {
-                _spriteRenderer.flipX = Aim.x < 0;
-            }
-       
         }
     
     }
