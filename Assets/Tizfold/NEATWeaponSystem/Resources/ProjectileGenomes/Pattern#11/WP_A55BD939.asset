@@ -15,7 +15,7 @@ MonoBehaviour:
   GenomeXml: {fileID: 4900000, guid: 2989616a4cbafc54fb91923efa3bdda2, type: 3}
   WeaponParamsJson: {fileID: 4900000, guid: 51eb8c9b35c3e164fae430160a23c1ed, type: 3}
   <FireRate>k__BackingField: 1
-  <ProjectilesInOneShot>k__BackingField: 16
+  <ProjectilesInOneShot>k__BackingField: 10
   <Size>k__BackingField: {x: 0.07, y: 0.07}
   <Lifespan>k__BackingField: 4
   <HueRange>k__BackingField: {x: 0.1, y: 0.5}
@@ -27,11 +27,11 @@ MonoBehaviour:
   <FlipY>k__BackingField: 0
   <ForwardForce>k__BackingField: 1
   <InitialFlightRadius>k__BackingField: 0.1
-  <InitialSpeed>k__BackingField: 1.13
-  <Angle>k__BackingField: 15
+  <InitialSpeed>k__BackingField: 3.2678185
+  <Angle>k__BackingField: 5.8614535
   <FlipXOnReflect>k__BackingField: 1
   <FlipYOnReflect>k__BackingField: 1
   <Mode>k__BackingField: 2
   <ReflectiveCircleRadius>k__BackingField: 1.4142135
   <RectDimensions>k__BackingField: {x: 1, y: 2}
-  <MaxPolarAngleDeg>k__BackingField: 20
+  <MaxPolarAngleDeg>k__BackingField: 42.315407

@@ -34,7 +34,6 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.ProjectileStatePattern {
             RectReflection = new RectReflectionState(projectile);
         }
         
-    
         public void Initialize(IState initialState) {
             CurrentState = initialState;
             initialState.Enter();
@@ -44,8 +43,10 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.ProjectileStatePattern {
     
         public void TransitionTo(IState nextState) {
             CurrentState.Exit();
+            
             PreviousState = CurrentState;
             CurrentState = nextState;
+            
             nextState.Enter();
         
             StateChanged?.Invoke(nextState);

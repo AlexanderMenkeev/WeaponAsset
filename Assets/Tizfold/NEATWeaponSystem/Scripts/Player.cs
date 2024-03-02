@@ -10,17 +10,19 @@ using UnityEngine.InputSystem;
 namespace Tizfold.NEATWeaponSystem.Scripts {
     public class Player : MonoBehaviour, IDamagable
     {
-        // assigned from the editor
+        // assign in editor
         [SerializeField] private GlobalVariablesSO _globalVariables;
         
         
-        [SerializeField] public Rigidbody2D _rigidbody;
-        private SpriteRenderer _spriteRenderer;
-        private Gun _gun;
+        [SerializeField] private Rigidbody2D _rigidbody;
+        private SpriteRenderer _renderer;
+        private GameWeapon _weapon;
         private void Awake() {
             _rigidbody = GetComponent<Rigidbody2D>();
-            _spriteRenderer = GetComponent<SpriteRenderer>();
-            _gun = GetComponentInChildren<Gun>();
+            _renderer = GetComponent<SpriteRenderer>();
+            _weapon = GetComponentInChildren<GameWeapon>();
+            
+            
         }
 
         
@@ -62,13 +64,11 @@ namespace Tizfold.NEATWeaponSystem.Scripts {
         }
         
         private void StartShooting(InputAction.CallbackContext context) {
-            //Debug.Log("started shooting");
-            _gun.FireCoroutine = StartCoroutine(_gun.FireProjectile());
+            _weapon.FireCoroutine = StartCoroutine(_weapon.Fire());
         }
         
         private void StopShooting(InputAction.CallbackContext context) {
-            //Debug.Log("stopped shooting");
-            StopCoroutine(_gun.FireCoroutine);
+            StopCoroutine(_weapon.FireCoroutine);
         }
         
         private void OnPauseResumeGame() {
@@ -94,14 +94,14 @@ namespace Tizfold.NEATWeaponSystem.Scripts {
             
             float angleDeg = Vector3.SignedAngle(Vector3.up, Move, Vector3.forward);
 
-            // For some reason <tranform.up = Move;> did not work correctly, so instead we use Quaternions
-            if (Move != Vector2.zero) {
+            // For some reason <tranform.up = Move;> did not work correctly.
+            // Quaternions came to the rescue!
+            if (Move != Vector2.zero) 
                 transform.rotation = Quaternion.AngleAxis( angleDeg, Vector3.forward );
-            }
             
-            if (Aim != Vector2.zero) {
-                _gun.transform.up = Aim;
-            }
+            if (Aim != Vector2.zero) 
+                _weapon.transform.up = Aim;
+            
         
             // ActualVelocity is needed for MapReposition
             // Using rigidbody.velocity is not reliable

@@ -68,7 +68,7 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.ProjectileStatePattern.P
                 
                 _projectile.Rigidbody.velocity = Vector2.Reflect(_projectile.Rigidbody.velocity, _normal);
                 
-                // always FlipY on Reflect
+                // always FlipY on reflect by InitialCircle
                 _projectile.SignY *= -1f;
                 
                 _reflectedByInitialCircle = true;

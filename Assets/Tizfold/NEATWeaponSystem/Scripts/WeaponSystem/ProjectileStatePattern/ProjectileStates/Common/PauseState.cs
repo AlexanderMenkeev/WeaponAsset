@@ -12,8 +12,11 @@ public class PauseState : IState {
     
     private Vector2 _prevVelocity;
     public void Enter() {
-        _prevVelocity = _projectile.ActualVelocity;
+        _prevVelocity = _projectile.Rigidbody.velocity;
         _projectile.Rigidbody.velocity = Vector2.zero;
+        
+        // Do not count lifetime for paused projectile
+        _projectile.StopCoroutine(_projectile.DestroyItselfCoroutine);
     }
 
     public void Update() {
@@ -30,6 +33,11 @@ public class PauseState : IState {
 
     public void Exit() {
         _projectile.Rigidbody.velocity = _prevVelocity;
+        
+        float remainedLifespan = _projectile.WeaponParamsLocal.Lifespan - (_projectile.GlobalVariables.PauseTime - _projectile.BirthTime);
+        _projectile.DestroyItselfCoroutine = _projectile.StartCoroutine(_projectile.DestroyItself(remainedLifespan));
+        
+        _projectile.BirthTime = Time.time;
     }
 }
 

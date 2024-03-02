@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5944572911558729858}
   - component: {fileID: 1725017416396324920}
-  - component: {fileID: 8615682445146388937}
   - component: {fileID: 3175346754316347190}
+  - component: {fileID: 2942910896872966670}
   m_Layer: 2
   m_Name: WeaponItem
   m_TagString: Untagged
@@ -28,8 +28,8 @@ Transform:
   m_GameObject: {fileID: 2231250166573496027}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.21, y: 5.13, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -74,20 +74,47 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 5bebb41aae6341f4cb89c8f0563c62c9, type: 3}
+  m_SortingOrder: 10
+  m_Sprite: {fileID: 21300000, guid: 60054bec908a5ef4dacf191f4020f945, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.25, y: 1}
+  m_Size: {x: 0.34, y: 0.33}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &8615682445146388937
-CircleCollider2D:
+--- !u!114 &3175346754316347190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2231250166573496027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64dd8bd486f321a42bd413240cd70932, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WeaponSO: {fileID: 0}
+  GenomeStats:
+    Id: 0
+    BirthGeneration: 0
+    ConnectionCount: 0
+    NodeCount: 0
+    IsEvaluated: 0
+  PickUpCanvas: {fileID: 0}
+  JoysticksCanvas: {fileID: 0}
+  CanvasWeapon: {fileID: 0}
+  GameWeapon: {fileID: 0}
+  DistanceSlider: {fileID: 0}
+  Flip: {fileID: 0}
+  AcceptButton: {fileID: 0}
+  DismissButton: {fileID: 0}
+--- !u!61 &2942910896872966670
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -119,47 +146,15 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.34, y: 0.33}
+    newSize: {x: 0.34, y: 0.33}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 0.5
---- !u!114 &3175346754316347190
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2231250166573496027}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64dd8bd486f321a42bd413240cd70932, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ProjectilePrefab: {fileID: 0}
-  TemporalObjects: {fileID: 0}
-  ProjectileSpawnPoint: {fileID: 0}
-  _weaponParams: {fileID: 11400000, guid: c19a9d6fb40df5c42add2d58f99e106c, type: 2}
-  _size: {x: 0, y: 0}
-  _lifespan: 0
-  _minSpeed: 0
-  _maxSpeed: 0
-  _minForce: 0
-  _maxForce: 0
-  _maxDistance: 0
-  _fireRate: 0
-  _projectilesInOneShot: 0
-  _flipY: 0
-  _reflectiveCircleRadios: 0
-  BirthGeneration: 0
-  Connections: 0
-  Nodes: 0
-  IsEvaluated: 0
-  Save: 0
-  ChangeOnBestGenome: 0
-  IsFireCoroutineRunning: 0
-  PickUpCanvas: {fileID: 0}
-  JoysticksCanvas: {fileID: 0}
-  DemoWeapon: {fileID: 0}
-  SceneWeapon: {fileID: 0}
-  DistanceSlider: {fileID: 0}
-  Flip: {fileID: 0}
-  AcceptButton: {fileID: 0}
-  DismissButton: {fileID: 0}
+  m_Size: {x: 0.34, y: 0.33}
+  m_EdgeRadius: 0

@@ -50,6 +50,7 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.NEAT {
             CloneOffspringCount = 2;
             SexualOffspringCount = PopulationSize - 2;
         }
+        
         private void InitializeEvolutionAlgorithm() {
             Decoder = new NeatGenomeDecoder(_activationScheme);
         

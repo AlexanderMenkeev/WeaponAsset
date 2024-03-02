@@ -13,7 +13,7 @@ namespace Tizfold.NEATWeaponSystem.Scripts.DemoScene {
             _weaponSO = weaponSo;
             base.InitializeParams();
 
-            FireCoroutine = StartCoroutine(FireProjectile());
+            FireCoroutine = StartCoroutine(Fire());
         }
         
         

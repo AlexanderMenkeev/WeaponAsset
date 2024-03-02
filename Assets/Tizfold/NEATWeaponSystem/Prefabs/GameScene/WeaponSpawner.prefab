@@ -44,6 +44,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a27c9a41aa22ef649a230737848e5f75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _weaponItemPrefab: {fileID: 3175346754316347190, guid: 106d59f2fb9cc9c4fb35bc6515c4fb5c, type: 3}
   _pickUpCanvas: {fileID: 0}
   _joysticksCanvas: {fileID: 0}
+  _canvasWeapon: {fileID: 0}
+  _gameWeapon: {fileID: 0}
+  _distanceSlider: {fileID: 0}
+  _flip: {fileID: 0}
+  _acceptButton: {fileID: 0}
+  _dismissButton: {fileID: 0}
+  _weaponSo: {fileID: 0}
+  _weaponItemPrefab: {fileID: 3175346754316347190, guid: 106d59f2fb9cc9c4fb35bc6515c4fb5c, type: 3}
+  _weaponItems: []

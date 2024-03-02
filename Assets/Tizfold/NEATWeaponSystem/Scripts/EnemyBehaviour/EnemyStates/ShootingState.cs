@@ -50,7 +50,7 @@ namespace Tizfold.NEATWeaponSystem.Scripts.EnemyBehaviour.EnemyStates {
                 yield return new WaitForSeconds(timeToAim);
                 
                 // shooting logic
-                _enemy.Weapon.FireProjectileOnce();
+                _enemy.Weapon.FireShot();
                 
                 yield return new WaitForSeconds(timeToShoot);
                

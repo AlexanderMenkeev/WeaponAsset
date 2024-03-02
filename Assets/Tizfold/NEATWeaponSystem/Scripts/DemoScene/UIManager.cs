@@ -12,7 +12,7 @@ namespace Tizfold.NEATWeaponSystem.Scripts.DemoScene {
         [SerializeField] private TextMeshProUGUI _weaponText;
         [SerializeField] private DemoWeapon _demoWeapon;
         [SerializeField] private WeaponParamsSO[] _SObjectsList;
-
+        
         
         private int _counter;
         private int _weaponCount;

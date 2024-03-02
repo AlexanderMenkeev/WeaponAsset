@@ -69,7 +69,7 @@ namespace Tizfold.NEATWeaponSystem.Scripts.EvolutionScene {
                 
                 weapon.GenomeStats = new GenomeStats(_genomeList[i], _evolutionAlgorithm.Decoder, _evolutionAlgorithm.CppnGenomeFactory);
                 
-                weapon.FireCoroutine = StartCoroutine(weapon.FireProjectile());
+                weapon.FireCoroutine = StartCoroutine(weapon.Fire());
             }
         }
 

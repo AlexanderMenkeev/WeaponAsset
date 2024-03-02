@@ -21,9 +21,12 @@ namespace Tizfold.NEATWeaponSystem.Scripts.EnemyBehaviour {
         // Assigned from the Editor
         public GlobalVariablesSO GlobalVariables;
         public Projectile ProjectilePrefab;
-        public Sprite DefaultSprite;
-        public Sprite HurtSprite;
-    
+        public Sprite Sprite;
+        
+        
+        public Shader ShaderGUItext;
+        public Shader ShaderSpritesDefault;
+        
         private void Awake() {
             HealthPoints = 16f;
             MovementSpeed = 2.5f;
@@ -34,11 +37,21 @@ namespace Tizfold.NEATWeaponSystem.Scripts.EnemyBehaviour {
             Collider = GetComponent<CircleCollider2D>();
             Renderer = GetComponent<SpriteRenderer>();
             Player = GameObject.Find("Player");
+            
+            ShaderGUItext = Shader.Find("GUI/Text Shader");
+            ShaderSpritesDefault = Renderer.material.shader;
         
             StateMachine = new EnemyStateMachine(this);
         }
-        private void Start() { StateMachine.Initialize(StateMachine.ChasingPlayer); }
-        private void Update() { StateMachine.Update(); }
+        
+        private void Start() {
+            Renderer.sprite = Sprite;
+            StateMachine.Initialize(StateMachine.ChasingPlayer);
+        }
+        
+        private void Update() {
+            StateMachine.Update();
+        }
 
         
         private void FixedUpdate() {
@@ -46,7 +59,10 @@ namespace Tizfold.NEATWeaponSystem.Scripts.EnemyBehaviour {
             transform.up = playerDir;
             StateMachine.FixedUpdate();
         }
-        private void LateUpdate() { StateMachine.LateUpdate(); }
+        
+        private void LateUpdate() {
+            StateMachine.LateUpdate();
+        }
     
         public void TakeDamage(float damage) {
             StateMachine.TransitionTo(StateMachine.Hurt);

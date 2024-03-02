@@ -24,7 +24,7 @@ namespace Tizfold.NEATWeaponSystem.Scripts.EvolutionScene {
         private void Start() {
             base.InitializeParams();
             if (FireCoroutine == null)
-                FireCoroutine = StartCoroutine(FireProjectile());
+                FireCoroutine = StartCoroutine(Fire());
         }
         
         private string GenerateHash() {
@@ -86,7 +86,7 @@ namespace Tizfold.NEATWeaponSystem.Scripts.EvolutionScene {
             
             Debug.Log($"Genome {genomeTextAsset.name} is loaded");
         
-            FireCoroutine = StartCoroutine(FireProjectile());
+            FireCoroutine = StartCoroutine(Fire());
         }
         
         

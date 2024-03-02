@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using SharpNeat.Phenomes;
 using Tizfold.NEATWeaponSystem.Scripts.Interfaces;
 using Tizfold.NEATWeaponSystem.Scripts.Managers;
@@ -10,16 +11,10 @@ using UnityEngine;
 namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.ProjectileStatePattern {
     public class Projectile : MonoBehaviour, IDamagable
     {
-        [HideInInspector] public Rigidbody2D Rigidbody;
-        [HideInInspector] public SpriteRenderer SpriteRenderer;
-        
-        // StartPoint for RayCast 
-        private Transform _tipTransform;
-        
-        // assigned from the editor
+        // assign in editor
         [SerializeField] public GlobalVariablesSO GlobalVariables;
         
-        // assigned from the AbstractWeapon
+        // assigned from Abstract Weapon
         [SerializeField] public WeaponParams WeaponParamsLocal;
         [SerializeField] public WeaponParamsSO WeaponSo;
         [HideInInspector] public Transform OriginTransform;
@@ -28,19 +23,26 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.ProjectileStatePattern {
         public Vector2 InitialVelocity;
         public IBlackBox Box;
         
-        private ISignalArray _inputArr;
-        private ISignalArray _outputArr;
-        private float _birthTime;
+        
+        [HideInInspector] public Rigidbody2D Rigidbody;
+        [HideInInspector] public SpriteRenderer SpriteRenderer;
+        // StartPoint for RayCast 
+        private Transform _tipTransform;
+        public float BirthTime;
+        
         [SerializeField] public ProjectileStateMachine StateMachine;
         
         private void Awake() {
             Rigidbody = GetComponent<Rigidbody2D>();
             SpriteRenderer = GetComponent<SpriteRenderer>();
             _tipTransform = transform.Find("Tip");
+            BirthTime = Time.time;
             
             StateMachine = new ProjectileStateMachine(this);
         }
 
+        private ISignalArray _inputArr;
+        private ISignalArray _outputArr;
         private void Start() {
             _inputArr = Box.InputSignalArray;
             _outputArr = Box.OutputSignalArray;
@@ -48,24 +50,24 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.ProjectileStatePattern {
             transform.localScale = WeaponParamsLocal.Size;
         
             StateMachine.Initialize(StateMachine.InitialFlight);
-        
-            _birthTime = Time.time;
-            _currPos = Rigidbody.position;
+
+            DestroyItselfCoroutine = StartCoroutine(DestroyItself(WeaponParamsLocal.Lifespan));
             
-            WeaponSo.DestroyProjectilesEvent += DestroyYourselfImmediately;
+            WeaponSo.DestroyProjectilesEvent += DestroyItselfNow;
         }
 
         private void OnDestroy() {
-            WeaponSo.DestroyProjectilesEvent -= DestroyYourselfImmediately;
+            WeaponSo.DestroyProjectilesEvent -= DestroyItselfNow;
         }
 
-        private void DestroyYourselfImmediately() {
+        private void DestroyItselfNow() {
             Destroy(OriginTransform.gameObject);
         }
         
-        private void DestroyYourself() {
-            if (Time.time - _birthTime > WeaponParamsLocal.Lifespan) 
-                Destroy(OriginTransform.gameObject);
+        public Coroutine DestroyItselfCoroutine;
+        public IEnumerator DestroyItself(float delay) {
+            yield return new WaitForSeconds(delay);
+            Destroy(gameObject);
         }
         
         public void ActivateBlackBoxCircle() {
@@ -93,8 +95,7 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.ProjectileStatePattern {
             
             Box.Activate();
         }
-
-       
+        
         public void ActivateBlackBoxPolar() {
             Box.ResetState();
             
@@ -125,7 +126,6 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.ProjectileStatePattern {
             _maxSpeed = Mathf.Lerp(WeaponParamsLocal.SpeedRange.x, WeaponParamsLocal.SpeedRange.y, (float)_outputArr[3]);
             _force = Mathf.Lerp(WeaponParamsLocal.ForceRange.x, WeaponParamsLocal.ForceRange.y, (float)_outputArr[4]);
             
-            
             SpriteRenderer.color = Color.HSVToRGB(_hue, WeaponParamsLocal.Saturation, WeaponParamsLocal.Brightness);
             Rigidbody.AddForce(_vel * _force);
             
@@ -141,7 +141,6 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.ProjectileStatePattern {
 
         private void Update() {
             CalcProjectileStats();
-            DestroyYourself();
             StateMachine.Update();
         }
         
@@ -153,7 +152,9 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.ProjectileStatePattern {
 
         private void LateUpdate() {
             // Transition to PauseState is common to any state, so we check it here
-            if (GlobalVariables.IsPaused)
+            // Do not pause if it's already paused
+            // Do not pause if it's on UI layer
+            if (GlobalVariables.IsPaused && StateMachine.CurrentState != StateMachine.Pause && gameObject.layer != 5)
                 StateMachine.TransitionTo(StateMachine.Pause);
             
             StateMachine.LateUpdate();
@@ -162,8 +163,6 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.ProjectileStatePattern {
         
         private void OnDrawGizmosSelected() {
             Gizmos.DrawRay(OriginTransform.position, RelativePosDir);
-            Gizmos.DrawRay(OriginTransform.position, OriginTransform.up);
-            Gizmos.DrawRay(OriginTransform.position, OriginTransform.right);
         }
 
 
@@ -171,22 +170,14 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.ProjectileStatePattern {
         public Vector2 RelativePosDir;
         public float DistanceFromOrigin;
         public float PhiRad;
-        
-        private Vector2 _prevPos;
-        private Vector2 _currPos;
-        public Vector2 ActualVelocity;
         private void CalcProjectileStats() {
             RelativePosDir = transform.position - OriginTransform.position;
             RelativePos = transform.localPosition;
             DistanceFromOrigin = RelativePos.magnitude;
             PhiRad = Vector2.Angle(OriginTransform.up, RelativePosDir) * Mathf.Deg2Rad;
-            
-            _prevPos = _currPos;
-            _currPos = Rigidbody.position;
-            ActualVelocity = (_currPos - _prevPos) / Time.fixedDeltaTime;
         }
 
-
+        
         [SerializeField] private int _layerMask = 0b_0000_0000_1000;
         [SerializeField] private float _damage = 1f;
         private void CheckCollision() {

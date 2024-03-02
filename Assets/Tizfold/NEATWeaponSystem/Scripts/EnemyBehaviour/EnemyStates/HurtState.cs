@@ -1,4 +1,5 @@
 using Tizfold.NEATWeaponSystem.Scripts.Interfaces;
+using UnityEngine;
 
 namespace Tizfold.NEATWeaponSystem.Scripts.EnemyBehaviour.EnemyStates {
     public class HurtState : IState {
@@ -10,8 +11,10 @@ namespace Tizfold.NEATWeaponSystem.Scripts.EnemyBehaviour.EnemyStates {
         }
         
         public void Enter() {
-            _enemy.StartCoroutine(_enemy.StateMachine.TransitionTo(_enemy.StateMachine.Shooting, 0.15f));
-            _enemy.Renderer.sprite = _enemy.HurtSprite;
+            _enemy.StartCoroutine(_enemy.StateMachine.TransitionTo(_enemy.StateMachine.Shooting, 0.2f));
+            
+            _enemy.Renderer.material.shader = _enemy.ShaderGUItext;
+            _enemy.Renderer.color = Color.white;
         }
 
         public void Update() { }
@@ -21,7 +24,8 @@ namespace Tizfold.NEATWeaponSystem.Scripts.EnemyBehaviour.EnemyStates {
         public void LateUpdate() { }
 
         public void Exit() {
-            _enemy.Renderer.sprite = _enemy.DefaultSprite;
+            _enemy.Renderer.material.shader = _enemy.ShaderSpritesDefault;
+            _enemy.Renderer.color = Color.white;
         }
         
     }
