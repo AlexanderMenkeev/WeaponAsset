@@ -188,7 +188,7 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.ProjectileStatePattern {
                 return;
         
             IDamagable objectToDamage = hit.transform.GetComponent<IDamagable>();
-            LocalGameManager.Instance.DamageObject(objectToDamage, _damage);
+            GameManager.Instance.DamageObject(objectToDamage, _damage);
             //Debug.Log(objectToDamage);
         
             Destroy(gameObject);

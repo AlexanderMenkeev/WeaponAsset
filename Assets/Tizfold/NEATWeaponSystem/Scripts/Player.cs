@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using Tizfold.NEATWeaponSystem.Scripts.Interfaces;
 using Tizfold.NEATWeaponSystem.Scripts.Managers;
@@ -13,16 +15,21 @@ namespace Tizfold.NEATWeaponSystem.Scripts {
         // assign in editor
         [SerializeField] private GlobalVariablesSO _globalVariables;
         
-        
         [SerializeField] private Rigidbody2D _rigidbody;
-        private SpriteRenderer _renderer;
-        private GameWeapon _weapon;
+        [SerializeField] private SpriteRenderer _renderer;
+        [SerializeField] private GameWeapon _weapon;
+        [SerializeField] private AudioSource _audioSource;
+        
+        [SerializeField] private Shader _shaderGUItext;
+        [SerializeField] private Shader _shaderSpritesDefault;
         private void Awake() {
             _rigidbody = GetComponent<Rigidbody2D>();
             _renderer = GetComponent<SpriteRenderer>();
             _weapon = GetComponentInChildren<GameWeapon>();
+            _audioSource = GetComponent<AudioSource>();
             
-            
+            _shaderGUItext = Shader.Find("GUI/Text Shader");
+            _shaderSpritesDefault = _renderer.material.shader;
         }
 
         
@@ -38,16 +45,11 @@ namespace Tizfold.NEATWeaponSystem.Scripts {
             _moveAction = _inputManager.PlayerActionMap.moveAction;
             _aimAction = _inputManager.PlayerActionMap.aimAction;
 
-            HealthPoints = 10f;
+            HealthPoints = 100f;
             _speed = 4f;
         }
-    
-    
-        public void TakeDamage(float damage) {
-            HealthPoints -= damage;
-        }
-    
-
+        
+        
         private void Start() {
             Initialize();
         
@@ -64,11 +66,22 @@ namespace Tizfold.NEATWeaponSystem.Scripts {
         }
         
         private void StartShooting(InputAction.CallbackContext context) {
-            _weapon.FireCoroutine = StartCoroutine(_weapon.Fire());
+            _shootCoroutine = StartCoroutine(Shoot());
         }
         
         private void StopShooting(InputAction.CallbackContext context) {
-            StopCoroutine(_weapon.FireCoroutine);
+            StopCoroutine(_shootCoroutine);
+        }
+
+        private float _fireRate = 1f;
+        private Coroutine _shootCoroutine;
+        private IEnumerator Shoot() {
+            yield return new WaitForSeconds(_fireRate * 0.1f);
+            while (true) {
+                AudioManager.Instance.PlayAudioEffect(_audioSource, AudioManager.Instance.PlayerShoot);
+                _weapon.FireShot();
+                yield return new WaitForSeconds(_fireRate);
+            }
         }
         
         private void OnPauseResumeGame() {
@@ -95,14 +108,15 @@ namespace Tizfold.NEATWeaponSystem.Scripts {
             float angleDeg = Vector3.SignedAngle(Vector3.up, Move, Vector3.forward);
 
             // For some reason <tranform.up = Move;> did not work correctly.
-            // Quaternions came to the rescue!
             if (Move != Vector2.zero) 
                 transform.rotation = Quaternion.AngleAxis( angleDeg, Vector3.forward );
             
             if (Aim != Vector2.zero) 
                 _weapon.transform.up = Aim;
             
-        
+            if (HealthPoints <= 0)
+                OnDeath();
+            
             // ActualVelocity is needed for MapReposition
             // Using rigidbody.velocity is not reliable
             _prevPos = _currPos;
@@ -114,6 +128,24 @@ namespace Tizfold.NEATWeaponSystem.Scripts {
         private void OnDrawGizmos() {
             Gizmos.DrawRay(gameObject.transform.position, Aim * 10f);
         }
+        
+        private IEnumerator ChangeShader(Shader shader, float delay) {
+            yield return new WaitForSeconds(delay);
+            _renderer.material.shader = shader;
+            _renderer.color = Color.white;
+        }
+        
+        public void TakeDamage(float damage) {
+            StartCoroutine(ChangeShader(_shaderGUItext,0f));
+            AudioManager.Instance.PlayAudioEffect(_audioSource, AudioManager.Instance.PlayerHurt);
+            HealthPoints -= damage;
+            StartCoroutine(ChangeShader(_shaderSpritesDefault,0.2f));
+        }
+
+        private void OnDeath() {
+        }
+        
+        
     
     }
 }

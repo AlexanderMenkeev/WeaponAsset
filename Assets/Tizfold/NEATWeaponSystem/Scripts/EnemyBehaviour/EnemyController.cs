@@ -14,15 +14,15 @@ namespace Tizfold.NEATWeaponSystem.Scripts.EnemyBehaviour {
         public EnemyWeapon Weapon;
         public CircleCollider2D Collider;
         public SpriteRenderer Renderer;
+        public AudioSource AudioSource;
         public GameObject Player;
     
         public EnemyStateMachine StateMachine;
     
-        // Assigned from the Editor
+        // Assign in editor
         public GlobalVariablesSO GlobalVariables;
         public Projectile ProjectilePrefab;
         public Sprite Sprite;
-        
         
         public Shader ShaderGUItext;
         public Shader ShaderSpritesDefault;
@@ -36,6 +36,7 @@ namespace Tizfold.NEATWeaponSystem.Scripts.EnemyBehaviour {
             Weapon = GetComponentInChildren<EnemyWeapon>();
             Collider = GetComponent<CircleCollider2D>();
             Renderer = GetComponent<SpriteRenderer>();
+            AudioSource = GetComponent<AudioSource>();
             Player = GameObject.Find("Player");
             
             ShaderGUItext = Shader.Find("GUI/Text Shader");

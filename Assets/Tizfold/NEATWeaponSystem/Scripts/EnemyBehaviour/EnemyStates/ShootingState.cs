@@ -1,5 +1,6 @@
 using System.Collections;
 using Tizfold.NEATWeaponSystem.Scripts.Interfaces;
+using Tizfold.NEATWeaponSystem.Scripts.Managers;
 using UnityEngine;
 
 namespace Tizfold.NEATWeaponSystem.Scripts.EnemyBehaviour.EnemyStates {
@@ -50,6 +51,7 @@ namespace Tizfold.NEATWeaponSystem.Scripts.EnemyBehaviour.EnemyStates {
                 yield return new WaitForSeconds(timeToAim);
                 
                 // shooting logic
+                AudioManager.Instance.PlayAudioEffect(_enemy.AudioSource, AudioManager.Instance.EnemyShoot);
                 _enemy.Weapon.FireShot();
                 
                 yield return new WaitForSeconds(timeToShoot);
