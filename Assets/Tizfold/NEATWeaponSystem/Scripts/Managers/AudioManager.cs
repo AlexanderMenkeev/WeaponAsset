@@ -16,10 +16,8 @@ namespace Tizfold.NEATWeaponSystem.Scripts.Managers {
         // Assign in editor
         public AudioClip PlayerShoot;
         public AudioClip PlayerHurt;
-        public AudioClip PlayerDeath;
         public AudioClip EnemyShoot;
         public AudioClip EnemyHurt;
-        public AudioClip ProjectilesCollision;
         
         [SerializeField] private AudioClip _music1;
         [SerializeField] private AudioClip _music2;
@@ -48,22 +46,33 @@ namespace Tizfold.NEATWeaponSystem.Scripts.Managers {
             _audioSource.Play();
         }
 
-        [SerializeField] private bool _playAudioEffects = true;
+        [SerializeField] private bool _isPlayingSoundEffects = true;
         public void PlayAudioEffect(AudioSource src, AudioClip clip) {
-            if (!_playAudioEffects || src.isPlaying)
+            if (!_isPlayingSoundEffects)
                 return;
             
             src.PlayOneShot(clip);
         }
         
+        [HideInInspector] [SerializeField] private bool _isPlayingMusic = true;
+        public bool IsPlayingMusic {
+            get => _isPlayingMusic; 
+            set {
+                _isPlayingMusic = value;
+                PlayOrStopMusic();
+            }  
+        }
         
-        // [SerializeField] private bool _playMusic = true;
-        // private void PlayMusic() {
-        //     if (_playMusic) {
-        //         _audioSource.Play();
-        //     }
-        //     
-        // }
+        
+        private void PlayOrStopMusic() {
+            if (_isPlayingMusic) {
+                _audioSource.Play();
+            }
+            else {
+                _audioSource.Stop();
+            }
+            
+        }
         
         
 

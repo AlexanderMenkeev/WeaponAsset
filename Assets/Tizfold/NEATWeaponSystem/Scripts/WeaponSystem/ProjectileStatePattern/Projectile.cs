@@ -179,7 +179,6 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.ProjectileStatePattern {
 
         
         [SerializeField] private int _layerMask = 0b_0000_0000_1000;
-        [SerializeField] private float _damage = 1f;
         private void CheckCollision() {
             Vector2 startPoint = _tipTransform.position;
             RaycastHit2D hit = Physics2D.CircleCast(startPoint, transform.localScale.x, -transform.up, transform.localScale.y, _layerMask);
@@ -187,13 +186,14 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.ProjectileStatePattern {
             if (ReferenceEquals(hit.collider, null))
                 return;
         
+            // For projectiles HP acts like Damage
             IDamagable objectToDamage = hit.transform.GetComponent<IDamagable>();
-            GameManager.Instance.DamageObject(objectToDamage, _damage);
-            //Debug.Log(objectToDamage);
-        
-            Destroy(gameObject);
+            GameManager.Instance.DamageObject(objectToDamage, HealthPoints);
+            
+            // Projectile damages itself on collision
+            if (objectToDamage.HealthPoints > 0)
+                GameManager.Instance.DamageObject(this, HealthPoints);
         }
-
 
         [field: SerializeField] public float HealthPoints { get; set; } = 2f;
         public void TakeDamage(float damage) {

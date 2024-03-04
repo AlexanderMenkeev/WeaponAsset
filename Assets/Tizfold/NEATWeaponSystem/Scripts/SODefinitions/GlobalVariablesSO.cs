@@ -34,6 +34,7 @@ namespace Tizfold.NEATWeaponSystem.Scripts.SODefinitions {
                 return duration;
             }
         }
+        
     
         public void OnEnable() {
             IsPaused = false;

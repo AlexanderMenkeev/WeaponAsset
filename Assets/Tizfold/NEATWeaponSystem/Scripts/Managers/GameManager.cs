@@ -147,6 +147,17 @@ namespace Tizfold.NEATWeaponSystem.Scripts.Managers {
                 Pause(false);
             }
         }
+        
+        public void ActivatePauseCanvas() {
+            if (!_pauseCanvas.activeSelf) {
+                _pauseCanvas.SetActive(true);
+                Pause(true);
+            }
+            else {
+                _pauseCanvas.SetActive(false);
+                Pause(false);
+            }
+        }
 
         /// <summary>
         /// Change value isPaused in GlobalVariables

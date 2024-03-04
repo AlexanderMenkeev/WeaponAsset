@@ -21,7 +21,7 @@ namespace Tizfold.NEATWeaponSystem.Scripts.Managers {
         }
         
         public void LoadScene(string sceneName) {
-            SceneManager.LoadSceneAsync(sceneName);
+            SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
         }
         
 

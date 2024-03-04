@@ -3,14 +3,14 @@ using UnityEngine;
 namespace Tizfold.NEATWeaponSystem.Scripts {
     public class MapReposition : MonoBehaviour
     {
-        private Player _player;
+        [SerializeField] private Player _player;
         private void Awake() {
             _player = FindObjectOfType<Player>();
         }
         
         private void OnTriggerExit2D(Collider2D other) {
             
-            if (!other.CompareTag("Area"))
+            if (!other.CompareTag("Area") || _player == null)
                 return;
             
             Vector3 playerPos = _player.transform.position;
