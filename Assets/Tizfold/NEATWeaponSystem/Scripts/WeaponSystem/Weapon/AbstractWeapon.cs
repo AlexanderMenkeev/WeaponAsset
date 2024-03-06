@@ -1,12 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml;
 using SharpNeat.Genomes.Neat;
 using Tizfold.NEATWeaponSystem.Scripts.SODefinitions;
 using Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.NEAT;
 using Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.ProjectileStatePattern;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.Weapon {
     /// <summary>
@@ -14,26 +16,24 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.Weapon {
     /// </summary>
     public abstract class AbstractWeapon : MonoBehaviour
     {
-        #region Assign in editor
         
         [SerializeField] protected WeaponParamsSO _weaponSO;
-        public GameObject ProjectilePrefab;
+        public Projectile ProjectilePrefab;
+        public CoordinateSystem CoordinateSystemPrefab;
+        public List<CoordinateSystem> CoordinateSystems;
         
         public GameObject TemporalObjects;
         [SerializeField] public Transform ProjectileSpawnPoint;
         
-        #endregion
         
         [SerializeField] protected WeaponParams _weaponParamsLocal;
-        [Tooltip("Do not change these stats in editor, it will not have effect on evolution algorithm.")]
+        [Tooltip("Do not change these stats in the editor, it will not have effect on the evolution algorithm.")]
         public GenomeStats GenomeStats;
-        
         
         protected virtual void InitializeParams() {
             _weaponParamsLocal = new WeaponParams(_weaponSO);
             TryToLoadGenomeFromSO();
         }
-        
         
         private void TryToLoadGenomeFromSO() {
             if (_weaponSO.GenomeXml == null) 
@@ -48,35 +48,40 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.Weapon {
         
         
         public Coroutine FireCoroutine;
-        
         /// <summary>
         /// To start coroutine => FireCoroutine = StartCoroutine(Fire()); <br />
         /// To stop coroutine => StopCoroutine(FireCoroutine);
         /// </summary>
         public virtual IEnumerator Fire() {
             while (true) {
-                FireShot();
+                switch (_weaponParamsLocal.WeaponMode) {
+
+                    case WeaponMode.MultiShot:
+                        FireMultiShot();
+                        break;
+                    
+                    case WeaponMode.Burst:
+                        StartCoroutine(FireBurst());
+                        
+                        // Wait for FireBurst Coroutine to complete
+                        yield return new WaitForSeconds(_weaponParamsLocal.ProjectilesInOneShot * _weaponParamsLocal.BurstRate);
+                        break;
+                    
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+                
                 yield return new WaitForSeconds(_weaponParamsLocal.FireRate);
             }
         }
 
+
         
-        /// <summary>
-        /// Fires one shot of projectiles. Use this method, if you want to have more control over shooting behavior.
-        /// (For example, you may want to invoke FireShot on ButtonPress or Click)
-        /// </summary>
-        public virtual void FireShot() {
-            float signY = (_weaponParamsLocal.FlipY) ? -1 : 1;
-                
-            // Projectiles instantiated in the same shot will use their localCoordinateSystem to calculate their local coordinates. 
-            GameObject localCoordinateSystem = new GameObject("Local Coordinate System");
+        public virtual void FireMultiShot() {
             
-            // localCoordinateSystem has the same rotation and position as ProjectileSpawnPoint
-            localCoordinateSystem.transform.parent = TemporalObjects.transform;
-            localCoordinateSystem.transform.up = ProjectileSpawnPoint.up;            
-            localCoordinateSystem.transform.right = ProjectileSpawnPoint.right;      
-            localCoordinateSystem.transform.rotation = ProjectileSpawnPoint.rotation;
-            localCoordinateSystem.transform.position = ProjectileSpawnPoint.position;
+            float signX = (_weaponParamsLocal.FlipX) ? -1f : 1f;
+            float signY = (_weaponParamsLocal.FlipY) ? -1f : 1f;
+            CoordinateSystem localCoordinateSystem = CreateLocalCoordinateSystem();
             
             for (int i = 0; i < _weaponParamsLocal.ProjectilesInOneShot; i++) {
                 // Offset for InitialFlight
@@ -93,15 +98,148 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.Weapon {
                 projectile.WeaponParamsLocal = new WeaponParams(_weaponParamsLocal);
                 projectile.WeaponSo = _weaponSO;
                     
-                projectile.SignX = offset < 0 ? -1f : 1f;
+                projectile.SignX = (offset < 0 ? -1f : 1f) * signX;
                 projectile.SignY = signY;
-                    
+
                 Vector2 initialDirection = Quaternion.Euler(0, 0, _weaponParamsLocal.Angle * offset) * ProjectileSpawnPoint.up;
                 projectile.InitialVelocity = initialDirection.normalized * _weaponParamsLocal.InitialSpeed;
             }
         }
-    
-    
+        
+        
+        public virtual IEnumerator FireBurst() {
+            
+            float signX = (_weaponParamsLocal.FlipX) ? -1f : 1f;
+            float signY = (_weaponParamsLocal.FlipY) ? -1f : 1f;
+            CoordinateSystem localCoordinateSystem = CreateLocalCoordinateSystem();
+            int projectileCount = _weaponParamsLocal.ProjectilesInOneShot;
+            BurstMode burstMode = _weaponParamsLocal.BurstMode;
+            
+            List<float> offsets = new List<float>(projectileCount);
+            if (projectileCount == 1)
+                offsets.Add(0f);
+            else {
+                for (int i = 0; i < projectileCount; i++) 
+                    offsets.Add(Mathf.Lerp(-1f, 1f, (float)i / (projectileCount - 1)));
+            }
+            
+            int negIdx = projectileCount / 2 - 1; 
+            int posIdx = projectileCount / 2;
+            for (int i = 0; i < projectileCount; i++) {
+                
+                if (localCoordinateSystem == null)
+                    yield break;
+                
+                Projectile projectile = Instantiate(ProjectilePrefab, ProjectileSpawnPoint.position, Quaternion.identity, localCoordinateSystem.transform).GetComponent<Projectile>();
+
+                // initialize projectile with necessary data
+                projectile.OriginTransform = localCoordinateSystem.transform;
+                projectile.Box = GenomeStats.Box;
+
+                projectile.WeaponParamsLocal = new WeaponParams(_weaponParamsLocal);
+                projectile.WeaponSo = _weaponSO;
+
+                float offset;
+                Vector2 initialDirection;
+                switch (burstMode) {
+
+                    case BurstMode.Clockwise:
+                        offset = offsets[projectileCount - 1 - i];
+                        initialDirection = Quaternion.Euler(0, 0, _weaponParamsLocal.Angle * offset) * ProjectileSpawnPoint.up;
+                        break;
+                    
+                    case BurstMode.CounterClockwise:
+                        offset = offsets[i];
+                        initialDirection = Quaternion.Euler(0, 0, _weaponParamsLocal.Angle * offset) * ProjectileSpawnPoint.up;
+                        break;
+                    
+                    case BurstMode.Alternate:
+                        if (i % 2 == 0) {
+                            offset = offsets[posIdx];
+                            posIdx++;
+                        }
+                        else {
+                            offset = offsets[negIdx];
+                            negIdx--;
+                        }
+                        initialDirection = Quaternion.Euler(0, 0, _weaponParamsLocal.Angle * offset) * ProjectileSpawnPoint.up;
+                        break;
+                    
+                    case BurstMode.Straight:
+                        if (i % 2 == 0) {
+                            offset = offsets[posIdx];
+                            posIdx++;
+                        }
+                        else {
+                            offset = offsets[negIdx];
+                            negIdx--;
+                        }
+                        initialDirection = ProjectileSpawnPoint.up;
+                        break;
+                    
+                    case BurstMode.MaxMinAngle:
+                        if (i % 2 == 0) {
+                            offset = offsets[posIdx];
+                            posIdx++;
+                        }
+                        else {
+                            offset = offsets[negIdx];
+                            negIdx--;
+                        }
+                        initialDirection = Quaternion.Euler(0, 0, _weaponParamsLocal.Angle * (offset < 0 ? -1f : 1f)) * ProjectileSpawnPoint.up;
+                        break;
+
+                    case BurstMode.Random:
+                        offset = offsets[Random.Range(0, projectileCount)];
+                        initialDirection = Quaternion.Euler(0, 0, _weaponParamsLocal.Angle * offset) * ProjectileSpawnPoint.up;
+                        break;
+                    
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+                
+                projectile.SignY = signY;
+                projectile.SignX = (offset < 0 ? -1f : 1f) * signX;
+                projectile.InitialVelocity = initialDirection.normalized * _weaponParamsLocal.InitialSpeed;
+                
+                yield return new WaitForSeconds(_weaponParamsLocal.BurstRate);
+            }
+        }
+        
+        
+        
+        private CoordinateSystem CreateLocalCoordinateSystem() {
+            // Projectiles instantiated in the same shot or burst will use their localCoordinateSystem to calculate their local coordinates. 
+            CoordinateSystem localCoordinateSystem = Instantiate(CoordinateSystemPrefab).GetComponent<CoordinateSystem>();
+            localCoordinateSystem.Parent = this;
+            
+            // AbsolutePos => projectiles DO NOT move with the weapon
+            // RelativePos => projectiles DO move with the weapon
+            localCoordinateSystem.transform.parent = _weaponParamsLocal.PositioningMode switch {
+                PositioningMode.AbsolutePos => TemporalObjects.transform,
+                PositioningMode.RelativePos => ProjectileSpawnPoint.transform,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+
+            // localCoordinateSystem has the same rotation and position as ProjectileSpawnPoint
+            localCoordinateSystem.transform.up = ProjectileSpawnPoint.up;            
+            localCoordinateSystem.transform.right = ProjectileSpawnPoint.right;      
+            localCoordinateSystem.transform.rotation = ProjectileSpawnPoint.rotation;
+            localCoordinateSystem.transform.position = ProjectileSpawnPoint.position;
+
+            CoordinateSystems.Add(localCoordinateSystem);
+            return localCoordinateSystem;
+        }
+
+
+        public virtual void LaunchCoordinateSystems(float speed, Vector3 direction) {
+            foreach (CoordinateSystem system in CoordinateSystems) {
+                system.Speed = speed;
+                system.Direction = direction;
+                system.Move = true;
+            }
+        } 
+        
         
         // Visualization of initial flight circle radius, reflection borders and network control distance
         private float _borderRayDirX, _borderRayDirY;
@@ -112,13 +250,13 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.Weapon {
             
             switch (_weaponParamsLocal.Mode) {
 
-                case ProjectileMode.CircleReflection:
+                case ReflectionMode.CircleReflection:
                     Gizmos.DrawWireSphere(ProjectileSpawnPoint.position, _weaponParamsLocal.NNControlDistance * _weaponParamsLocal.InitialFlightRadius);
                     Gizmos.DrawWireSphere(ProjectileSpawnPoint.position, _weaponParamsLocal.NNControlDistance * Mathf.Sqrt(2));
                     Gizmos.DrawWireSphere(ProjectileSpawnPoint.position, _weaponParamsLocal.NNControlDistance * _weaponParamsLocal.ReflectiveCircleRadius);
                     break;
                 
-                case ProjectileMode.Polar:
+                case ReflectionMode.Polar:
                     _borderRayDirX = _weaponParamsLocal.NNControlDistance * Mathf.Sin(_weaponParamsLocal.MaxPolarAngleDeg * Mathf.Deg2Rad);
                     _borderRayDirY = _weaponParamsLocal.NNControlDistance * Mathf.Cos(_weaponParamsLocal.MaxPolarAngleDeg * Mathf.Deg2Rad);
                     
@@ -132,7 +270,7 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.Weapon {
                     Gizmos.DrawRay(ProjectileSpawnPoint.position, _lowerBorderRayDir);
                     break;
                 
-                case ProjectileMode.RectangleReflection:
+                case ReflectionMode.RectangleReflection:
                     float maxX = _weaponParamsLocal.RectDimensions.x * _weaponParamsLocal.NNControlDistance;
                     float maxY = _weaponParamsLocal.RectDimensions.y * _weaponParamsLocal.NNControlDistance;
                     

@@ -79,7 +79,7 @@ namespace Tizfold.NEATWeaponSystem.Scripts {
             yield return new WaitForSeconds(_fireRate * 0.1f);
             while (true) {
                 AudioManager.Instance.PlayAudioEffect(_audioSource, AudioManager.Instance.PlayerShoot);
-                _weapon.FireShot();
+                _weapon.FireMultiShot();
                 yield return new WaitForSeconds(_fireRate);
             }
         }

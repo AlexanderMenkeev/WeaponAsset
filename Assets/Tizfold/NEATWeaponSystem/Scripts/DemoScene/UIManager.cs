@@ -19,6 +19,10 @@ namespace Tizfold.NEATWeaponSystem.Scripts.DemoScene {
         private void Awake() {
             _counter = 0;
             _weaponCount = _SObjectsList.Length;
+
+            foreach (WeaponParamsSO so in _SObjectsList) {
+                so.LoadParamsFromJson();
+            }
             
             _nextBtn.onClick.AddListener(OnNextBtnClick);
             _prevBtn.onClick.AddListener(OnPrevBtnClick);

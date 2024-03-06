@@ -99,13 +99,15 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.ProjectileStatePattern {
         public void ActivateBlackBoxPolar() {
             Box.ResetState();
             
-            float maxPhi = WeaponParamsLocal.MaxPolarAngleDeg * Mathf.Deg2Rad;
+            float maxPhiRad = WeaponParamsLocal.MaxPolarAngleDeg * Mathf.Deg2Rad;
             float NNControlDistance = WeaponParamsLocal.NNControlDistance;
             
+            // Remember: PhiRad is an angle between polar radius and Y axis (not X axis like in standart case). This is done for symmetry of flight pattern.
+            // Therefore these formulas are correct
             float x = Math.Abs( DistanceFromOrigin * Mathf.Sin(PhiRad) );
             float y = Math.Abs( DistanceFromOrigin * Mathf.Cos(PhiRad) );
             
-            float x_denominator = maxPhi >= 90f ? NNControlDistance : NNControlDistance * Mathf.Sin(maxPhi);
+            float x_denominator = maxPhiRad * Mathf.Rad2Deg >= 90f ? NNControlDistance : NNControlDistance * Mathf.Sin(maxPhiRad);
             
             _inputArr[0] = Mathf.Lerp(-1f, 1f,x / x_denominator);
             _inputArr[1] = Mathf.Lerp(-1f, 1f,y / NNControlDistance);
@@ -125,13 +127,31 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.ProjectileStatePattern {
             _hue = Mathf.Lerp(WeaponParamsLocal.HueRange.x, WeaponParamsLocal.HueRange.y, (float)_outputArr[2]);
             _maxSpeed = Mathf.Lerp(WeaponParamsLocal.SpeedRange.x, WeaponParamsLocal.SpeedRange.y, (float)_outputArr[3]);
             _force = Mathf.Lerp(WeaponParamsLocal.ForceRange.x, WeaponParamsLocal.ForceRange.y, (float)_outputArr[4]);
-            
+
             SpriteRenderer.color = Color.HSVToRGB(_hue, WeaponParamsLocal.Saturation, WeaponParamsLocal.Brightness);
-            Rigidbody.AddForce(_vel * _force);
             
-            if (WeaponParamsLocal.ForwardForce)
-                Rigidbody.AddForce(OriginTransform.up * _force);
+            switch (WeaponParamsLocal.PositioningMode) {
+                case PositioningMode.AbsolutePos:
+                    
+                    Rigidbody.AddForce(_vel * _force);
+                    if (WeaponParamsLocal.ForwardForce)
+                        Rigidbody.AddForce(OriginTransform.up * _force);
+                    break;
+                
+                case PositioningMode.RelativePos:
+                    
+                    float inverseMass = 1f / Rigidbody.mass;
+                    Rigidbody.velocity += _vel * (_force * inverseMass * Time.fixedDeltaTime);
+                    if (WeaponParamsLocal.ForwardForce)
+                        Rigidbody.velocity += (Vector2)OriginTransform.up * (_force * inverseMass * Time.fixedDeltaTime);
+                    break;
+                
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            
         }
+        
 
         public void LimitMaxSpeed() {
             float speed = Rigidbody.velocity.magnitude;
@@ -152,8 +172,7 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.ProjectileStatePattern {
 
         private void LateUpdate() {
             // Transition to PauseState is common to any state, so we check it here
-            // Do not pause if it's already paused
-            // Do not pause if it's on UI layer
+            // Do not pause if it's already paused or it's on UI layer
             if (GlobalVariables.IsPaused && StateMachine.CurrentState != StateMachine.Pause && gameObject.layer != 5)
                 StateMachine.TransitionTo(StateMachine.Pause);
             

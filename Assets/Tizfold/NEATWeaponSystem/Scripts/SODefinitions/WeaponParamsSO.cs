@@ -12,10 +12,15 @@ namespace Tizfold.NEATWeaponSystem.Scripts.SODefinitions {
         
         public TextAsset GenomeXml;
         public TextAsset WeaponParamsJson;
-        
+
+        [field: SerializeField] public WeaponMode WeaponMode { get; set; }
+        [field: SerializeField] public BurstMode BurstMode { get; set; }
+        [field: SerializeField] [field: Range(0.03f, 0.3f)] public float BurstRate { get; set; }
         [field: SerializeField] [field: Range(0.3f, 1f)] public float FireRate { get; set; }
         [field: SerializeField] [field: Range(1, 20)] public int ProjectilesInOneShot { get; set; }
+        [field: SerializeField] [field: Range(5f, 20f)] public float LaunchSpeed { get; set; }
         
+        [field: SerializeField] public PositioningMode PositioningMode { get; set; }
         [field: SerializeField] public Vector2 Size { get; set; }
         [field: SerializeField] [field: Range(2f, 10f)] public float Lifespan { get; set; }
         
@@ -26,6 +31,7 @@ namespace Tizfold.NEATWeaponSystem.Scripts.SODefinitions {
         [field: SerializeField] [field: MinMaxRange(1f, 8f)] public Vector2 SpeedRange { get; set; }
         [field: SerializeField] [field: MinMaxRange(0.5f, 5f)] public Vector2 ForceRange { get; set; }
         [field: SerializeField] [field: Range(1f, 8f)] public float NNControlDistance { get; set; }
+        [field: SerializeField] public bool FlipX { get; set; }
         [field: SerializeField] public bool FlipY { get; set; }
         [field: SerializeField] public bool ForwardForce { get; set; }
         
@@ -35,79 +41,57 @@ namespace Tizfold.NEATWeaponSystem.Scripts.SODefinitions {
         
         [field: SerializeField] public bool FlipXOnReflect { get; set; }
         [field: SerializeField] public bool FlipYOnReflect { get; set; }
-        [field: SerializeField] public ProjectileMode Mode { get; set; }
+        [field: SerializeField] public ReflectionMode Mode { get; set; }
         
         [field: SerializeField] [field:Range(math.SQRT2, 2f)] public float ReflectiveCircleRadius { get; set; }
         [field: SerializeField] public Vector2 RectDimensions { get; set; }
         [field: SerializeField] [field: Range(5f, 179.9f)] public float MaxPolarAngleDeg { get; set; }
         
+        public delegate void Event();
+        public Event DestroyProjectilesEvent;
+        public Event UpdateParamsEvent;
         
-        public delegate void DestroyProjectiles();
-        public DestroyProjectiles DestroyProjectilesEvent;
-        
-        public delegate void UpdateDelegate();
-        public UpdateDelegate UpdateParamsEvent;
-        
-        // Different set of params
-        private void InitializeParams() {
-            FireRate = 1f;
-            ProjectilesInOneShot = 10;
-            
-            Size = new Vector2(0.03f, 0.18f);
-            Lifespan = 6f;
-            HueRange = new Vector2(0.1f, 1f);
-            Saturation = 0.9f;
-            Brightness = 0.95f;
-            
-            SpeedRange = new Vector2(3f, 6f);
-            ForceRange = new Vector2(1f, 3f);
-            NNControlDistance = 3f;
-            FlipY = false;
-            ForwardForce = false;
-            
-            InitialFlightRadius = 0.1f;
-            InitialSpeed = 2f;
-            Angle = 40;
-
-            FlipXOnReflect = true;
-            FlipYOnReflect = true;
-            Mode = ProjectileMode.CircleReflection;
-            ReflectiveCircleRadius = math.SQRT2;
-            RectDimensions = new Vector2(1f, 2f);
-            MaxPolarAngleDeg = 45f;
-        }
-
+        public delegate void LaunchEvent(float speed, Vector3 direction);
+        public LaunchEvent LaunchForwardEvent;
         // Default params
-        private void InitializeParamsParticles() {
+        private void InitializeParams() {
+            WeaponMode = WeaponMode.Burst;
+            BurstMode = BurstMode.Alternate;
+            BurstRate = 0.05f;
             FireRate = 1f;
             ProjectilesInOneShot = 20;
+            LaunchSpeed = 10f;
             
+            PositioningMode = PositioningMode.AbsolutePos;
             Size = new Vector2(0.07f, 0.07f);
             Lifespan = 8f;
+            
             HueRange = new Vector2(0.1f, 0.5f);
-            Saturation = 0.9f;
-            Brightness = 0.95f;
+            Saturation = 0.8f;
+            Brightness = 0.9f;
             
             SpeedRange = new Vector2(3f, 6f);
             ForceRange = new Vector2(1f, 3f);
             NNControlDistance = 3f;
+            FlipX = false;
             FlipY = false;
             ForwardForce = false;
             
             InitialFlightRadius = 0.1f;
             InitialSpeed = 2f;
-            Angle = 70;
+            Angle = 60f;
 
             FlipXOnReflect = true;
             FlipYOnReflect = true;
-            Mode = ProjectileMode.CircleReflection;
+            Mode = ReflectionMode.CircleReflection;
+            
             ReflectiveCircleRadius = math.SQRT2;
             RectDimensions = new Vector2(1f, 2f);
-            MaxPolarAngleDeg = 45f;
+            MaxPolarAngleDeg = 65f;
         }
         
         public void ResetFunc() {
-            InitializeParamsParticles();
+            InitializeParams();
             UpdateParamsEvent?.Invoke();
         }
 
@@ -115,8 +99,6 @@ namespace Tizfold.NEATWeaponSystem.Scripts.SODefinitions {
             UpdateParamsEvent?.Invoke();
         }
 
-        
-        
         
         public void LoadParamsFromJson() {
             if (WeaponParamsJson == null){
@@ -157,9 +139,4 @@ namespace Tizfold.NEATWeaponSystem.Scripts.SODefinitions {
     }
     
     
-    public enum ProjectileMode {
-        CircleReflection,
-        RectangleReflection,
-        Polar
-    }
 }

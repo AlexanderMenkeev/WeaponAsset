@@ -40,7 +40,7 @@ namespace Tizfold.NEATWeaponSystem.Scripts.Managers {
                 weaponParams.Lifespan = 4f;
                 weaponParams.ProjectilesInOneShot = 10;
                 weaponParams.ForwardForce = true;
-                weaponParams.Mode = ProjectileMode.Polar;
+                weaponParams.Mode = ReflectionMode.Polar;
                 weaponParams.InitialSpeed = Random.Range(3f, 5f);
                 weaponParams.MaxPolarAngleDeg = Random.Range(5f, 45f);
                 weaponParams.Angle = Random.Range(2f, weaponParams.MaxPolarAngleDeg);

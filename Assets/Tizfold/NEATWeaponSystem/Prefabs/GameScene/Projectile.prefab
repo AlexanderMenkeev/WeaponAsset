@@ -130,8 +130,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eed8ed42295ef68499525011c8b34275, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Rigidbody: {fileID: 0}
-  SpriteRenderer: {fileID: 0}
   GlobalVariables: {fileID: 11400000, guid: 804253ef160b2814a8589ded616acc2e, type: 2}
   WeaponParamsLocal:
     <FireRate>k__BackingField: 0
@@ -160,13 +158,14 @@ MonoBehaviour:
   SignX: 0
   SignY: 0
   InitialVelocity: {x: 0, y: 0}
+  Rigidbody: {fileID: 0}
+  SpriteRenderer: {fileID: 0}
+  BirthTime: 0
   RelativePos: {x: 0, y: 0}
   RelativePosDir: {x: 0, y: 0}
   DistanceFromOrigin: 0
   PhiRad: 0
-  ActualVelocity: {x: 0, y: 0}
   _layerMask: 8
-  _damage: 2
   <HealthPoints>k__BackingField: 2
 --- !u!50 &817819079783222836
 Rigidbody2D:

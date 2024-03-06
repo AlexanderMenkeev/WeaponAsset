@@ -1,9 +1,8 @@
 using Tizfold.NEATWeaponSystem.Scripts.EvolutionScene;
 using UnityEditor;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
-namespace CustomEditor.Editor {
+namespace Tizfold.NEATWeaponSystem.Scripts.CustomEditor.Editor {
     [CanEditMultipleObjects]
     [UnityEditor.CustomEditor(typeof(EvoWeapon))]
     public class EvoWeaponEditor : UnityEditor.Editor {
@@ -19,11 +18,8 @@ namespace CustomEditor.Editor {
             _generateUniqueName = true;
             _selectedAsParent = false;
         }
-
-        public Object source;
-
+        
         public override void OnInspectorGUI() {
-            
             
             base.OnInspectorGUI();
             
@@ -35,12 +31,10 @@ namespace CustomEditor.Editor {
             _selectedAsParent = weapon.GenomeStats.IsEvaluated;
             
             using(new GUILayout.VerticalScope(EditorStyles.helpBox)) {
+                
                 GUILayout.Space(5);
-                
                 GUILayout.Label("Genome controls", EditorStyles.boldLabel);
-                
                 GUILayout.Space(3);
-                
                 
                 if (!_selectedAsParent) {
                     if (GUILayout.Button("Select as parent for next gen")) {
@@ -81,11 +75,6 @@ namespace CustomEditor.Editor {
                 GUILayout.Space(10);
             }
             
-            
-            
-            
-           
-
 
         }
 

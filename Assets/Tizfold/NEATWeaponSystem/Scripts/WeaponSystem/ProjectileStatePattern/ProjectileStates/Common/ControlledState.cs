@@ -24,13 +24,13 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.ProjectileStatePattern.P
 
         public void FixedUpdate() {
             switch (_weaponParams.Mode) {
-                case ProjectileMode.CircleReflection:
+                case ReflectionMode.CircleReflection:
                     _projectile.ActivateBlackBoxCircle();
                     break;
-                case ProjectileMode.RectangleReflection:
+                case ReflectionMode.RectangleReflection:
                     _projectile.ActivateBlackBoxRect();
                     break;
-                case ProjectileMode.Polar:
+                case ReflectionMode.Polar:
                     _projectile.ActivateBlackBoxPolar();
                     break;
                 default:
@@ -44,13 +44,13 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.ProjectileStatePattern.P
         public void LateUpdate() {
 
             switch (_weaponParams.Mode) {
-                case ProjectileMode.CircleReflection:
+                case ReflectionMode.CircleReflection:
                     CircleModeTransitions();
                     break;
-                case ProjectileMode.RectangleReflection:
+                case ReflectionMode.RectangleReflection:
                     RectModeTransitions();
                     break;
-                case ProjectileMode.Polar:
+                case ReflectionMode.Polar:
                     PolarModeTransitions();
                     break;
                 default:

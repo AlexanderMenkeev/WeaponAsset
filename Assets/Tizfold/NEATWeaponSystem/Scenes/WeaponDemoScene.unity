@@ -678,6 +678,14 @@ PrefabInstance:
       propertyPath: TemporalObjects
       value: 
       objectReference: {fileID: 1948393220}
+    - target: {fileID: 6435578565002770920, guid: cd92912ed785ac94a815f125c45054fb, type: 3}
+      propertyPath: ProjectilePrefab
+      value: 
+      objectReference: {fileID: 7750301855671846271, guid: e589d491ebef9bd489845df13bf2078c, type: 3}
+    - target: {fileID: 6435578565002770920, guid: cd92912ed785ac94a815f125c45054fb, type: 3}
+      propertyPath: CoordinateSystemPrefab
+      value: 
+      objectReference: {fileID: 7264189112268356630, guid: 05c49644aa693224a863e69a1e909494, type: 3}
     - target: {fileID: 7383995614615835555, guid: cd92912ed785ac94a815f125c45054fb, type: 3}
       propertyPath: m_Name
       value: DemoWeapon

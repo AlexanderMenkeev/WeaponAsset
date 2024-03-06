@@ -15,10 +15,12 @@ namespace Tizfold.NEATWeaponSystem.Scripts.EvolutionScene {
             ProjectileSpawnPoint = transform.Find("ProjectileSpawnPoint");
            
             _weaponSO.UpdateParamsEvent += InitializeParams;
+            _weaponSO.LaunchForwardEvent += LaunchCoordinateSystems;
         }
         
         private void OnDestroy() {
             _weaponSO.UpdateParamsEvent -= InitializeParams;
+            _weaponSO.LaunchForwardEvent -= LaunchCoordinateSystems;
         }
         
         private void Start() {

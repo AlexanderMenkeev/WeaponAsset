@@ -52,7 +52,7 @@ namespace Tizfold.NEATWeaponSystem.Scripts.EnemyBehaviour.EnemyStates {
                 
                 // shooting logic
                 AudioManager.Instance.PlayAudioEffect(_enemy.AudioSource, AudioManager.Instance.EnemyShoot);
-                _enemy.Weapon.FireShot();
+                _enemy.Weapon.FireMultiShot();
                 
                 yield return new WaitForSeconds(timeToShoot);
                

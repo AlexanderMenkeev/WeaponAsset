@@ -10,10 +10,16 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.Weapon {
     public class WeaponParams : IWeaponParams {
         
         [field: Header("Weapon controls")] 
+        [field: SerializeField] public WeaponMode WeaponMode { get; set; }
+        [field: SerializeField] public BurstMode BurstMode { get; set; }
+        [field: SerializeField] [field: Range(0.03f, 0.3f)] public float BurstRate { get; set; }
+        
         [field: SerializeField] [field: Range(0.3f, 1f)] public float FireRate { get; set; }
         [field: SerializeField] [field: Range(1, 20)] public int ProjectilesInOneShot { get; set; }
+        [field: SerializeField] [field: Range(5f, 20f)] public float LaunchSpeed { get; set; }
         
         [field: Header("Projectile controls")]
+        [field: SerializeField] public PositioningMode PositioningMode { get; set; }
         [field: SerializeField] public Vector2 Size { get; set; }
         [field: SerializeField] [field: Range(2f, 10f)] public float Lifespan { get; set; }
         
@@ -25,6 +31,7 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.Weapon {
         [field: SerializeField] [field: MinMaxRange(1f, 8f)] public Vector2 SpeedRange { get; set; }
         [field: SerializeField] [field: MinMaxRange(0.5f, 5f)] public Vector2 ForceRange { get; set; }
         [field: SerializeField] [field: Range(1f, 8f)] public float NNControlDistance { get; set; }
+        [field: SerializeField] public bool FlipX { get; set; }
         [field: SerializeField] public bool FlipY { get; set; }
         [field: SerializeField] public bool ForwardForce { get; set; }
         
@@ -36,7 +43,7 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.Weapon {
         [field:Header("Reflection controls")] 
         [field: SerializeField] public bool FlipXOnReflect { get; set; }
         [field: SerializeField] public bool FlipYOnReflect { get; set; }
-        [field: SerializeField] public ProjectileMode Mode { get; set; }
+        [field: SerializeField] public ReflectionMode Mode { get; set; }
         
         [field: SerializeField] [field:Range(math.SQRT2, 2f)] public float ReflectiveCircleRadius { get; set; }
         [field: SerializeField] public Vector2 RectDimensions { get; set; }
@@ -51,11 +58,18 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.Weapon {
         /// Write data of an original to a copy.
         /// </summary>
         public static void Copy(IWeaponParams Original, IWeaponParams Copy) {
+            Copy.WeaponMode = Original.WeaponMode;
+            Copy.BurstMode = Original.BurstMode;
+            Copy.BurstRate = Original.BurstRate;
+            
             Copy.FireRate = Original.FireRate;
             Copy.ProjectilesInOneShot = Original.ProjectilesInOneShot;
+            Copy.LaunchSpeed = Original.LaunchSpeed;
             
+            Copy.PositioningMode = Original.PositioningMode;
             Copy.Size = Original.Size;
             Copy.Lifespan = Original.Lifespan;
+            
             Copy.HueRange = Original.HueRange;
             Copy.Saturation = Original.Saturation;
             Copy.Brightness = Original.Brightness;
@@ -63,6 +77,7 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.Weapon {
             Copy.SpeedRange = Original.SpeedRange;
             Copy.ForceRange = Original.ForceRange;
             Copy.NNControlDistance = Original.NNControlDistance;
+            Copy.FlipX = Original.FlipX;
             Copy.FlipY = Original.FlipY;
             Copy.ForwardForce = Original.ForwardForce;
             
@@ -79,7 +94,33 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.Weapon {
             Copy.MaxPolarAngleDeg = Original.MaxPolarAngleDeg;
         }
         
-        
         public WeaponParams() { }
     }
 }
+
+public enum ReflectionMode {
+    CircleReflection,
+    RectangleReflection,
+    Polar
+}
+
+public enum PositioningMode {
+    AbsolutePos,
+    RelativePos
+}
+
+public enum WeaponMode {
+    MultiShot,
+    Burst
+}
+
+public enum BurstMode {
+    Clockwise,
+    CounterClockwise,
+    Alternate,
+    Straight,
+    MaxMinAngle,
+    Random
+}
+
+

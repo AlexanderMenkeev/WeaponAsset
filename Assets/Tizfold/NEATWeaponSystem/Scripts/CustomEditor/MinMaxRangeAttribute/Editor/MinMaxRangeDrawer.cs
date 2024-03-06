@@ -2,7 +2,7 @@ using System;
 using UnityEditor;
 using UnityEngine;
 
-namespace CustomEditor.MinMaxRangeAttribute.Editor
+namespace Tizfold.NEATWeaponSystem.Scripts.CustomEditor.MinMaxRangeAttribute.Editor
 {
 	[CustomPropertyDrawer(typeof(global::Tizfold.NEATWeaponSystem.Scripts.CustomEditor.MinMaxRangeAttribute.MinMaxRangeAttribute))]
 	internal class MinMaxRangeDrawer : PropertyDrawer

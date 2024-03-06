@@ -960,6 +960,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 3414628300019486120, guid: 14921f3c4f19bc148a1958d8bde2437f, type: 3}
+      propertyPath: _weaponSO
+      value: 
+      objectReference: {fileID: 11400000, guid: c19a9d6fb40df5c42add2d58f99e106c, type: 2}
+    - target: {fileID: 3414628300019486120, guid: 14921f3c4f19bc148a1958d8bde2437f, type: 3}
+      propertyPath: ProjectilePrefab
+      value: 
+      objectReference: {fileID: 7750301855671846271, guid: e589d491ebef9bd489845df13bf2078c, type: 3}
+    - target: {fileID: 3414628300019486120, guid: 14921f3c4f19bc148a1958d8bde2437f, type: 3}
+      propertyPath: CoordinateSystemPrefab
+      value: 
+      objectReference: {fileID: 7264189112268356630, guid: 05c49644aa693224a863e69a1e909494, type: 3}
     - target: {fileID: 6102046700263413536, guid: 14921f3c4f19bc148a1958d8bde2437f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
