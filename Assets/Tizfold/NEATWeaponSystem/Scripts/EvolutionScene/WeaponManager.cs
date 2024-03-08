@@ -15,7 +15,7 @@ namespace Tizfold.NEATWeaponSystem.Scripts.EvolutionScene {
         private IList<NeatGenome> _genomeList;
         [SerializeField] private List<GameObject> _weapons;
         
-        // assigned from the editor
+        // assign in the editor
         [SerializeField] private GameObject _weaponPrefab;
         [SerializeField] private WeaponParamsSO _weaponSo;
         
@@ -58,8 +58,9 @@ namespace Tizfold.NEATWeaponSystem.Scripts.EvolutionScene {
             }
         }
 
+        
         private void InitializeWeapons() {
-            
+            RepositionWeapons();
             _weaponSo.DestroyProjectilesEvent?.Invoke();
             for (int i = 0; i < _numberOfWeapons; i++) {
                 
@@ -73,6 +74,27 @@ namespace Tizfold.NEATWeaponSystem.Scripts.EvolutionScene {
             }
         }
 
+        
+        private void RepositionWeapons() {
+            Vector2 p11 = _camera.ViewportToWorldPoint(new Vector3(1, 1, _camera.nearClipPlane));
+            Vector2 p00 = _camera.ViewportToWorldPoint(new Vector3(0, 0, _camera.nearClipPlane));
+            
+            float horizontalSpacing = _weaponSo.NNControlDistance * math.SQRT2 * 2.2f;
+            float marginY = _weaponSo.NNControlDistance * math.SQRT2;
+
+            for (int i = 0; i < _weapons.Count; i++)  {
+                for (int j = 0; j < _numberOfWeapons / 2; j++) {
+                    Vector3 pos = new Vector3(p00.x + j * horizontalSpacing + horizontalSpacing, p11.y - marginY, 0);
+                    _weapons[j].transform.position = pos;
+                }
+                
+                for (int j = 0; j <_numberOfWeapons - _numberOfWeapons / 2; j++) {
+                    Vector3 pos = new Vector3(p00.x + j * horizontalSpacing + horizontalSpacing * 0.5f, p00.y + marginY, 0);
+                    _weapons[j + _numberOfWeapons / 2].transform.position = pos;
+                }
+            }
+            
+        }
         
     }
 }

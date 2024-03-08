@@ -16,7 +16,6 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.Weapon {
     /// </summary>
     public abstract class AbstractWeapon : MonoBehaviour
     {
-        
         [SerializeField] protected WeaponParamsSO _weaponSO;
         public Projectile ProjectilePrefab;
         public CoordinateSystem CoordinateSystemPrefab;
@@ -29,6 +28,23 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.Weapon {
         [SerializeField] protected WeaponParams _weaponParamsLocal;
         [Tooltip("Do not change these stats in the editor, it will not have effect on the evolution algorithm.")]
         public GenomeStats GenomeStats;
+        
+        
+        protected void OnAwakeFunc() {
+            if (TemporalObjects == null)
+                TemporalObjects = GameObject.Find("TemporalObjects");
+            
+            ProjectileSpawnPoint = transform.Find("ProjectileSpawnPoint");
+           
+            _weaponSO.UpdateParamsEvent += InitializeParams;
+            _weaponSO.LaunchForwardEvent += LaunchCoordinateSystems;
+        }
+        
+        protected void OnDestroyFunc() {
+            _weaponSO.UpdateParamsEvent -= InitializeParams;
+            _weaponSO.LaunchForwardEvent -= LaunchCoordinateSystems;
+        }
+        
         
         protected virtual void InitializeParams() {
             _weaponParamsLocal = new WeaponParams(_weaponSO);
@@ -72,6 +88,7 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.Weapon {
                 }
                 
                 yield return new WaitForSeconds(_weaponParamsLocal.FireRate);
+                
             }
         }
 

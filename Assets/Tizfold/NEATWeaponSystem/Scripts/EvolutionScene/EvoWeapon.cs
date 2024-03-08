@@ -10,17 +10,15 @@ using UnityEngine;
 namespace Tizfold.NEATWeaponSystem.Scripts.EvolutionScene {
     public class EvoWeapon : AbstractWeapon
     {
+        
+        
+        
         private void Awake() {
-            TemporalObjects = GameObject.FindWithTag("TemporalObjects");
-            ProjectileSpawnPoint = transform.Find("ProjectileSpawnPoint");
-           
-            _weaponSO.UpdateParamsEvent += InitializeParams;
-            _weaponSO.LaunchForwardEvent += LaunchCoordinateSystems;
+            base.OnAwakeFunc();
         }
         
         private void OnDestroy() {
-            _weaponSO.UpdateParamsEvent -= InitializeParams;
-            _weaponSO.LaunchForwardEvent -= LaunchCoordinateSystems;
+            base.OnDestroyFunc();
         }
         
         private void Start() {
@@ -29,7 +27,10 @@ namespace Tizfold.NEATWeaponSystem.Scripts.EvolutionScene {
                 FireCoroutine = StartCoroutine(Fire());
         }
         
-        private string GenerateHash() {
+        
+        
+        
+        private static string GenerateHash() {
             return DateTime.Now.Ticks.GetHashCode().ToString("x").ToUpper();
         }
         
@@ -46,7 +47,7 @@ namespace Tizfold.NEATWeaponSystem.Scripts.EvolutionScene {
             };
             
             _hash = GenerateHash();
-            _savePath = Path.Combine(Application.dataPath, "Resources\\ProjectileGenomes\\");
+            _savePath = Path.Combine(Application.dataPath, @"Resources\ProjectileGenomes\");
             _savePath += generateName ? _hash : fileName;
             Directory.CreateDirectory(_savePath);
             
@@ -64,10 +65,10 @@ namespace Tizfold.NEATWeaponSystem.Scripts.EvolutionScene {
                 }
             }
             
-            Debug.Log($"Genome and weapon params saved to path [{_savePath}]");
+            Debug.Log($"Genome and weapon params are saved to path [{_savePath}]");
             
             #if UNITY_EDITOR
-            UnityEditor.AssetDatabase.Refresh ();
+            UnityEditor.AssetDatabase.Refresh();
             #endif
         }
 
@@ -77,7 +78,6 @@ namespace Tizfold.NEATWeaponSystem.Scripts.EvolutionScene {
                 Debug.Log("Play mode only");
                 return;
             }
-            StopCoroutine(FireCoroutine);
             
             XmlDocument genomeXml = new XmlDocument();
             genomeXml.LoadXml(genomeTextAsset.text);
@@ -87,8 +87,7 @@ namespace Tizfold.NEATWeaponSystem.Scripts.EvolutionScene {
             GenomeStats.UpdateGenomeStats(genomeList[0]);
             
             Debug.Log($"Genome {genomeTextAsset.name} is loaded");
-        
-            FireCoroutine = StartCoroutine(Fire());
+           
         }
         
         
@@ -97,7 +96,6 @@ namespace Tizfold.NEATWeaponSystem.Scripts.EvolutionScene {
                 Debug.Log("Play mode only");
                 return;
             }
-                
             GenomeStats.Genome.EvaluationInfo.SetFitness(10);
         }
         

@@ -1,3 +1,5 @@
+using System;
+using System.Runtime.InteropServices;
 using Tizfold.NEATWeaponSystem.Scripts.EvolutionScene;
 using UnityEditor;
 using UnityEngine;
@@ -6,28 +8,37 @@ namespace Tizfold.NEATWeaponSystem.Scripts.CustomEditor.Editor {
     [CanEditMultipleObjects]
     [UnityEditor.CustomEditor(typeof(EvoWeapon))]
     public class EvoWeaponEditor : UnityEditor.Editor {
-        
+
         private TextAsset _genomeTextAsset;
-        private string _genomeFileName;
+        private string _fileName;
         private bool _generateUniqueName;
         private bool _selectedAsParent;
 
         private void OnEnable() {
             _genomeTextAsset = null;
-            _genomeFileName = "File name";
+            _fileName = "File name";
             _generateUniqueName = true;
             _selectedAsParent = false;
         }
         
         public override void OnInspectorGUI() {
             
+            EvoWeapon weapon = target as EvoWeapon;
+            if (weapon == null) {
+                Debug.LogException(new Exception("Target is null!"));
+                return;
+            }
+            
+            EvoWeapon[] weapons = Array.ConvertAll(targets, item => (EvoWeapon)item);
+            if (weapons.Length == 0) {
+                Debug.LogException(new Exception("Zero targets!"));
+                return;
+            }
+            
             base.OnInspectorGUI();
             
             GUILayout.Space(10);
             
-            EvoWeapon weapon = target as EvoWeapon;
-            if (weapon == null)
-                return;
             _selectedAsParent = weapon.GenomeStats.IsEvaluated;
             
             using(new GUILayout.VerticalScope(EditorStyles.helpBox)) {
@@ -38,9 +49,10 @@ namespace Tizfold.NEATWeaponSystem.Scripts.CustomEditor.Editor {
                 
                 if (!_selectedAsParent) {
                     if (GUILayout.Button("Select as parent for next gen")) {
-                        weapon.EvaluateGenome();
-                        _selectedAsParent = true;
-                        weapon.GenomeStats.IsEvaluated = true;
+                        foreach (EvoWeapon ew in weapons) {
+                            ew.EvaluateGenome();
+                            ew.GenomeStats.IsEvaluated = true;
+                        }
                     }
                 }
                 else {
@@ -50,14 +62,22 @@ namespace Tizfold.NEATWeaponSystem.Scripts.CustomEditor.Editor {
                 }
 
                 GUILayout.Space(2);
-                
+
+                if (weapons.Length > 1) {
+                    GUI.enabled = false;
+                    _generateUniqueName = true;
+                }
                 _generateUniqueName = EditorGUILayout.ToggleLeft("Generate unique hash name", _generateUniqueName, GUILayout.ExpandWidth(false));
+                GUI.enabled = true;
                 
                 using(new GUILayout.HorizontalScope()) {
-                    if (GUILayout.Button("Save") )
-                        weapon.SaveFunc(_generateUniqueName, _genomeFileName);
+                    if (GUILayout.Button("Save")) {
+                        foreach (EvoWeapon ew in weapons) {
+                            ew.SaveFunc(_generateUniqueName, _fileName);
+                        }
+                    }
                     if (!_generateUniqueName)
-                        _genomeFileName = EditorGUILayout.TextField(_genomeFileName, GUILayout.MaxWidth(300));
+                        _fileName = EditorGUILayout.TextField(_fileName, GUILayout.MaxWidth(300));
                 }
                 
                 GUILayout.Space(2);
@@ -65,15 +85,20 @@ namespace Tizfold.NEATWeaponSystem.Scripts.CustomEditor.Editor {
                 using(new GUILayout.HorizontalScope()) {
                     if (_genomeTextAsset == null)
                         GUI.enabled = false;
-                    if ( GUILayout.Button("Load") )
-                        weapon.LoadFunc(_genomeTextAsset);
-                    GUI.enabled = true;
                     
+                    if (GUILayout.Button("Load Genome")) {
+                        foreach (EvoWeapon ew in weapons) {
+                            ew.LoadFunc(_genomeTextAsset);
+                        }
+                    }
+                    GUI.enabled = true;
                     _genomeTextAsset = EditorGUILayout.ObjectField(_genomeTextAsset, typeof(TextAsset), false, GUILayout.MaxWidth(300)) as TextAsset;
                 }
                 
                 GUILayout.Space(10);
             }
+            
+            
             
 
         }

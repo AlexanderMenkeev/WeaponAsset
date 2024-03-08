@@ -98,13 +98,13 @@ namespace Tizfold.NEATWeaponSystem.Scripts.CustomEditor.Editor {
             
             WeaponParamsSO weaponSO = target as WeaponParamsSO;
             if (weaponSO == null) {
-                Debug.LogException(new Exception("WeaponSO is null!"));
+                Debug.LogException(new Exception("Target is null!"));
                 return;
             }
             
             WeaponParamsSO[] wParamsArray = Array.ConvertAll(_so.targetObjects, item => (WeaponParamsSO)item);
             if (wParamsArray.Length == 0) {
-                Debug.Log("Zero elements in wParamsArray");
+                Debug.LogException(new Exception("Zero targets!"));
                 return;
             }
             
