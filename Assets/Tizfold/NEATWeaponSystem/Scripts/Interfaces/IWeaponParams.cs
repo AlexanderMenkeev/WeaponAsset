@@ -9,7 +9,11 @@ namespace Tizfold.NEATWeaponSystem.Scripts.Interfaces {
         float BurstRate { get; set; }
         float FireRate { get; set; }
         int ProjectilesInOneShot { get; set; }
-        float LaunchSpeed { get; set; }
+        
+        bool Rotate { get; set; }
+        float RotationSpeed { get; set; }
+        bool Move { get; set; }
+        float MoveSpeed { get; set; }
         
         PositioningMode PositioningMode { get; set; }
         Vector2 Size { get; set; }

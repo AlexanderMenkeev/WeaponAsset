@@ -18,7 +18,11 @@ namespace Tizfold.NEATWeaponSystem.Scripts.SODefinitions {
         [field: SerializeField] [field: Range(0.03f, 0.3f)] public float BurstRate { get; set; }
         [field: SerializeField] [field: Range(0.3f, 1f)] public float FireRate { get; set; }
         [field: SerializeField] [field: Range(1, 20)] public int ProjectilesInOneShot { get; set; }
-        [field: SerializeField] [field: Range(5f, 20f)] public float LaunchSpeed { get; set; }
+        
+        [field: SerializeField] public bool Rotate { get; set; }
+        [field: SerializeField] [field: Range(-100f, 100f)] public float RotationSpeed { get; set; }
+        [field: SerializeField] public bool Move { get; set; }
+        [field: SerializeField] [field: Range(0f, 20f)] public float MoveSpeed { get; set; }
         
         [field: SerializeField] public PositioningMode PositioningMode { get; set; }
         [field: SerializeField] public Vector2 Size { get; set; }
@@ -50,9 +54,8 @@ namespace Tizfold.NEATWeaponSystem.Scripts.SODefinitions {
         public delegate void Event();
         public Event DestroyProjectilesEvent;
         public Event UpdateParamsEvent;
+        public Event ApplyForAllCoordinateSystemsEvent;
         
-        public delegate void LaunchEvent(float speed, Vector3 direction);
-        public LaunchEvent LaunchForwardEvent;
         // Default params
         private void InitializeParams() {
             WeaponMode = WeaponMode.Burst;
@@ -60,7 +63,11 @@ namespace Tizfold.NEATWeaponSystem.Scripts.SODefinitions {
             BurstRate = 0.05f;
             FireRate = 1f;
             ProjectilesInOneShot = 20;
-            LaunchSpeed = 10f;
+            
+            Rotate = false;
+            RotationSpeed = 10f;
+            Move = false;
+            MoveSpeed = 10f;
             
             PositioningMode = PositioningMode.AbsolutePos;
             Size = new Vector2(0.07f, 0.07f);

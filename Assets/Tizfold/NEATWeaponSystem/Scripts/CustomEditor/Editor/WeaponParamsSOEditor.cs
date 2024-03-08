@@ -19,7 +19,11 @@ namespace Tizfold.NEATWeaponSystem.Scripts.CustomEditor.Editor {
         
         private SerializedProperty FireRate;
         private SerializedProperty ProjectilesInOneShot;
-        private SerializedProperty LaunchSpeed;
+        
+        private SerializedProperty Rotate;
+        private SerializedProperty RotationSpeed;
+        private SerializedProperty Move;
+        private SerializedProperty MoveSpeed;
         
         private SerializedProperty PositioningMode;
         private SerializedProperty Size;
@@ -61,7 +65,11 @@ namespace Tizfold.NEATWeaponSystem.Scripts.CustomEditor.Editor {
             
             FireRate = _so.FindProperty($"<{nameof(WeaponParamsSO.FireRate)}>k__BackingField");
             ProjectilesInOneShot = _so.FindProperty($"<{nameof(WeaponParamsSO.ProjectilesInOneShot)}>k__BackingField");
-            LaunchSpeed = _so.FindProperty($"<{nameof(WeaponParamsSO.LaunchSpeed)}>k__BackingField");
+            
+            Rotate = _so.FindProperty($"<{nameof(WeaponParamsSO.Rotate)}>k__BackingField");
+            RotationSpeed = _so.FindProperty($"<{nameof(WeaponParamsSO.RotationSpeed)}>k__BackingField");
+            Move = _so.FindProperty($"<{nameof(WeaponParamsSO.Move)}>k__BackingField");
+            MoveSpeed = _so.FindProperty($"<{nameof(WeaponParamsSO.MoveSpeed)}>k__BackingField");
             
             PositioningMode = _so.FindProperty($"<{nameof(WeaponParamsSO.PositioningMode)}>k__BackingField");
             Size = _so.FindProperty($"<{nameof(WeaponParamsSO.Size)}>k__BackingField");
@@ -170,20 +178,6 @@ namespace Tizfold.NEATWeaponSystem.Scripts.CustomEditor.Editor {
                 
                 GUILayout.Space(10);
                 
-                using(new GUILayout.HorizontalScope()) {
-                    if ( GUILayout.Button("Launch projectiles forward", GUILayout.MaxWidth(EditorGUIUtility.labelWidth)) )
-                        foreach (WeaponParamsSO wp in wParamsArray) {
-                            wp.LaunchForwardEvent?.Invoke(wp.LaunchSpeed, Vector3.right);
-                        }
-                    
-                    using( new GUILayout.HorizontalScope() ) {
-                        EditorGUILayout.LabelField("Speed", GUILayout.Width(50));
-                        EditorGUILayout.PropertyField(LaunchSpeed, label: GUIContent.none);
-                    }
-                }
-                
-                GUILayout.Space(5);
-                
                 if ( GUILayout.Button("Destroy projectiles") )
                     foreach (WeaponParamsSO wp in wParamsArray) {
                         wp.DestroyProjectilesEvent?.Invoke();
@@ -191,6 +185,50 @@ namespace Tizfold.NEATWeaponSystem.Scripts.CustomEditor.Editor {
                 
                 GUILayout.Space(3);
             }
+            
+            GUILayout.Space(15);
+            
+            GUILayout.Label("Coordinate System", EditorStyles.boldLabel);
+            using(new GUILayout.VerticalScope(EditorStyles.helpBox)) {
+
+                GUILayout.Space(2);
+                
+                using(new GUILayout.HorizontalScope()) {
+                    using( new GUILayout.HorizontalScope(GUILayout.MaxWidth(100)) ) {
+                        EditorGUILayout.LabelField(Rotate.displayName, GUILayout.Width(40));
+                        EditorGUILayout.PropertyField(Rotate, label: GUIContent.none, GUILayout.Width(20));
+                    }
+                    
+                    using( new GUILayout.HorizontalScope(GUILayout.ExpandWidth(true)) ) {
+                        EditorGUILayout.LabelField(RotationSpeed.displayName, GUILayout.Width(120));
+                        EditorGUILayout.PropertyField(RotationSpeed, label: GUIContent.none);
+                    }
+                }
+                
+                GUILayout.Space(2);
+                
+                using(new GUILayout.HorizontalScope()) {
+                    using( new GUILayout.HorizontalScope(GUILayout.MaxWidth(100)) ) {
+                        EditorGUILayout.LabelField(Move.displayName, GUILayout.Width(40));
+                        EditorGUILayout.PropertyField(Move, label: GUIContent.none, GUILayout.Width(20));
+                    }
+                    
+                    using( new GUILayout.HorizontalScope(GUILayout.ExpandWidth(true)) ) {
+                        EditorGUILayout.LabelField(MoveSpeed.displayName, GUILayout.Width(120));
+                        EditorGUILayout.PropertyField(MoveSpeed, label: GUIContent.none);
+                    }
+                }
+                
+                GUILayout.Space(10);
+                
+                if ( GUILayout.Button("Apply for all") )
+                    foreach (WeaponParamsSO wp in wParamsArray) {
+                        wp.ApplyForAllCoordinateSystemsEvent?.Invoke();
+                    }
+                
+                GUILayout.Space(3);
+            }
+            
             
             GUILayout.Space(15);
             

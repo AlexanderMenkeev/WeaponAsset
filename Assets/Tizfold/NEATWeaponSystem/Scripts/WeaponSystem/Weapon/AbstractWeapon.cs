@@ -30,6 +30,7 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.Weapon {
         public GenomeStats GenomeStats;
         
         
+        // call this function in Awake() in derived class
         protected void OnAwakeFunc() {
             if (TemporalObjects == null)
                 TemporalObjects = GameObject.Find("TemporalObjects");
@@ -37,12 +38,13 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.Weapon {
             ProjectileSpawnPoint = transform.Find("ProjectileSpawnPoint");
            
             _weaponSO.UpdateParamsEvent += InitializeParams;
-            _weaponSO.LaunchForwardEvent += LaunchCoordinateSystems;
+            _weaponSO.ApplyForAllCoordinateSystemsEvent += LaunchCoordinateSystems;
         }
         
+        // call this function in OnDestroy() in derived class
         protected void OnDestroyFunc() {
             _weaponSO.UpdateParamsEvent -= InitializeParams;
-            _weaponSO.LaunchForwardEvent -= LaunchCoordinateSystems;
+            _weaponSO.ApplyForAllCoordinateSystemsEvent -= LaunchCoordinateSystems;
         }
         
         
@@ -244,16 +246,24 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.Weapon {
             localCoordinateSystem.transform.rotation = ProjectileSpawnPoint.rotation;
             localCoordinateSystem.transform.position = ProjectileSpawnPoint.position;
 
+            localCoordinateSystem.IsMoving = _weaponParamsLocal.Move;
+            localCoordinateSystem.MoveSpeed = _weaponParamsLocal.MoveSpeed;
+            localCoordinateSystem.Direction = Vector3.right;
+            localCoordinateSystem.IsRotating = _weaponParamsLocal.Rotate;
+            localCoordinateSystem.RotatingSpeed = _weaponParamsLocal.RotationSpeed;
+
             CoordinateSystems.Add(localCoordinateSystem);
             return localCoordinateSystem;
         }
 
 
-        public virtual void LaunchCoordinateSystems(float speed, Vector3 direction) {
+        public virtual void LaunchCoordinateSystems() {
             foreach (CoordinateSystem system in CoordinateSystems) {
-                system.Speed = speed;
-                system.Direction = direction;
-                system.Move = true;
+                system.IsMoving = true;
+                system.MoveSpeed = _weaponParamsLocal.MoveSpeed;
+                system.Direction = Vector3.right;
+                system.IsRotating = true;
+                system.RotatingSpeed = _weaponParamsLocal.RotationSpeed;
             }
         } 
         

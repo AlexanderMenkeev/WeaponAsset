@@ -4,6 +4,7 @@ using Tizfold.NEATWeaponSystem.Scripts.Interfaces;
 using Tizfold.NEATWeaponSystem.Scripts.SODefinitions;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Rendering.VirtualTexturing;
 
 namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.Weapon {
     [Serializable]
@@ -16,7 +17,12 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.Weapon {
         
         [field: SerializeField] [field: Range(0.3f, 1f)] public float FireRate { get; set; }
         [field: SerializeField] [field: Range(1, 20)] public int ProjectilesInOneShot { get; set; }
-        [field: SerializeField] [field: Range(5f, 20f)] public float LaunchSpeed { get; set; }
+        
+        [field: Header("Coordinate system controls")]
+        [field: SerializeField] public bool Rotate { get; set; }
+        [field: SerializeField] [field: Range(-100f, 100f)] public float RotationSpeed { get; set; }
+        [field: SerializeField] public bool Move { get; set; }
+        [field: SerializeField] [field: Range(0f, 20f)] public float MoveSpeed { get; set; }
         
         [field: Header("Projectile controls")]
         [field: SerializeField] public PositioningMode PositioningMode { get; set; }
@@ -64,7 +70,11 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.Weapon {
             
             Copy.FireRate = Original.FireRate;
             Copy.ProjectilesInOneShot = Original.ProjectilesInOneShot;
-            Copy.LaunchSpeed = Original.LaunchSpeed;
+            
+            Copy.Rotate = Original.Rotate;
+            Copy.RotationSpeed = Original.RotationSpeed;
+            Copy.Move = Original.Move;
+            Copy.MoveSpeed = Original.MoveSpeed;
             
             Copy.PositioningMode = Original.PositioningMode;
             Copy.Size = Original.Size;
