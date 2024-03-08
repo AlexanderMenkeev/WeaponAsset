@@ -32,7 +32,7 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem {
         private void ActivatePickUpCanvas() {
             
             DistanceSlider.value = WeaponSO.NNControlDistance;
-            Flip.isOn = WeaponSO.FlipY;
+            Flip.isOn = WeaponSO.SignY > 0;
         
             PickUpCanvas.SetActive(true);
             
@@ -80,7 +80,7 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem {
         }
         
         private void OnFlipChanged(bool value) {
-            WeaponSO.FlipY = value;
+            WeaponSO.SignY = value ? 1f : -1f;
             WeaponSO.UpdateParamsEvent?.Invoke();
         }
 

@@ -26,8 +26,8 @@ namespace Tizfold.NEATWeaponSystem.Scripts.Interfaces {
         Vector2 SpeedRange { get; set; }
         Vector2 ForceRange { get; set; }
         float NNControlDistance { get; set; }
-        bool FlipX { get; set; }
-        bool FlipY { get; set; }
+        float SignX { get; set; }
+        float SignY { get; set; }
         bool ForwardForce { get; set; }
         
         float InitialFlightRadius { get; set; }

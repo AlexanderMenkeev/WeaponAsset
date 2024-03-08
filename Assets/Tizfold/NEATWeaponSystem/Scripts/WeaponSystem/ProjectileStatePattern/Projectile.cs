@@ -117,12 +117,12 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.ProjectileStatePattern {
         }
         
         private float _hue, _maxSpeed, _force;
-        private Vector2 _vel;
-        public void ReadDataFromBlackBox() {
+        private Vector2 _forceDir;
+        public void ReadDataFromBlackBoxDefault() {
             float x = Mathf.Lerp(-1f, 1f, (float)_outputArr[0]) * SignX;
             float y = Mathf.Lerp(-1f, 1f, (float)_outputArr[1]) * SignY;
-        
-            _vel = x * OriginTransform.right + y * OriginTransform.up;
+
+            _forceDir = OriginTransform.TransformDirection(x, y, 0f);
         
             _hue = Mathf.Lerp(WeaponParamsLocal.HueRange.x, WeaponParamsLocal.HueRange.y, (float)_outputArr[2]);
             _maxSpeed = Mathf.Lerp(WeaponParamsLocal.SpeedRange.x, WeaponParamsLocal.SpeedRange.y, (float)_outputArr[3]);
@@ -132,16 +132,47 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.ProjectileStatePattern {
             
             switch (WeaponParamsLocal.PositioningMode) {
                 case PositioningMode.AbsolutePos:
-                    
-                    Rigidbody.AddForce(_vel * _force);
-                    if (WeaponParamsLocal.ForwardForce)
+                    Rigidbody.AddForce(_forceDir * _force);
+                    if (WeaponParamsLocal.ForwardForce) 
                         Rigidbody.AddForce(OriginTransform.up * _force);
                     break;
                 
                 case PositioningMode.RelativePos:
-                    
                     float inverseMass = 1f / Rigidbody.mass;
-                    Rigidbody.velocity += _vel * (_force * inverseMass * Time.fixedDeltaTime);
+                    Rigidbody.velocity += _forceDir * (_force * inverseMass * Time.fixedDeltaTime);
+                    if (WeaponParamsLocal.ForwardForce)
+                        Rigidbody.velocity += (Vector2)OriginTransform.up * (_force * inverseMass * Time.fixedDeltaTime);
+                    break;
+                
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            
+        }
+        
+        public void ReadDataFromBlackBoxRotator() {
+            float x = Mathf.Lerp(-1f, 1f, (float)_outputArr[0]) * SignX;
+            float y = Mathf.Lerp(-1f, 1f, (float)_outputArr[1]) * SignY;
+
+            Vector2 rotatingDir = Vector2.Perpendicular(RelativePosDir).normalized;
+            _forceDir = x * rotatingDir + y * RelativePosDir.normalized;
+        
+            _hue = Mathf.Lerp(WeaponParamsLocal.HueRange.x, WeaponParamsLocal.HueRange.y, (float)_outputArr[2]);
+            _maxSpeed = Mathf.Lerp(WeaponParamsLocal.SpeedRange.x, WeaponParamsLocal.SpeedRange.y, (float)_outputArr[3]);
+            _force = Mathf.Lerp(WeaponParamsLocal.ForceRange.x, WeaponParamsLocal.ForceRange.y, (float)_outputArr[4]);
+
+            SpriteRenderer.color = Color.HSVToRGB(_hue, WeaponParamsLocal.Saturation, WeaponParamsLocal.Brightness);
+            
+            switch (WeaponParamsLocal.PositioningMode) {
+                case PositioningMode.AbsolutePos:
+                    Rigidbody.AddForce(_forceDir * _force);
+                    if (WeaponParamsLocal.ForwardForce) 
+                        Rigidbody.AddForce(OriginTransform.up * _force);
+                    break;
+                
+                case PositioningMode.RelativePos:
+                    float inverseMass = 1f / Rigidbody.mass;
+                    Rigidbody.velocity += _forceDir * (_force * inverseMass * Time.fixedDeltaTime);
                     if (WeaponParamsLocal.ForwardForce)
                         Rigidbody.velocity += (Vector2)OriginTransform.up * (_force * inverseMass * Time.fixedDeltaTime);
                     break;

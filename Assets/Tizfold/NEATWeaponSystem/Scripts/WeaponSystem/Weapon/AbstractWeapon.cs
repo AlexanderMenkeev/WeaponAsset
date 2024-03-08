@@ -98,8 +98,6 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.Weapon {
         
         public virtual void FireMultiShot() {
             
-            float signX = (_weaponParamsLocal.FlipX) ? -1f : 1f;
-            float signY = (_weaponParamsLocal.FlipY) ? -1f : 1f;
             CoordinateSystem localCoordinateSystem = CreateLocalCoordinateSystem();
             
             for (int i = 0; i < _weaponParamsLocal.ProjectilesInOneShot; i++) {
@@ -117,8 +115,8 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.Weapon {
                 projectile.WeaponParamsLocal = new WeaponParams(_weaponParamsLocal);
                 projectile.WeaponSo = _weaponSO;
                     
-                projectile.SignX = (offset < 0 ? -1f : 1f) * signX;
-                projectile.SignY = signY;
+                projectile.SignX = (offset < 0 ? -1f : 1f) * _weaponParamsLocal.SignX;
+                projectile.SignY = _weaponParamsLocal.SignY;
 
                 Vector2 initialDirection = Quaternion.Euler(0, 0, _weaponParamsLocal.Angle * offset) * ProjectileSpawnPoint.up;
                 projectile.InitialVelocity = initialDirection.normalized * _weaponParamsLocal.InitialSpeed;
@@ -127,9 +125,6 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.Weapon {
         
         
         public virtual IEnumerator FireBurst() {
-            
-            float signX = (_weaponParamsLocal.FlipX) ? -1f : 1f;
-            float signY = (_weaponParamsLocal.FlipY) ? -1f : 1f;
             CoordinateSystem localCoordinateSystem = CreateLocalCoordinateSystem();
             int projectileCount = _weaponParamsLocal.ProjectilesInOneShot;
             BurstMode burstMode = _weaponParamsLocal.BurstMode;
@@ -217,8 +212,8 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.Weapon {
                         throw new ArgumentOutOfRangeException();
                 }
                 
-                projectile.SignY = signY;
-                projectile.SignX = (offset < 0 ? -1f : 1f) * signX;
+                projectile.SignY = _weaponParamsLocal.SignY;
+                projectile.SignX = (offset < 0 ? -1f : 1f) * _weaponParamsLocal.SignX;
                 projectile.InitialVelocity = initialDirection.normalized * _weaponParamsLocal.InitialSpeed;
                 
                 yield return new WaitForSeconds(_weaponParamsLocal.BurstRate);

@@ -36,8 +36,8 @@ namespace Tizfold.NEATWeaponSystem.Scripts.CustomEditor.Editor {
         private SerializedProperty SpeedRange;
         private SerializedProperty ForceRange;
         private SerializedProperty NNControlDistance;
-        private SerializedProperty FlipX;
-        private SerializedProperty FlipY;
+        private SerializedProperty SignX;
+        private SerializedProperty SignY;
         private SerializedProperty ForwardForce;
         
         private SerializedProperty InitialFlightRadius;
@@ -82,8 +82,8 @@ namespace Tizfold.NEATWeaponSystem.Scripts.CustomEditor.Editor {
             SpeedRange = _so.FindProperty($"<{nameof(WeaponParamsSO.SpeedRange)}>k__BackingField");
             ForceRange = _so.FindProperty($"<{nameof(WeaponParamsSO.ForceRange)}>k__BackingField");
             NNControlDistance = _so.FindProperty($"<{nameof(WeaponParamsSO.NNControlDistance)}>k__BackingField");
-            FlipX = _so.FindProperty($"<{nameof(WeaponParamsSO.FlipX)}>k__BackingField");
-            FlipY = _so.FindProperty($"<{nameof(WeaponParamsSO.FlipY)}>k__BackingField");
+            SignX = _so.FindProperty($"<{nameof(WeaponParamsSO.SignX)}>k__BackingField");
+            SignY = _so.FindProperty($"<{nameof(WeaponParamsSO.SignY)}>k__BackingField");
             ForwardForce = _so.FindProperty($"<{nameof(WeaponParamsSO.ForwardForce)}>k__BackingField");
             
             InitialFlightRadius = _so.FindProperty($"<{nameof(WeaponParamsSO.InitialFlightRadius)}>k__BackingField");
@@ -261,8 +261,8 @@ namespace Tizfold.NEATWeaponSystem.Scripts.CustomEditor.Editor {
                 EditorGUILayout.PropertyField(SpeedRange);
                 EditorGUILayout.PropertyField(ForceRange);
                 EditorGUILayout.PropertyField(NNControlDistance);
-                EditorGUILayout.PropertyField(FlipX);
-                EditorGUILayout.PropertyField(FlipY);
+                EditorGUILayout.PropertyField(SignX);
+                EditorGUILayout.PropertyField(SignY);
                 EditorGUILayout.PropertyField(ForwardForce);
                 GUILayout.Space(3);
                 

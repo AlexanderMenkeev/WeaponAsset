@@ -20,7 +20,7 @@ MonoBehaviour:
   <FireRate>k__BackingField: 1
   <ProjectilesInOneShot>k__BackingField: 20
   <Rotate>k__BackingField: 0
-  <RotationSpeed>k__BackingField: 50
+  <RotationSpeed>k__BackingField: 100
   <Move>k__BackingField: 0
   <MoveSpeed>k__BackingField: 0
   <PositioningMode>k__BackingField: 1
@@ -32,8 +32,8 @@ MonoBehaviour:
   <SpeedRange>k__BackingField: {x: 3, y: 6}
   <ForceRange>k__BackingField: {x: 1, y: 3}
   <NNControlDistance>k__BackingField: 3
-  <FlipX>k__BackingField: 0
-  <FlipY>k__BackingField: 0
+  <SignX>k__BackingField: 0
+  <SignY>k__BackingField: 1
   <ForwardForce>k__BackingField: 0
   <InitialFlightRadius>k__BackingField: 0.1
   <InitialSpeed>k__BackingField: 2

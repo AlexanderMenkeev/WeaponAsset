@@ -37,8 +37,8 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.Weapon {
         [field: SerializeField] [field: MinMaxRange(1f, 8f)] public Vector2 SpeedRange { get; set; }
         [field: SerializeField] [field: MinMaxRange(0.5f, 5f)] public Vector2 ForceRange { get; set; }
         [field: SerializeField] [field: Range(1f, 8f)] public float NNControlDistance { get; set; }
-        [field: SerializeField] public bool FlipX { get; set; }
-        [field: SerializeField] public bool FlipY { get; set; }
+        [field: SerializeField] [field: Range(-1f, 1f)] public float SignX { get; set; }
+        [field: SerializeField] [field: Range(-1f, 1f)] public float SignY { get; set; }
         [field: SerializeField] public bool ForwardForce { get; set; }
         
         [field:Header("Initial Flight controls")] 
@@ -87,8 +87,8 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.Weapon {
             Copy.SpeedRange = Original.SpeedRange;
             Copy.ForceRange = Original.ForceRange;
             Copy.NNControlDistance = Original.NNControlDistance;
-            Copy.FlipX = Original.FlipX;
-            Copy.FlipY = Original.FlipY;
+            Copy.SignX = Original.SignX;
+            Copy.SignY = Original.SignY;
             Copy.ForwardForce = Original.ForwardForce;
             
             Copy.InitialFlightRadius = Original.InitialFlightRadius;

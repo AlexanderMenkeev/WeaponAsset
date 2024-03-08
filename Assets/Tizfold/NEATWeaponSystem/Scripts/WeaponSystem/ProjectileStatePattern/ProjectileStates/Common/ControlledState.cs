@@ -37,7 +37,7 @@ namespace Tizfold.NEATWeaponSystem.Scripts.WeaponSystem.ProjectileStatePattern.P
                     throw new ArgumentOutOfRangeException();
             }
             
-            _projectile.ReadDataFromBlackBox();
+            _projectile.ReadDataFromBlackBoxDefault();
             _projectile.LimitMaxSpeed();
         }
         
