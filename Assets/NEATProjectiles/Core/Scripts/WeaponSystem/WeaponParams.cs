@@ -17,7 +17,7 @@ namespace NEATProjectiles.Core.Scripts.WeaponSystem {
         [field: SerializeField] [field: Range(1, 20)] public int ProjectilesInOneShot { get; set; }
         
         [field: Header("Coordinate system controls")]
-        [field: SerializeField] [field: Range(-100f, 100f)] public float RotationSpeed { get; set; }
+        [field: SerializeField] [field: Range(-80f, 80f)] public float RotationSpeed { get; set; }
         [field: SerializeField] [field: Range(0f, 20f)] public float MoveSpeed { get; set; }
         
         [field: Header("Projectile controls")]
@@ -32,7 +32,7 @@ namespace NEATProjectiles.Core.Scripts.WeaponSystem {
         
         [field: Header("NN Pattern controls")] 
         [field: SerializeField] [field: MinMaxRange(1f, 8f)] public Vector2 SpeedRange { get; set; }
-        [field: SerializeField] [field: MinMaxRange(0.5f, 5f)] public Vector2 ForceRange { get; set; }
+        [field: SerializeField] [field: MinMaxRange(0.5f, 8f)] public Vector2 ForceRange { get; set; }
         [field: SerializeField] [field: Range(1f, 8f)] public float NNControlDistance { get; set; }
         [field: SerializeField] [field: Range(-1f, 1f)] public float SignX { get; set; }
         [field: SerializeField] [field: Range(-1f, 1f)] public float SignY { get; set; }

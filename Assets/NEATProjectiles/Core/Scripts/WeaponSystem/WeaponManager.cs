@@ -8,21 +8,19 @@ using UnityEngine;
 namespace NEATProjectiles.Core.Scripts.WeaponSystem {
     public class WeaponManager : MonoBehaviour
     {
-        private Camera _camera;
-    
-        private EvolutionAlgorithm _evolutionAlgorithm;
-        private int _numberOfWeapons;
-        private IList<NeatGenome> _genomeList;
-        [SerializeField] private List<GameObject> _weapons;
-        
         // assign in the editor
         [SerializeField] private GameObject _weaponPrefab;
         [SerializeField] private WeaponParamsSO _weaponSo;
         
+        private Camera _camera;
         private void Awake() {
             _camera = Camera.main;
         }
     
+        private EvolutionAlgorithm _evolutionAlgorithm;
+        private int _numberOfWeapons;
+        private IList<NeatGenome> _genomeList;
+        private List<GameObject> _weapons = new List<GameObject>();
         private void Start() {
             _evolutionAlgorithm = EvolutionAlgorithm.Instance;
             _numberOfWeapons = _evolutionAlgorithm.PopulationSize;

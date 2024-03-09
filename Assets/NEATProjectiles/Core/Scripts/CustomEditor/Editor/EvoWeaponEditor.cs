@@ -1,10 +1,9 @@
 using System;
-using System.Runtime.InteropServices;
 using NEATProjectiles.Core.Scripts.WeaponSystem;
 using UnityEditor;
 using UnityEngine;
 
-namespace Tizfold.NEATWeaponSystem.Scripts.CustomEditor.Editor {
+namespace NEATProjectiles.Core.Scripts.CustomEditor.Editor {
     [CanEditMultipleObjects]
     [UnityEditor.CustomEditor(typeof(EvoWeapon))]
     public class EvoWeaponEditor : UnityEditor.Editor {

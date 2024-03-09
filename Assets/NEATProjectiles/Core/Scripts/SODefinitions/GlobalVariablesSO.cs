@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 namespace NEATProjectiles.Core.Scripts.SODefinitions {
-    [CreateAssetMenu(menuName = "ScriptableObjects/CommonVariablesSO")]
+    [CreateAssetMenu(menuName = "ScriptableObjects/GlobalVariablesSO")]
     public class GlobalVariablesSO : ScriptableObject
     {
         public event Action OnPauseResumeEvent;

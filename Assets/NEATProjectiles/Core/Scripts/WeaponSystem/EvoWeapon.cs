@@ -10,8 +10,6 @@ namespace NEATProjectiles.Core.Scripts.WeaponSystem {
     public class EvoWeapon : AbstractWeapon
     {
         
-        
-        
         private void Awake() {
             base.OnAwakeFunc();
         }
@@ -25,7 +23,6 @@ namespace NEATProjectiles.Core.Scripts.WeaponSystem {
             if (FireCoroutine == null)
                 FireCoroutine = StartCoroutine(Fire());
         }
-        
         
         
         

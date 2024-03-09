@@ -20,15 +20,12 @@ namespace NEATProjectiles.Core.Scripts.WeaponSystem {
         public CoordinateSystem CoordinateSystemPrefab;
         public List<CoordinateSystem> CoordinateSystems;
         
-        public GameObject TemporalObjects;
-        [SerializeField] public Transform ProjectileSpawnPoint;
-        
-        
         [SerializeField] protected WeaponParams _weaponParamsLocal;
         [Tooltip("Do not change these stats in the editor, it will not have effect on the evolution algorithm.")]
         public GenomeStats GenomeStats;
         
-        
+        public GameObject TemporalObjects;
+        public Transform ProjectileSpawnPoint;
         // call this function in Awake() in derived class
         protected void OnAwakeFunc() {
             if (TemporalObjects == null)
@@ -45,7 +42,6 @@ namespace NEATProjectiles.Core.Scripts.WeaponSystem {
             _weaponSO.UpdateParamsEvent -= InitializeParams;
             _weaponSO.ApplyForAllCoordinateSystemsEvent -= LaunchCoordinateSystems;
         }
-        
         
         protected virtual void InitializeParams() {
             _weaponParamsLocal = new WeaponParams(_weaponSO);
@@ -92,8 +88,6 @@ namespace NEATProjectiles.Core.Scripts.WeaponSystem {
                 
             }
         }
-
-
         
         public virtual void FireMultiShot() {
             
@@ -121,7 +115,6 @@ namespace NEATProjectiles.Core.Scripts.WeaponSystem {
                 projectile.InitialVelocity = initialDirection.normalized * _weaponParamsLocal.InitialSpeed;
             }
         }
-        
         
         public virtual IEnumerator FireBurst() {
             CoordinateSystem localCoordinateSystem = CreateLocalCoordinateSystem();
@@ -219,8 +212,6 @@ namespace NEATProjectiles.Core.Scripts.WeaponSystem {
             }
         }
         
-        
-        
         private CoordinateSystem CreateLocalCoordinateSystem() {
             // Projectiles instantiated in the same shot or burst will use their localCoordinateSystem to calculate their local coordinates. 
             CoordinateSystem localCoordinateSystem = Instantiate(CoordinateSystemPrefab).GetComponent<CoordinateSystem>();
@@ -243,9 +234,8 @@ namespace NEATProjectiles.Core.Scripts.WeaponSystem {
             CoordinateSystems.Add(localCoordinateSystem);
             return localCoordinateSystem;
         }
-
-
-        public virtual void LaunchCoordinateSystems() {
+        
+        protected void LaunchCoordinateSystems() {
             foreach (CoordinateSystem system in CoordinateSystems) {
                 system.IsMoving = true;
                 system.MoveSpeed = _weaponParamsLocal.MoveSpeed;

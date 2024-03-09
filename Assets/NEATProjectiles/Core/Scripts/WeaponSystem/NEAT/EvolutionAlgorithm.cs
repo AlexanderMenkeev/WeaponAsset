@@ -54,19 +54,25 @@ namespace NEATProjectiles.Core.Scripts.WeaponSystem.NEAT {
         private void InitializeEvolutionAlgorithm() {
             Decoder = new NeatGenomeDecoder(_activationScheme);
         
-            List<ActivationFunctionInfo> fnList = new List<ActivationFunctionInfo>(4);
+            List<ActivationFunctionInfo> fnList = new List<ActivationFunctionInfo>(10);
             fnList.Add(new ActivationFunctionInfo(0, 0.1, Linear.__DefaultInstance));
-            fnList.Add(new ActivationFunctionInfo(1, 0.3, BipolarSigmoid.__DefaultInstance));
-            fnList.Add(new ActivationFunctionInfo(2, 0.3, Gaussian.__DefaultInstance));
-            fnList.Add(new ActivationFunctionInfo(3, 0.3, Sine.__DefaultInstance));
+            fnList.Add(new ActivationFunctionInfo(1, 0.1, Sine.__DefaultInstance));
+            fnList.Add(new ActivationFunctionInfo(2, 0.1, ArcTan.__DefaultInstance));
+            fnList.Add(new ActivationFunctionInfo(3, 0.1, BipolarGaussian.__DefaultInstance));
+            fnList.Add(new ActivationFunctionInfo(4, 0.1, BipolarSigmoid.__DefaultInstance));
+            fnList.Add(new ActivationFunctionInfo(5, 0.1, LogisticFunction.__DefaultInstance));
+            fnList.Add(new ActivationFunctionInfo(6, 0.1, QuadraticSigmoid.__DefaultInstance));
+            fnList.Add(new ActivationFunctionInfo(7, 0.1, TanH.__DefaultInstance));
+            fnList.Add(new ActivationFunctionInfo(8, 0.1, ArcSinH.__DefaultInstance));
+            fnList.Add(new ActivationFunctionInfo(9, 0.1, ReLU.__DefaultInstance));
         
             _activationFunctionLib = new DefaultActivationFunctionLibrary(fnList);;
             NeatGenomeParameters neatGenomeParams = new NeatGenomeParameters();
-            neatGenomeParams.InitialInterconnectionsProportion = 0.8;
-            neatGenomeParams.AddConnectionMutationProbability = 0.8;
-            neatGenomeParams.AddNodeMutationProbability = 0.8;
-            neatGenomeParams.ConnectionWeightMutationProbability = 0.8;
-            neatGenomeParams.DisjointExcessGenesRecombinedProbability = 0.5;
+            neatGenomeParams.InitialInterconnectionsProportion = 0.99;
+            neatGenomeParams.AddConnectionMutationProbability = 0.7;
+            neatGenomeParams.AddNodeMutationProbability = 0.7;
+            neatGenomeParams.ConnectionWeightMutationProbability = 0.7;
+            neatGenomeParams.DisjointExcessGenesRecombinedProbability = 0.4;
             neatGenomeParams.NodeAuxStateMutationProbability = 0.2;
             neatGenomeParams.FeedforwardOnly = true;
         

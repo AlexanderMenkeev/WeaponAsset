@@ -27,10 +27,10 @@ namespace NEATProjectiles.Core.Scripts.WeaponSystem.ProjectileStatePattern {
         [HideInInspector] public SpriteRenderer SpriteRenderer;
         // StartPoint for RayCast 
         private Transform _tipTransform;
+        
         public float BirthTime;
         
         [SerializeField] public ProjectileStateMachine StateMachine;
-        
         private void Awake() {
             Rigidbody = GetComponent<Rigidbody2D>();
             SpriteRenderer = GetComponent<SpriteRenderer>();
@@ -106,9 +106,9 @@ namespace NEATProjectiles.Core.Scripts.WeaponSystem.ProjectileStatePattern {
             float x = Math.Abs( DistanceFromOrigin * Mathf.Sin(PhiRad) );
             float y = Math.Abs( DistanceFromOrigin * Mathf.Cos(PhiRad) );
             
-            float x_denominator = maxPhiRad * Mathf.Rad2Deg >= 90f ? NNControlDistance : NNControlDistance * Mathf.Sin(maxPhiRad);
+            float maxX = maxPhiRad * Mathf.Rad2Deg >= 90f ? NNControlDistance : NNControlDistance * Mathf.Sin(maxPhiRad);
             
-            _inputArr[0] = Mathf.Lerp(-1f, 1f,x / x_denominator);
+            _inputArr[0] = Mathf.Lerp(-1f, 1f,x / maxX);
             _inputArr[1] = Mathf.Lerp(-1f, 1f,y / NNControlDistance);
             _inputArr[2] = Mathf.Lerp(-1f, 1f,DistanceFromOrigin / NNControlDistance);
         
@@ -161,7 +161,6 @@ namespace NEATProjectiles.Core.Scripts.WeaponSystem.ProjectileStatePattern {
             
         }
         
-        
         public void LimitMaxSpeed() {
             float speed = Rigidbody.velocity.magnitude;
             if (speed > _maxSpeed)
@@ -187,13 +186,8 @@ namespace NEATProjectiles.Core.Scripts.WeaponSystem.ProjectileStatePattern {
             
             StateMachine.LateUpdate();
         }
-
         
-        private void OnDrawGizmosSelected() {
-            Gizmos.DrawRay(OriginTransform.position, RelativePosDir);
-        }
-
-
+        
         public Vector2 RelativePos;
         public Vector2 RelativePosDir;
         public float DistanceFromOrigin;
@@ -204,7 +198,7 @@ namespace NEATProjectiles.Core.Scripts.WeaponSystem.ProjectileStatePattern {
             DistanceFromOrigin = RelativePos.magnitude;
             PhiRad = Vector2.Angle(OriginTransform.up, RelativePosDir) * Mathf.Deg2Rad;
         }
-
+        
         
         [SerializeField] private int _layerMask = 0b_0000_0000_1000;
         private void CheckCollision() {
@@ -223,12 +217,18 @@ namespace NEATProjectiles.Core.Scripts.WeaponSystem.ProjectileStatePattern {
                 GameManager.Instance.DamageObject(this, HealthPoints);
         }
 
+        
         [field: SerializeField] public float HealthPoints { get; set; } = 2f;
         public void TakeDamage(float damage) {
             HealthPoints -= damage;
             if (HealthPoints <= 0)
                 Destroy(gameObject);
         }
+        
 
+        private void OnDrawGizmosSelected() {
+            Gizmos.DrawRay(OriginTransform.position, RelativePosDir);
+        }
+        
     }
 }

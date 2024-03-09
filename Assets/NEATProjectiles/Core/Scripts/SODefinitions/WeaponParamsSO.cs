@@ -16,10 +16,11 @@ namespace NEATProjectiles.Core.Scripts.SODefinitions {
         [field: SerializeField] public WeaponMode WeaponMode { get; set; }
         [field: SerializeField] public BurstMode BurstMode { get; set; }
         [field: SerializeField] [field: Range(0.03f, 0.3f)] public float BurstRate { get; set; }
+        
         [field: SerializeField] [field: Range(0.3f, 1f)] public float FireRate { get; set; }
         [field: SerializeField] [field: Range(1, 20)] public int ProjectilesInOneShot { get; set; }
         
-        [field: SerializeField] [field: Range(-100f, 100f)] public float RotationSpeed { get; set; }
+        [field: SerializeField] [field: Range(-80f, 80f)] public float RotationSpeed { get; set; }
         [field: SerializeField] [field: Range(0f, 20f)] public float MoveSpeed { get; set; }
         
         [field: SerializeField] public PositioningMode PositioningMode { get; set; }
@@ -32,7 +33,7 @@ namespace NEATProjectiles.Core.Scripts.SODefinitions {
         [field: SerializeField] [field: Range(0f, 1f)] public float Brightness { get; set; }
         
         [field: SerializeField] [field: MinMaxRange(1f, 8f)] public Vector2 SpeedRange { get; set; }
-        [field: SerializeField] [field: MinMaxRange(0.5f, 5f)] public Vector2 ForceRange { get; set; }
+        [field: SerializeField] [field: MinMaxRange(0.5f, 8f)] public Vector2 ForceRange { get; set; }
         [field: SerializeField] [field: Range(1f, 8f)] public float NNControlDistance { get; set; }
         [field: SerializeField] [field: Range(-1f, 1f)] public float SignX { get; set; }
         [field: SerializeField] [field: Range(-1f, 1f)] public float SignY { get; set; }
@@ -60,6 +61,7 @@ namespace NEATProjectiles.Core.Scripts.SODefinitions {
             WeaponMode = WeaponMode.MultiShot;
             BurstMode = BurstMode.Alternate;
             BurstRate = 0.05f;
+            
             FireRate = 1f;
             ProjectilesInOneShot = 20;
             
@@ -103,7 +105,6 @@ namespace NEATProjectiles.Core.Scripts.SODefinitions {
         private void OnValidate() {
             UpdateParamsEvent?.Invoke();
         }
-
         
         public void LoadParamsFromJson() {
             if (WeaponParamsJson == null){
@@ -135,7 +136,6 @@ namespace NEATProjectiles.Core.Scripts.SODefinitions {
                 string fileName = "WP_" + GenomeXml.name.Split("_")[1];
                 AssetDatabase.RenameAsset(AssetDatabase.GetAssetPath(this), fileName);
             }
-            
         }
         #endif
         

@@ -4,7 +4,7 @@ using NEATProjectiles.Core.Scripts.WeaponSystem;
 using UnityEditor;
 using UnityEngine;
 
-namespace Tizfold.NEATWeaponSystem.Scripts.CustomEditor.Editor {
+namespace NEATProjectiles.Core.Scripts.CustomEditor.Editor {
     [CanEditMultipleObjects]
     [UnityEditor.CustomEditor(typeof(WeaponParamsSO))]
     public class WeaponParamsSOEditor : UnityEditor.Editor {
