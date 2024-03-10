@@ -3,24 +3,24 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace NEATProjectiles.Demos.Scripts.UIScripts {
-    public class UIManager : MonoBehaviour {
+namespace NEATProjectiles.Demos.Scripts.DemoScene {
+    public class UIBox : MonoBehaviour {
         
         // assigned from the editor
         [SerializeField] private Button _prevBtn;
         [SerializeField] private Button _nextBtn;
         [SerializeField] private TextMeshProUGUI _weaponText;
         [SerializeField] private DemoWeapon _demoWeapon;
-        [SerializeField] private WeaponParamsSO[] _SObjectsList;
+        [SerializeField] private WeaponParamsSO[] _weaponList;
         
         
         private int _counter;
         private int _weaponCount;
         private void Awake() {
             _counter = 0;
-            _weaponCount = _SObjectsList.Length;
+            _weaponCount = _weaponList.Length;
 
-            foreach (WeaponParamsSO so in _SObjectsList) {
+            foreach (WeaponParamsSO so in _weaponList) {
                 so.LoadParamsFromJson();
             }
             
@@ -34,8 +34,8 @@ namespace NEATProjectiles.Demos.Scripts.UIScripts {
         }
 
         private void Start() {
-            _weaponText.text = $"{_SObjectsList[_counter].name} #{_counter}";
-            _demoWeapon.UpdateWeaponSO(_SObjectsList[_counter]);
+            _weaponText.text = $"{_weaponList[_counter].name}\n#{_counter}";
+            _demoWeapon.UpdateWeaponSO(_weaponList[_counter]);
         }
 
         private void OnNextBtnClick() {
@@ -44,9 +44,9 @@ namespace NEATProjectiles.Demos.Scripts.UIScripts {
             else
                 _counter++;
 
-            _weaponText.text = $"{_SObjectsList[_counter].name} #{_counter}";
+            _weaponText.text = $"{_weaponList[_counter].name}\n#{_counter}";
             
-            _demoWeapon.UpdateWeaponSO(_SObjectsList[_counter]);
+            _demoWeapon.UpdateWeaponSO(_weaponList[_counter]);
         }
         
         private void OnPrevBtnClick() {
@@ -55,9 +55,9 @@ namespace NEATProjectiles.Demos.Scripts.UIScripts {
             else
                 _counter--;
             
-            _weaponText.text = $"{_SObjectsList[_counter].name} #{_counter}";
+            _weaponText.text = $"{_weaponList[_counter].name}\n#{_counter}";
             
-            _demoWeapon.UpdateWeaponSO(_SObjectsList[_counter]);
+            _demoWeapon.UpdateWeaponSO(_weaponList[_counter]);
         }
         
         

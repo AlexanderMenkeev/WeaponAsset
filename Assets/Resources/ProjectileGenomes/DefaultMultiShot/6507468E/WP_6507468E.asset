@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cebc8a280d174624f9a112ce9a9088a1, type: 3}
-  m_Name: EvoWeaponParams
+  m_Name: WP_6507468E
   m_EditorClassIdentifier: 
-  GenomeXml: {fileID: 0}
-  WeaponParamsJson: {fileID: 0}
-  <WeaponMode>k__BackingField: 1
+  GenomeXml: {fileID: 4900000, guid: 694c36801d2fac14a844c08870523c91, type: 3}
+  WeaponParamsJson: {fileID: 4900000, guid: 9b8dda1883d6c014e9adef59a0aadf05, type: 3}
+  <WeaponMode>k__BackingField: 0
   <BurstMode>k__BackingField: 2
   <BurstRate>k__BackingField: 0.05
   <FireRate>k__BackingField: 1

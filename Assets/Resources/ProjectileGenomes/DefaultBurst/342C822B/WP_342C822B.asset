@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cebc8a280d174624f9a112ce9a9088a1, type: 3}
-  m_Name: EvoWeaponParams
+  m_Name: WP_342C822B
   m_EditorClassIdentifier: 
-  GenomeXml: {fileID: 0}
-  WeaponParamsJson: {fileID: 0}
+  GenomeXml: {fileID: 4900000, guid: 70881a4e2960e2d4b892333ac7dc4dac, type: 3}
+  WeaponParamsJson: {fileID: 4900000, guid: 7d165e6b13af8f640ba1bb94f176bbad, type: 3}
   <WeaponMode>k__BackingField: 1
-  <BurstMode>k__BackingField: 2
-  <BurstRate>k__BackingField: 0.05
+  <BurstMode>k__BackingField: 0
+  <BurstRate>k__BackingField: 0.03
   <FireRate>k__BackingField: 1
   <ProjectilesInOneShot>k__BackingField: 20
   <RotationSpeed>k__BackingField: 0
@@ -25,14 +25,14 @@ MonoBehaviour:
   <ReadMode>k__BackingField: 0
   <Size>k__BackingField: {x: 0.07, y: 0.07}
   <Lifespan>k__BackingField: 8
-  <HueRange>k__BackingField: {x: 0.1, y: 0.5}
+  <HueRange>k__BackingField: {x: 0.30060047, y: 0.50012636}
   <Saturation>k__BackingField: 0.8
   <Brightness>k__BackingField: 0.9
   <SpeedRange>k__BackingField: {x: 3, y: 6}
   <ForceRange>k__BackingField: {x: 1, y: 3}
   <NNControlDistance>k__BackingField: 3
-  <SignX>k__BackingField: 1
-  <SignY>k__BackingField: 1
+  <SignX>k__BackingField: -1
+  <SignY>k__BackingField: -1
   <ForwardForce>k__BackingField: 0
   <InitialFlightRadius>k__BackingField: 0.1
   <InitialSpeed>k__BackingField: 2

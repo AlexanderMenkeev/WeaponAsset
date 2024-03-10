@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cebc8a280d174624f9a112ce9a9088a1, type: 3}
-  m_Name: EvoWeaponParams
+  m_Name: WP_842A934A
   m_EditorClassIdentifier: 
-  GenomeXml: {fileID: 0}
-  WeaponParamsJson: {fileID: 0}
-  <WeaponMode>k__BackingField: 1
+  GenomeXml: {fileID: 4900000, guid: 7512bca501bada6479276372bd709b01, type: 3}
+  WeaponParamsJson: {fileID: 4900000, guid: 4d538584f64c86843a7423bcc879557b, type: 3}
+  <WeaponMode>k__BackingField: 0
   <BurstMode>k__BackingField: 2
   <BurstRate>k__BackingField: 0.05
   <FireRate>k__BackingField: 1
@@ -25,9 +25,9 @@ MonoBehaviour:
   <ReadMode>k__BackingField: 0
   <Size>k__BackingField: {x: 0.07, y: 0.07}
   <Lifespan>k__BackingField: 8
-  <HueRange>k__BackingField: {x: 0.1, y: 0.5}
-  <Saturation>k__BackingField: 0.8
-  <Brightness>k__BackingField: 0.9
+  <HueRange>k__BackingField: {x: 0.27728942, y: 0.6772894}
+  <Saturation>k__BackingField: 0.785
+  <Brightness>k__BackingField: 1
   <SpeedRange>k__BackingField: {x: 3, y: 6}
   <ForceRange>k__BackingField: {x: 1, y: 3}
   <NNControlDistance>k__BackingField: 3

@@ -675,6 +675,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6435578565002770920, guid: cd92912ed785ac94a815f125c45054fb, type: 3}
+      propertyPath: _weaponSO
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6435578565002770920, guid: cd92912ed785ac94a815f125c45054fb, type: 3}
       propertyPath: TemporalObjects
       value: 
       objectReference: {fileID: 1948393220}
@@ -860,7 +864,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8379816280406443516, guid: fc183d018275a0545a17c6e3c7f5d32b, type: 3}
       propertyPath: m_Name
-      value: UIManager
+      value: Box
       objectReference: {fileID: 0}
     - target: {fileID: 8889501987920580604, guid: fc183d018275a0545a17c6e3c7f5d32b, type: 3}
       propertyPath: _demoWeapon
