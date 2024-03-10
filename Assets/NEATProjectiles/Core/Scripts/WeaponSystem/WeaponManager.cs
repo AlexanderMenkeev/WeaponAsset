@@ -35,27 +35,11 @@ namespace NEATProjectiles.Core.Scripts.WeaponSystem {
         private void OnDestroy() {
             _evolutionAlgorithm.NewGenEvent -= InitializeWeapons;
         }
-
         
         private void InstantiateWeapons() {
-            Vector2 p11 = _camera.ViewportToWorldPoint(new Vector3(1, 1, _camera.nearClipPlane));
-            Vector2 p00 = _camera.ViewportToWorldPoint(new Vector3(0, 0, _camera.nearClipPlane));
-            
-            float horizontalSpacing = _weaponSo.NNControlDistance * math.SQRT2 * 2.2f;
-            float marginY = _weaponSo.NNControlDistance * math.SQRT2;
-                
-            for (int i = 0; i < _numberOfWeapons / 2; i++) {
-                Vector3 pos = new Vector3(p00.x + i * horizontalSpacing + horizontalSpacing, p11.y - marginY, 0);
-                _weapons.Add(Instantiate(_weaponPrefab, pos, Quaternion.identity, transform));
-            }
-            
-            int weaponsCount = _weapons.Count;
-            for (int i = 0; i <_numberOfWeapons - weaponsCount; i++) {
-                Vector3 pos = new Vector3(p00.x + i * horizontalSpacing + horizontalSpacing * 0.5f, p00.y + marginY, 0);
-                _weapons.Add(Instantiate(_weaponPrefab, pos, Quaternion.identity, transform));
-            }
+            for (int i = 0; i < _numberOfWeapons; i++) 
+                _weapons.Add(Instantiate(_weaponPrefab));
         }
-
         
         private void InitializeWeapons() {
             RepositionWeapons();
@@ -76,9 +60,10 @@ namespace NEATProjectiles.Core.Scripts.WeaponSystem {
         private void RepositionWeapons() {
             Vector2 p11 = _camera.ViewportToWorldPoint(new Vector3(1, 1, _camera.nearClipPlane));
             Vector2 p00 = _camera.ViewportToWorldPoint(new Vector3(0, 0, _camera.nearClipPlane));
-            
-            float horizontalSpacing = _weaponSo.NNControlDistance * math.SQRT2 * 2.2f;
-            float marginY = _weaponSo.NNControlDistance * math.SQRT2;
+
+            float distance = 3f;
+            float horizontalSpacing = distance * math.SQRT2 * 2.2f;
+            float marginY = distance * math.SQRT2;
 
             for (int i = 0; i < _weapons.Count; i++)  {
                 for (int j = 0; j < _numberOfWeapons / 2; j++) {
