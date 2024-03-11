@@ -1,5 +1,8 @@
+using System.Buffers.Text;
+using Cinemachine.Editor;
 using NEATProjectiles.Core.Scripts.SODefinitions;
 using NEATProjectiles.Core.Scripts.WeaponSystem;
+using UnityEngine;
 
 namespace NEATProjectiles.Demos.Scripts.DemoScene {
     public class DemoWeapon : AbstractWeapon {
@@ -16,6 +19,15 @@ namespace NEATProjectiles.Demos.Scripts.DemoScene {
             base.InitializeParams();
 
             FireCoroutine = StartCoroutine(Fire());
+        }
+
+        public void LaunchForward() {
+            foreach (CoordinateSystem system in CoordinateSystems) {
+                system.IsMoving = true;
+                system.MoveSpeed = 7f;
+                system.Direction = Vector3.right;
+                system.IsRotating = false;
+            }
         }
         
         

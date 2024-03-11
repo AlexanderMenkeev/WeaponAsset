@@ -9,6 +9,7 @@ namespace NEATProjectiles.Demos.Scripts.DemoScene {
         // assigned from the editor
         [SerializeField] private Button _prevBtn;
         [SerializeField] private Button _nextBtn;
+        [SerializeField] private Button _launchBtn;
         [SerializeField] private TextMeshProUGUI _weaponText;
         [SerializeField] private DemoWeapon _demoWeapon;
         [SerializeField] private WeaponParamsSO[] _weaponList;
@@ -26,11 +27,13 @@ namespace NEATProjectiles.Demos.Scripts.DemoScene {
             
             _nextBtn.onClick.AddListener(OnNextBtnClick);
             _prevBtn.onClick.AddListener(OnPrevBtnClick);
+            _launchBtn.onClick.AddListener(OnLaunchClick);
         }
 
         private void OnDestroy() {
             _nextBtn.onClick.RemoveListener(OnNextBtnClick);
             _prevBtn.onClick.RemoveListener(OnPrevBtnClick);
+            _launchBtn.onClick.RemoveListener(OnLaunchClick);
         }
 
         private void Start() {
@@ -58,6 +61,10 @@ namespace NEATProjectiles.Demos.Scripts.DemoScene {
             _weaponText.text = $"{_weaponList[_counter].name}\n#{_counter}";
             
             _demoWeapon.UpdateWeaponSO(_weaponList[_counter]);
+        }
+
+        private void OnLaunchClick() {
+            _demoWeapon.LaunchForward();
         }
         
         

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4488651057292860731}
   - component: {fileID: 6435578565002770920}
   - component: {fileID: 6572894877007919239}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: DemoWeapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,12 +99,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b01fd90a75f50a4ba226929a1d21c5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _weaponSO: {fileID: 11400000, guid: c19a9d6fb40df5c42add2d58f99e106c, type: 2}
+  _weaponSO: {fileID: 0}
   ProjectilePrefab: {fileID: 7750301855671846271, guid: e589d491ebef9bd489845df13bf2078c, type: 3}
-  CoordinateSystemPrefab: {fileID: 0}
+  CoordinateSystemPrefab: {fileID: 7264189112268356630, guid: 05c49644aa693224a863e69a1e909494, type: 3}
   CoordinateSystems: []
-  TemporalObjects: {fileID: 0}
-  ProjectileSpawnPoint: {fileID: 7607834674828563831}
   _weaponParamsLocal:
     <WeaponMode>k__BackingField: 0
     <BurstMode>k__BackingField: 0
@@ -141,6 +139,8 @@ MonoBehaviour:
     ConnectionCount: 0
     NodeCount: 0
     IsEvaluated: 0
+  TemporalObjects: {fileID: 0}
+  ProjectileSpawnPoint: {fileID: 7607834674828563831}
 --- !u!50 &6572894877007919239
 Rigidbody2D:
   serializedVersion: 4
@@ -177,7 +177,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7607834674828563831}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: ProjectileSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
