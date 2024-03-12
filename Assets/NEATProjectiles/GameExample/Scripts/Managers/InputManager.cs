@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace NEATProjectiles.Demos.Scripts.Managers {
+namespace NeatProjectiles.GameExample.Scripts.Managers {
     
     // Hub for easy access to InputActions
     public class InputManager : MonoBehaviour

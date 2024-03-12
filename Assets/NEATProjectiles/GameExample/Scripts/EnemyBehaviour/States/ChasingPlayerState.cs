@@ -1,7 +1,7 @@
-using NEATProjectiles.Core.Scripts.Interfaces;
+using NeatProjectiles.Core.Scripts.Interfaces;
 using UnityEngine;
 
-namespace NEATProjectiles.Demos.Scripts.EnemyBehaviour.States {
+namespace NeatProjectiles.GameExample.Scripts.EnemyBehaviour.States {
 
     public class ChasingPlayerState : IState {
         private EnemyController _enemy;

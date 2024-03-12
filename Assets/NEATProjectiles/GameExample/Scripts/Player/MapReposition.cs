@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace NEATProjectiles.Demos.Scripts.Player {
+namespace NeatProjectiles.GameExample.Scripts.Player {
     public class MapReposition : MonoBehaviour
     {
         [SerializeField] private Player _player;

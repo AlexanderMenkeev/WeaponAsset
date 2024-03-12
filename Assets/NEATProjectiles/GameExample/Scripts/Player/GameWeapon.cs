@@ -1,22 +1,28 @@
-using NEATProjectiles.Core.Scripts.WeaponSystem;
+using NeatProjectiles.Core.Scripts.WeaponSystem;
 using UnityEngine;
 
-namespace NEATProjectiles.Demos.Scripts.Player {
+namespace NeatProjectiles.GameExample.Scripts.Player {
     public class GameWeapon : AbstractWeapon
     {
+        private Player _player;
+        [SerializeField] public GameObject TurretBase;
         private void Awake() {
-            TemporalObjects = GameObject.Find("TemporalObjects");
-            ProjectileSpawnPoint = transform.Find("ProjectileSpawnPoint");
-           
-            _weaponSO.UpdateParamsEvent += InitializeParams;
+            base.OnAwakeFunc();
+            _player = FindObjectOfType<Player>();
+            TurretBase = GameObject.Find("TurretBase");
         }
         
         private void OnDestroy() {
-            _weaponSO.UpdateParamsEvent -= InitializeParams;
+            base.OnDestroyFunc();
         }
         
         private void Start() {
             InitializeParams();
+        }
+        
+        // Follow player object without rotating with it
+        private void LateUpdate() {
+            TurretBase.transform.position = _player.transform.position;
         }
         
     }

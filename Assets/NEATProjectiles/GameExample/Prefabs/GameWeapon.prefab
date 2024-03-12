@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 7815432131091269587}
   - component: {fileID: 4215607098156654286}
   m_Layer: 6
-  m_Name: Gun
+  m_Name: GameWeapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -105,13 +105,13 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 12
   m_Sprite: {fileID: 21300000, guid: 1d4a5e71614ec584a9082f399ceec900, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 1
   m_DrawMode: 0
-  m_Size: {x: 1.25, y: 0.8125}
+  m_Size: {x: 0.2, y: 0.41}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -129,19 +129,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cd1701c28f93604d8946065ab4a6da1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _weaponSO: {fileID: 11400000, guid: bc41538a3a35cbf44b41d53a4ddebf86, type: 2}
+  _weaponSO: {fileID: 11400000, guid: d445ccc201dd4644cb573fa2c19ed1fe, type: 2}
   ProjectilePrefab: {fileID: 7750301855671846271, guid: e589d491ebef9bd489845df13bf2078c, type: 3}
-  CoordinateSystemPrefab: {fileID: 0}
+  CoordinateSystemPrefab: {fileID: 7264189112268356630, guid: 05c49644aa693224a863e69a1e909494, type: 3}
   CoordinateSystems: []
-  TemporalObjects: {fileID: 2879574176353841138, guid: 05c49644aa693224a863e69a1e909494, type: 3}
-  ProjectileSpawnPoint: {fileID: 1462139367729872585}
   _weaponParamsLocal:
     <WeaponMode>k__BackingField: 0
     <BurstMode>k__BackingField: 0
     <BurstRate>k__BackingField: 0
     <FireRate>k__BackingField: 0
     <ProjectilesInOneShot>k__BackingField: 0
+    <RotationSpeed>k__BackingField: 0
+    <MoveSpeed>k__BackingField: 0
     <PositioningMode>k__BackingField: 0
+    <ReadMode>k__BackingField: 0
     <Size>k__BackingField: {x: 0, y: 0}
     <Lifespan>k__BackingField: 0
     <HueRange>k__BackingField: {x: 0, y: 0}
@@ -150,8 +151,8 @@ MonoBehaviour:
     <SpeedRange>k__BackingField: {x: 1, y: 1}
     <ForceRange>k__BackingField: {x: 0.5, y: 0.5}
     <NNControlDistance>k__BackingField: 0
-    <FlipX>k__BackingField: 0
-    <FlipY>k__BackingField: 0
+    <SignX>k__BackingField: 0
+    <SignY>k__BackingField: 0
     <ForwardForce>k__BackingField: 0
     <InitialFlightRadius>k__BackingField: 0
     <InitialSpeed>k__BackingField: 0
@@ -168,3 +169,6 @@ MonoBehaviour:
     ConnectionCount: 0
     NodeCount: 0
     IsEvaluated: 0
+  TemporalObjects: {fileID: 0}
+  ProjectileSpawnPoint: {fileID: 1462139367729872585}
+  TurretBase: {fileID: 0}

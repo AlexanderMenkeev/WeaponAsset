@@ -1,12 +1,12 @@
-using NEATProjectiles.Core.Scripts.SODefinitions;
-using NEATProjectiles.Core.Scripts.WeaponSystem;
+using NeatProjectiles.Core.Scripts.SODefinitions;
+using NeatProjectiles.Core.Scripts.WeaponSystem;
 using UnityEngine;
 
-namespace NEATProjectiles.Demos.Scripts.EnemyBehaviour {
+namespace NeatProjectiles.GameExample.Scripts.EnemyBehaviour {
     public class EnemyWeapon : AbstractWeapon
     {
         private void Awake() {
-            TemporalObjects = GameObject.Find("TemporalObjects");
+            ProjectilesParentTransform = GameObject.Find("TemporalObjects").transform;
             ProjectileSpawnPoint = transform.Find("ProjectileSpawnPoint");
         }
         private void Start() {

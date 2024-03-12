@@ -2,14 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
-using NEATProjectiles.Core.Scripts.SODefinitions;
-using NEATProjectiles.Core.Scripts.WeaponSystem.NEAT;
-using NEATProjectiles.Core.Scripts.WeaponSystem.ProjectileStatePattern;
+using NeatProjectiles.Core.Scripts.SODefinitions;
+using NeatProjectiles.Core.Scripts.WeaponSystem.NEAT;
+using NeatProjectiles.Core.Scripts.WeaponSystem.ProjectileStatePattern;
 using SharpNeat.Genomes.Neat;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace NEATProjectiles.Core.Scripts.WeaponSystem {
+namespace NeatProjectiles.Core.Scripts.WeaponSystem {
     /// <summary>
     /// Methods and variables for weapon system. Inherit from this abstract class to use.
     /// </summary>
@@ -18,18 +18,18 @@ namespace NEATProjectiles.Core.Scripts.WeaponSystem {
         [SerializeField] protected WeaponParamsSO _weaponSO;
         public Projectile ProjectilePrefab;
         public CoordinateSystem CoordinateSystemPrefab;
-        public List<CoordinateSystem> CoordinateSystems;
+        [NonSerialized] public List<CoordinateSystem> CoordinateSystems = new List<CoordinateSystem>();
         
         [SerializeField] protected WeaponParams _weaponParamsLocal;
         [Tooltip("Do not change these stats in the editor, it will not have effect on the evolution algorithm.")]
         public GenomeStats GenomeStats;
         
-        public GameObject TemporalObjects;
+        public Transform ProjectilesParentTransform;
         public Transform ProjectileSpawnPoint;
         // call this function in Awake() in derived class
         protected void OnAwakeFunc() {
-            if (TemporalObjects == null)
-                TemporalObjects = GameObject.Find("TemporalObjects");
+            if (ProjectilesParentTransform == null)
+                ProjectilesParentTransform = GameObject.Find("TemporalObjects").transform;
             
             ProjectileSpawnPoint = transform.Find("ProjectileSpawnPoint");
            
@@ -214,17 +214,9 @@ namespace NEATProjectiles.Core.Scripts.WeaponSystem {
         
         private CoordinateSystem CreateLocalCoordinateSystem() {
             // Projectiles instantiated in the same shot or burst will use their localCoordinateSystem to calculate their local coordinates. 
-            CoordinateSystem localCoordinateSystem = Instantiate(CoordinateSystemPrefab).GetComponent<CoordinateSystem>();
-            localCoordinateSystem.Parent = this;
+            CoordinateSystem localCoordinateSystem = Instantiate(CoordinateSystemPrefab, ProjectilesParentTransform);
+            localCoordinateSystem.Weapon = this;
             
-            // AbsolutePos => projectiles DO NOT move with the weapon
-            // RelativePos => projectiles DO move with the weapon
-            localCoordinateSystem.transform.parent = _weaponParamsLocal.PositioningMode switch {
-                PositioningMode.AbsolutePos => TemporalObjects.transform,
-                PositioningMode.RelativePos => ProjectileSpawnPoint.transform,
-                _ => throw new ArgumentOutOfRangeException()
-            };
-
             // localCoordinateSystem has the same rotation and position as ProjectileSpawnPoint
             localCoordinateSystem.transform.up = ProjectileSpawnPoint.up;            
             localCoordinateSystem.transform.right = ProjectileSpawnPoint.right;      

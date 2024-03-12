@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace NEATProjectiles.Demos.Scripts.Player {
+namespace NeatProjectiles.GameExample.Scripts.Player {
     
     // Area is needed for mapReposition
     public class Area : MonoBehaviour {
@@ -10,7 +10,7 @@ namespace NEATProjectiles.Demos.Scripts.Player {
         }
 
         // Follow player object without rotating with it
-        private void FixedUpdate() {
+        private void LateUpdate() {
             transform.position = _player.transform.position;
         }
     }

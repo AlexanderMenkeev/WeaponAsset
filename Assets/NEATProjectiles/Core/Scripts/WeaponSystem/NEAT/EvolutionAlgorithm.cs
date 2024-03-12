@@ -10,7 +10,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 
-namespace NEATProjectiles.Core.Scripts.WeaponSystem.NEAT {
+namespace NeatProjectiles.Core.Scripts.WeaponSystem.NEAT {
     public class EvolutionAlgorithm : MonoBehaviour
     {
         public IList<NeatGenome> GenomeList;

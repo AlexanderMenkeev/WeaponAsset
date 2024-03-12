@@ -1,10 +1,10 @@
 using System;
-using NEATProjectiles.Core.Scripts.CustomEditor.MinMaxRangeAttribute;
-using NEATProjectiles.Core.Scripts.Interfaces;
+using NeatProjectiles.Core.Scripts.CustomEditor.MinMaxRangeAttribute;
+using NeatProjectiles.Core.Scripts.Interfaces;
 using Unity.Mathematics;
 using UnityEngine;
 
-namespace NEATProjectiles.Core.Scripts.WeaponSystem {
+namespace NeatProjectiles.Core.Scripts.WeaponSystem {
     [Serializable]
     public class WeaponParams : IWeaponParams {
         
@@ -21,7 +21,7 @@ namespace NEATProjectiles.Core.Scripts.WeaponSystem {
         [field: SerializeField] [field: Range(0f, 20f)] public float MoveSpeed { get; set; }
         
         [field: Header("Projectile controls")]
-        [field: SerializeField] public PositioningMode PositioningMode { get; set; }
+        [field: SerializeField] public NetworkControlMode NetworkControlMode { get; set; }
         [field: SerializeField] public ReadMode ReadMode { get; set; }
         [field: SerializeField] public Vector2 Size { get; set; }
         [field: SerializeField] [field: Range(2f, 10f)] public float Lifespan { get; set; }
@@ -71,7 +71,7 @@ namespace NEATProjectiles.Core.Scripts.WeaponSystem {
             Copy.RotationSpeed = Original.RotationSpeed;
             Copy.MoveSpeed = Original.MoveSpeed;
             
-            Copy.PositioningMode = Original.PositioningMode;
+            Copy.NetworkControlMode = Original.NetworkControlMode;
             Copy.ReadMode = Original.ReadMode;
             Copy.Size = Original.Size;
             Copy.Lifespan = Original.Lifespan;
@@ -109,9 +109,9 @@ namespace NEATProjectiles.Core.Scripts.WeaponSystem {
         Polar
     }
 
-    public enum PositioningMode {
-        AbsolutePos,
-        RelativePos
+    public enum NetworkControlMode {
+        ForceSum,
+        VelocitySum
     }
 
     public enum WeaponMode {

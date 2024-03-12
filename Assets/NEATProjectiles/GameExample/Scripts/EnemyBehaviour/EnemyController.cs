@@ -1,9 +1,9 @@
-using NEATProjectiles.Core.Scripts.Interfaces;
-using NEATProjectiles.Core.Scripts.SODefinitions;
-using NEATProjectiles.Core.Scripts.WeaponSystem.ProjectileStatePattern;
+using NeatProjectiles.Core.Scripts.Interfaces;
+using NeatProjectiles.Core.Scripts.SODefinitions;
+using NeatProjectiles.Core.Scripts.WeaponSystem.ProjectileStatePattern;
 using UnityEngine;
 
-namespace NEATProjectiles.Demos.Scripts.EnemyBehaviour {
+namespace NeatProjectiles.GameExample.Scripts.EnemyBehaviour {
     public class EnemyController : MonoBehaviour, IDamagable
     {
         public float HealthPoints { get; set; }

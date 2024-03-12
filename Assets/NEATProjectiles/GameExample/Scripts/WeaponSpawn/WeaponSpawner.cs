@@ -1,13 +1,13 @@
 using System.Collections.Generic;
-using NEATProjectiles.Core.Scripts.SODefinitions;
-using NEATProjectiles.Core.Scripts.WeaponSystem.NEAT;
-using NEATProjectiles.Demos.Scripts.Player;
-using NEATProjectiles.Demos.Scripts.UIScripts;
+using NeatProjectiles.Core.Scripts.SODefinitions;
+using NeatProjectiles.Core.Scripts.WeaponSystem.NEAT;
+using NeatProjectiles.GameExample.Scripts.Player;
+using NeatProjectiles.GameExample.Scripts.UIScripts;
 using SharpNeat.Genomes.Neat;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace NEATProjectiles.Demos.Scripts.WeaponSpawn {
+namespace NeatProjectiles.GameExample.Scripts.WeaponSpawn {
     public class WeaponSpawner : MonoBehaviour {
         
         // assigned from the editor

@@ -1,12 +1,12 @@
 using System.IO;
-using NEATProjectiles.Core.Scripts.CustomEditor.MinMaxRangeAttribute;
-using NEATProjectiles.Core.Scripts.Interfaces;
-using NEATProjectiles.Core.Scripts.WeaponSystem;
+using NeatProjectiles.Core.Scripts.CustomEditor.MinMaxRangeAttribute;
+using NeatProjectiles.Core.Scripts.Interfaces;
+using NeatProjectiles.Core.Scripts.WeaponSystem;
 using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
 
-namespace NEATProjectiles.Core.Scripts.SODefinitions {
+namespace NeatProjectiles.Core.Scripts.SODefinitions {
     [CreateAssetMenu(menuName = "ScriptableObjects/WeaponParamsSO", fileName = "WP_new")]
     public class WeaponParamsSO : ScriptableObject, IWeaponParams {
         
@@ -23,7 +23,7 @@ namespace NEATProjectiles.Core.Scripts.SODefinitions {
         [field: SerializeField] [field: Range(-80f, 80f)] public float RotationSpeed { get; set; }
         [field: SerializeField] [field: Range(0f, 20f)] public float MoveSpeed { get; set; }
         
-        [field: SerializeField] public PositioningMode PositioningMode { get; set; }
+        [field: SerializeField] public NetworkControlMode NetworkControlMode { get; set; }
         [field: SerializeField] public ReadMode ReadMode { get; set; }
         [field: SerializeField] public Vector2 Size { get; set; }
         [field: SerializeField] [field: Range(2f, 10f)] public float Lifespan { get; set; }
@@ -60,15 +60,15 @@ namespace NEATProjectiles.Core.Scripts.SODefinitions {
         private void InitializeParams() {
             WeaponMode = WeaponMode.MultiShot;
             BurstMode = BurstMode.Alternate;
-            BurstRate = 0.05f;
+            BurstRate = 0.03f;
             
-            FireRate = 1f;
+            FireRate = 0.9f;
             ProjectilesInOneShot = 20;
             
             RotationSpeed = 0f;
             MoveSpeed = 10f;
             
-            PositioningMode = PositioningMode.AbsolutePos;
+            NetworkControlMode = NetworkControlMode.ForceSum;
             ReadMode = ReadMode.Default;
             Size = new Vector2(0.07f, 0.07f);
             Lifespan = 8f;

@@ -1,11 +1,11 @@
 using System;
 using System.Collections;
-using NEATProjectiles.Core.Scripts.Interfaces;
-using NEATProjectiles.Core.Scripts.WeaponSystem.ProjectileStatePattern.States;
-using NEATProjectiles.Core.Scripts.WeaponSystem.ProjectileStatePattern.States.Reflection;
+using NeatProjectiles.Core.Scripts.Interfaces;
+using NeatProjectiles.Core.Scripts.WeaponSystem.ProjectileStatePattern.States;
+using NeatProjectiles.Core.Scripts.WeaponSystem.ProjectileStatePattern.States.Reflection;
 using UnityEngine;
 
-namespace NEATProjectiles.Core.Scripts.WeaponSystem.ProjectileStatePattern {
+namespace NeatProjectiles.Core.Scripts.WeaponSystem.ProjectileStatePattern {
     [Serializable]
     public class ProjectileStateMachine {
         public IState CurrentState { get; private set; }

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace NEATProjectiles.Core.Scripts.CustomEditor.MinMaxRangeAttribute
+namespace NeatProjectiles.Core.Scripts.CustomEditor.MinMaxRangeAttribute
 {
 	/// <summary>
 	/// An attribute that simplifies defining bounded ranges (ranges with minimum and maximum limits) on the inspector.

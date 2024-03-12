@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace NEATProjectiles.Core.Scripts.CustomEditor.MinMaxRangeAttribute.Editor
 {
-	[CustomPropertyDrawer(typeof(global::NEATProjectiles.Core.Scripts.CustomEditor.MinMaxRangeAttribute.MinMaxRangeAttribute))]
+	[CustomPropertyDrawer(typeof(global::NeatProjectiles.Core.Scripts.CustomEditor.MinMaxRangeAttribute.MinMaxRangeAttribute))]
 	internal class MinMaxRangeDrawer : PropertyDrawer
 	{
 		#region Fields
@@ -37,7 +37,7 @@ namespace NEATProjectiles.Core.Scripts.CustomEditor.MinMaxRangeAttribute.Editor
 			
 			
 			
-			if (attribute is not global::NEATProjectiles.Core.Scripts.CustomEditor.MinMaxRangeAttribute.MinMaxRangeAttribute minMaxAttribute)
+			if (attribute is not global::NeatProjectiles.Core.Scripts.CustomEditor.MinMaxRangeAttribute.MinMaxRangeAttribute minMaxAttribute)
 			{
 				Debug.LogError("Min max range attribute failed to draw.");
 				return;

@@ -1,27 +1,28 @@
+using System;
 using System.Collections;
-using NEATProjectiles.Core.Scripts.Interfaces;
-using NEATProjectiles.Core.Scripts.SODefinitions;
-using NEATProjectiles.Demos.Scripts.Managers;
+using NeatProjectiles.Core.Scripts.Interfaces;
+using NeatProjectiles.Core.Scripts.SODefinitions;
+using NeatProjectiles.GameExample.Scripts.Managers;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace NEATProjectiles.Demos.Scripts.Player {
+namespace NeatProjectiles.GameExample.Scripts.Player {
     public class Player : MonoBehaviour, IDamagable
     {
         // assign in editor
         [SerializeField] private GlobalVariablesSO _globalVariables;
         
-        [SerializeField] private Rigidbody2D _rigidbody;
-        [SerializeField] private SpriteRenderer _renderer;
-        [SerializeField] private GameWeapon _weapon;
-        [SerializeField] private AudioSource _audioSource;
-        
-        [SerializeField] private Shader _shaderGUItext;
-        [SerializeField] private Shader _shaderSpritesDefault;
+        [HideInInspector] [SerializeField] private Rigidbody2D _rigidbody;
+        [HideInInspector] [SerializeField] private SpriteRenderer _renderer;
+        [HideInInspector] [SerializeField] private GameWeapon _weapon;
+        [HideInInspector] [SerializeField] private AudioSource _audioSource;
+
+        [HideInInspector] [SerializeField] private Shader _shaderGUItext;
+        [HideInInspector] [SerializeField] private Shader _shaderSpritesDefault;
         private void Awake() {
             _rigidbody = GetComponent<Rigidbody2D>();
             _renderer = GetComponent<SpriteRenderer>();
-            _weapon = GetComponentInChildren<GameWeapon>();
+            _weapon = FindObjectOfType<GameWeapon>();
             _audioSource = GetComponent<AudioSource>();
             
             _shaderGUItext = Shader.Find("GUI/Text Shader");
@@ -33,26 +34,25 @@ namespace NEATProjectiles.Demos.Scripts.Player {
         private InputAction _moveAction;
         private InputAction _aimAction;
     
-        public float HealthPoints { get; set; }
-        [SerializeField] private float _speed;
-        
+        [field: SerializeField] [field: Range(100f, 1000f)] public float HealthPoints { get; set; }
+        [field: SerializeField] [field: Range(3f, 5.5f)] public float Speed { get; set; }
         private void Initialize() {
             _inputManager = InputManager.Instance;
             _moveAction = _inputManager.PlayerActionMap.moveAction;
             _aimAction = _inputManager.PlayerActionMap.aimAction;
 
-            HealthPoints = 100f;
-            _speed = 4f;
+            HealthPoints = 1000f;
+            Speed = 4f;
+            _currPos = transform.position;
         }
         
         
         private void Start() {
             Initialize();
-        
+            
             _aimAction.started += StartShooting;
             _aimAction.canceled += StopShooting;
             _globalVariables.OnPauseResumeEvent += OnPauseResumeGame;
-            _currPos = transform.position;
         }
 
         private void OnDestroy() {
@@ -69,14 +69,14 @@ namespace NEATProjectiles.Demos.Scripts.Player {
             StopCoroutine(_shootCoroutine);
         }
 
-        private float _fireRate = 1f;
+        [SerializeField] [Range(0.1f, 2f)] private float _fireRate = 1f;
         private Coroutine _shootCoroutine;
         private IEnumerator Shoot() {
-            yield return new WaitForSeconds(_fireRate * 0.1f);
             while (true) {
+                yield return new WaitForSeconds(_fireRate * 0.1f);
                 AudioManager.Instance.PlayAudioEffect(_audioSource, AudioManager.Instance.PlayerShoot);
                 _weapon.FireMultiShot();
-                yield return new WaitForSeconds(_fireRate);
+                yield return new WaitForSeconds(_fireRate * 0.9f);
             }
         }
         
@@ -84,31 +84,29 @@ namespace NEATProjectiles.Demos.Scripts.Player {
             _rigidbody.velocity = Vector2.zero;
         }
 
+
+        private InputControl _moveControl;
         public Vector2 Move { get; private set; }
         public Vector2 Aim { get; private set; }
         private void Update() {
-            Move = _moveAction.ReadValue<Vector2>().normalized;
-            Aim = _aimAction.ReadValue<Vector2>().normalized;
+            _moveControl = _moveAction.activeControl;
+            Move = _moveAction.ReadValue<Vector2>();
+            Aim = _aimAction.ReadValue<Vector2>();
         }
         
     
         private Vector2 _prevPos;
         private Vector2 _currPos;
-        public Vector2 ActualVelocity;
+        [HideInInspector] public Vector2 ActualVelocity;
         private void FixedUpdate() {
             if (_globalVariables.IsPaused)
                 return;
-
-            _rigidbody.velocity = Move * _speed;
             
-            float angleDeg = Vector3.SignedAngle(Vector3.up, Move, Vector3.forward);
-
-            // For some reason <tranform.up = Move;> did not work correctly.
-            if (Move != Vector2.zero) 
-                transform.rotation = Quaternion.AngleAxis( angleDeg, Vector3.forward );
+            MoveFunc();
             
             if (Aim != Vector2.zero) 
                 _weapon.transform.up = Aim;
+            
             
             if (HealthPoints <= 0)
                 OnDeath();
@@ -120,7 +118,51 @@ namespace NEATProjectiles.Demos.Scripts.Player {
             ActualVelocity = (_currPos - _prevPos) / Time.fixedDeltaTime;
         }
 
+        
+        
+        private void MoveFunc() {
+            if (_moveControl == null) {
+                _rigidbody.velocity -= _rigidbody.velocity * (0.3f * Time.deltaTime);
+                return;
+            }
+            
+            switch (_moveControl.device.name) {
+                case "Keyboard":
+                    if (Move.y > 0)
+                        _rigidbody.velocity += (Vector2)transform.up * (Move.y * 100f * Time.deltaTime);
+                    else 
+                        _rigidbody.velocity += _rigidbody.velocity * (Move.y * 10f * Time.deltaTime);
+
+                    if (Move.y != 0f) {
+                        Quaternion rotation = Move.x > 0
+                            ? Quaternion.Euler(0f, 0f, -200f * Time.deltaTime)
+                            : Quaternion.Euler(0f, 0f, 200f * Time.deltaTime);
+                        
+                        if (Move.x != 0f)
+                            transform.rotation *= rotation;
+                    }
+                    
+                    break;
+                
+                case "Gamepad":
+                    _rigidbody.velocity += Move * (100f * Time.deltaTime);
+                    
+                    float angleDeg = Vector3.SignedAngle(Vector3.up, _rigidbody.velocity, Vector3.forward);
+                    transform.rotation = Quaternion.AngleAxis( angleDeg, Vector3.forward );
+                    break;
+                
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            // Limit max speed
+            float speed = _rigidbody.velocity.magnitude;
+            if (speed > Speed)
+                _rigidbody.velocity = _rigidbody.velocity.normalized * Speed;
+        }
+
     
+        
         private void OnDrawGizmos() {
             Gizmos.DrawRay(gameObject.transform.position, Aim * 10f);
         }

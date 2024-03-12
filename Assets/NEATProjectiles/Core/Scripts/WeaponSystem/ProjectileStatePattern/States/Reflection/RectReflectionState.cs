@@ -1,7 +1,7 @@
-using NEATProjectiles.Core.Scripts.Interfaces;
+using NeatProjectiles.Core.Scripts.Interfaces;
 using UnityEngine;
 
-namespace NEATProjectiles.Core.Scripts.WeaponSystem.ProjectileStatePattern.States.Reflection {
+namespace NeatProjectiles.Core.Scripts.WeaponSystem.ProjectileStatePattern.States.Reflection {
     public class RectReflectionState : IState {
         
         private Projectile _projectile;

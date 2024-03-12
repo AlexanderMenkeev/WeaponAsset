@@ -5,7 +5,7 @@ using SharpNeat.Genomes.Neat;
 using SharpNeat.Phenomes;
 using UnityEngine;
 
-namespace NEATProjectiles.Core.Scripts.WeaponSystem.NEAT {
+namespace NeatProjectiles.Core.Scripts.WeaponSystem.NEAT {
     [Serializable]
     public class GenomeStats {
         public NeatGenome Genome;

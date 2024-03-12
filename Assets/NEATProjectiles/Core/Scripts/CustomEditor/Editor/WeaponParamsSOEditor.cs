@@ -1,6 +1,6 @@
 using System;
-using NEATProjectiles.Core.Scripts.SODefinitions;
-using NEATProjectiles.Core.Scripts.WeaponSystem;
+using NeatProjectiles.Core.Scripts.SODefinitions;
+using NeatProjectiles.Core.Scripts.WeaponSystem;
 using UnityEditor;
 using UnityEngine;
 
@@ -24,7 +24,7 @@ namespace NEATProjectiles.Core.Scripts.CustomEditor.Editor {
         private SerializedProperty RotationSpeed;
         private SerializedProperty MoveSpeed;
         
-        private SerializedProperty PositioningMode;
+        private SerializedProperty NetworkControlMode;
         private SerializedProperty ReadMode;
         private SerializedProperty Size;
         private SerializedProperty Lifespan;
@@ -69,7 +69,7 @@ namespace NEATProjectiles.Core.Scripts.CustomEditor.Editor {
             RotationSpeed = _so.FindProperty($"<{nameof(WeaponParamsSO.RotationSpeed)}>k__BackingField");
             MoveSpeed = _so.FindProperty($"<{nameof(WeaponParamsSO.MoveSpeed)}>k__BackingField");
             
-            PositioningMode = _so.FindProperty($"<{nameof(WeaponParamsSO.PositioningMode)}>k__BackingField");
+            NetworkControlMode = _so.FindProperty($"<{nameof(WeaponParamsSO.NetworkControlMode)}>k__BackingField");
             ReadMode = _so.FindProperty($"<{nameof(WeaponParamsSO.ReadMode)}>k__BackingField");
             Size = _so.FindProperty($"<{nameof(WeaponParamsSO.Size)}>k__BackingField");
             Lifespan = _so.FindProperty($"<{nameof(WeaponParamsSO.Lifespan)}>k__BackingField");
@@ -166,7 +166,7 @@ namespace NEATProjectiles.Core.Scripts.CustomEditor.Editor {
                 EditorGUILayout.PropertyField(FireRate);
                 EditorGUILayout.PropertyField(ProjectilesInOneShot);
                 EditorGUILayout.PropertyField(WeaponMode);
-                if (weaponSO.WeaponMode == global::NEATProjectiles.Core.Scripts.WeaponSystem.WeaponMode.Burst) {
+                if (weaponSO.WeaponMode == global::NeatProjectiles.Core.Scripts.WeaponSystem.WeaponMode.Burst) {
                     using(new GUILayout.VerticalScope(EditorStyles.helpBox)) {
                         GUILayout.Space(2);
                         EditorGUILayout.PropertyField(BurstMode);
@@ -210,7 +210,7 @@ namespace NEATProjectiles.Core.Scripts.CustomEditor.Editor {
             GUILayout.Label("Projectile", EditorStyles.boldLabel);
             using(new GUILayout.VerticalScope(EditorStyles.helpBox)) {
                 GUILayout.Space(2);
-                EditorGUILayout.PropertyField(PositioningMode);
+                EditorGUILayout.PropertyField(NetworkControlMode);
                 GUILayout.Space(2);
                 EditorGUILayout.PropertyField(ReadMode);
                 GUILayout.Space(2);

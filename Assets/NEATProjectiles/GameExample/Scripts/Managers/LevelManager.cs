@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace NEATProjectiles.Demos.Scripts.Managers {
+namespace NeatProjectiles.GameExample.Scripts.Managers {
     public class LevelManager : MonoBehaviour
     {
         public static LevelManager Instance;

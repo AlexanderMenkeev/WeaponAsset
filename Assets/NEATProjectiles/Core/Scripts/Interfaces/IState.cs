@@ -1,4 +1,4 @@
-namespace NEATProjectiles.Core.Scripts.Interfaces {
+namespace NeatProjectiles.Core.Scripts.Interfaces {
     
     public interface IState {
   

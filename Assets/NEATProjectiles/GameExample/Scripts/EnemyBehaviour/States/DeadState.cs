@@ -1,8 +1,8 @@
-using NEATProjectiles.Core.Scripts.Interfaces;
+using NeatProjectiles.Core.Scripts.Interfaces;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace NEATProjectiles.Demos.Scripts.EnemyBehaviour.States {
+namespace NeatProjectiles.GameExample.Scripts.EnemyBehaviour.States {
     public class DeadState : IState {
         private EnemyController _enemy;
 

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace NEATProjectiles.Demos.Scripts.Managers {
+namespace NeatProjectiles.GameExample.Scripts.Managers {
     
     public class AudioManager : MonoBehaviour {
 

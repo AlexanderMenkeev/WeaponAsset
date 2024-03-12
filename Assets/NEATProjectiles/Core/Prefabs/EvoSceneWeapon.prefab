@@ -101,15 +101,17 @@ MonoBehaviour:
   _weaponSO: {fileID: 11400000, guid: c19a9d6fb40df5c42add2d58f99e106c, type: 2}
   ProjectilePrefab: {fileID: 7750301855671846271, guid: e589d491ebef9bd489845df13bf2078c, type: 3}
   CoordinateSystemPrefab: {fileID: 7264189112268356630, guid: 05c49644aa693224a863e69a1e909494, type: 3}
-  TemporalObjects: {fileID: 0}
-  ProjectileSpawnPoint: {fileID: 4956941618858505240}
+  CoordinateSystems: []
   _weaponParamsLocal:
     <WeaponMode>k__BackingField: 0
     <BurstMode>k__BackingField: 0
     <BurstRate>k__BackingField: 0
     <FireRate>k__BackingField: 0
     <ProjectilesInOneShot>k__BackingField: 0
+    <RotationSpeed>k__BackingField: 0
+    <MoveSpeed>k__BackingField: 0
     <PositioningMode>k__BackingField: 0
+    <ReadMode>k__BackingField: 0
     <Size>k__BackingField: {x: 0, y: 0}
     <Lifespan>k__BackingField: 0
     <HueRange>k__BackingField: {x: 0.4440266, y: 1}
@@ -118,8 +120,8 @@ MonoBehaviour:
     <SpeedRange>k__BackingField: {x: 3.9105558, y: 7.0198193}
     <ForceRange>k__BackingField: {x: 2.729013, y: 4.45963}
     <NNControlDistance>k__BackingField: 0
-    <FlipX>k__BackingField: 0
-    <FlipY>k__BackingField: 0
+    <SignX>k__BackingField: 0
+    <SignY>k__BackingField: 0
     <ForwardForce>k__BackingField: 0
     <InitialFlightRadius>k__BackingField: 0
     <InitialSpeed>k__BackingField: 0
@@ -136,6 +138,8 @@ MonoBehaviour:
     ConnectionCount: 0
     NodeCount: 0
     IsEvaluated: 0
+  TemporalObjects: {fileID: 0}
+  ProjectileSpawnPoint: {fileID: 4956941618858505240}
 --- !u!1 &8346746276762657820
 GameObject:
   m_ObjectHideFlags: 0
@@ -161,7 +165,7 @@ Transform:
   m_GameObject: {fileID: 8346746276762657820}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0.444, y: 0.125, z: 0}
+  m_LocalPosition: {x: 0.4, y: 0.125, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

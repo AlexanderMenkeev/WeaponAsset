@@ -10,7 +10,7 @@
                     "type": "Value",
                     "id": "1a8686e2-3c20-4285-befe-35096e4ee167",
                     "expectedControlType": "Vector2",
-                    "processors": "StickDeadzone",
+                    "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
                 },
@@ -30,7 +30,7 @@
                     "id": "3f1e26cb-2bf5-4662-a529-3ef5b1dee58e",
                     "path": "<Gamepad>/leftStick",
                     "interactions": "",
-                    "processors": "NormalizeVector2",
+                    "processors": "",
                     "groups": "",
                     "action": "Move",
                     "isComposite": false,
@@ -39,7 +39,7 @@
                 {
                     "name": "WASD",
                     "id": "be006cd2-0e4d-4384-9e7c-f0e44621fead",
-                    "path": "2DVector",
+                    "path": "2DVector(mode=1)",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -94,7 +94,7 @@
                 {
                     "name": "Arrows",
                     "id": "965fdc53-55e0-435b-9839-a2d8847e788c",
-                    "path": "2DVector",
+                    "path": "2DVector(mode=1)",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

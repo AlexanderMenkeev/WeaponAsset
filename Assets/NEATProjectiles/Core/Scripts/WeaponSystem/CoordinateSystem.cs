@@ -1,10 +1,10 @@
 using UnityEngine;
 
-namespace NEATProjectiles.Core.Scripts.WeaponSystem {
+namespace NeatProjectiles.Core.Scripts.WeaponSystem {
     
     public class CoordinateSystem : MonoBehaviour {
         
-        public AbstractWeapon Parent;
+        public AbstractWeapon Weapon;
         
         private Transform _transform;
         private void Awake() {
@@ -14,7 +14,7 @@ namespace NEATProjectiles.Core.Scripts.WeaponSystem {
         }
 
         private void OnDestroy() {
-            Parent.CoordinateSystems.Remove(this);
+            Weapon.CoordinateSystems.Remove(this);
         }
 
         // if all child projectiles were destroyed => destroy this CoordinateSystem

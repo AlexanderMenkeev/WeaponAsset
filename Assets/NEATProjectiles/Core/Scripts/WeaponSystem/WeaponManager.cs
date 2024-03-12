@@ -1,11 +1,11 @@
 using System.Collections.Generic;
-using NEATProjectiles.Core.Scripts.SODefinitions;
-using NEATProjectiles.Core.Scripts.WeaponSystem.NEAT;
+using NeatProjectiles.Core.Scripts.SODefinitions;
+using NeatProjectiles.Core.Scripts.WeaponSystem.NEAT;
 using SharpNeat.Genomes.Neat;
 using Unity.Mathematics;
 using UnityEngine;
 
-namespace NEATProjectiles.Core.Scripts.WeaponSystem {
+namespace NeatProjectiles.Core.Scripts.WeaponSystem {
     public class WeaponManager : MonoBehaviour
     {
         // assign in the editor
@@ -38,7 +38,7 @@ namespace NEATProjectiles.Core.Scripts.WeaponSystem {
         
         private void InstantiateWeapons() {
             for (int i = 0; i < _numberOfWeapons; i++) 
-                _weapons.Add(Instantiate(_weaponPrefab));
+                _weapons.Add(Instantiate(_weaponPrefab, transform));
         }
         
         private void InitializeWeapons() {

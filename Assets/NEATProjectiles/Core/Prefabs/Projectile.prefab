@@ -132,8 +132,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GlobalVariables: {fileID: 11400000, guid: 804253ef160b2814a8589ded616acc2e, type: 2}
   WeaponParamsLocal:
+    <WeaponMode>k__BackingField: 0
+    <BurstMode>k__BackingField: 0
+    <BurstRate>k__BackingField: 0
     <FireRate>k__BackingField: 0
     <ProjectilesInOneShot>k__BackingField: 0
+    <RotationSpeed>k__BackingField: 0
+    <MoveSpeed>k__BackingField: 0
+    <PositioningMode>k__BackingField: 0
+    <ReadMode>k__BackingField: 0
     <Size>k__BackingField: {x: 0, y: 0}
     <Lifespan>k__BackingField: 0
     <HueRange>k__BackingField: {x: 0, y: 0}
@@ -142,7 +149,8 @@ MonoBehaviour:
     <SpeedRange>k__BackingField: {x: 0, y: 0}
     <ForceRange>k__BackingField: {x: 0, y: 0}
     <NNControlDistance>k__BackingField: 0
-    <FlipY>k__BackingField: 0
+    <SignX>k__BackingField: 0
+    <SignY>k__BackingField: 0
     <ForwardForce>k__BackingField: 0
     <InitialFlightRadius>k__BackingField: 0
     <InitialSpeed>k__BackingField: 0

@@ -1,14 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
-using NEATProjectiles.Core.Scripts.Interfaces;
-using NEATProjectiles.Core.Scripts.SODefinitions;
-using NEATProjectiles.Core.Scripts.WeaponSystem;
-using NEATProjectiles.Demos.Scripts.EnemyBehaviour;
+using NeatProjectiles.Core.Scripts.Interfaces;
+using NeatProjectiles.Core.Scripts.SODefinitions;
+using NeatProjectiles.Core.Scripts.WeaponSystem;
+using NeatProjectiles.GameExample.Scripts.EnemyBehaviour;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 
-namespace NEATProjectiles.Demos.Scripts.Managers {
+namespace NeatProjectiles.GameExample.Scripts.Managers {
     
     // Enemy spawning, Pause and Death canvases activation, invoking of TakeDamage
     public class GameManager : MonoBehaviour {
@@ -20,7 +20,7 @@ namespace NEATProjectiles.Demos.Scripts.Managers {
         [SerializeField] private GameObject _enemyPrefab;
 
         public static GameManager Instance;
-        [SerializeField] private Camera _camera;
+        [HideInInspector] [SerializeField] private Camera _camera;
         private void Awake() {
             if (Instance == null) {
                 Instance = this;
@@ -37,7 +37,7 @@ namespace NEATProjectiles.Demos.Scripts.Managers {
                 
                 // Override values
                 weaponParams.Lifespan = 4f;
-                weaponParams.ProjectilesInOneShot = 10;
+                weaponParams.ProjectilesInOneShot = 8;
                 weaponParams.ForwardForce = true;
                 weaponParams.Mode = ReflectionMode.Polar;
                 weaponParams.InitialSpeed = Random.Range(3f, 5f);

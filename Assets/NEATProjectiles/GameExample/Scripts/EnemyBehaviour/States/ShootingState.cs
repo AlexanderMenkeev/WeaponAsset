@@ -1,9 +1,9 @@
 using System.Collections;
-using NEATProjectiles.Core.Scripts.Interfaces;
-using NEATProjectiles.Demos.Scripts.Managers;
+using NeatProjectiles.Core.Scripts.Interfaces;
+using NeatProjectiles.GameExample.Scripts.Managers;
 using UnityEngine;
 
-namespace NEATProjectiles.Demos.Scripts.EnemyBehaviour.States {
+namespace NeatProjectiles.GameExample.Scripts.EnemyBehaviour.States {
     public class ShootingState : IState {
         
         private EnemyController _enemy;

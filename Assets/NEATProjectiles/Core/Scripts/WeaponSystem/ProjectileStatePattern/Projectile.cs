@@ -1,13 +1,13 @@
 using System;
 using System.Collections;
-using NEATProjectiles.Core.Scripts.Interfaces;
-using NEATProjectiles.Core.Scripts.SODefinitions;
-using NEATProjectiles.Demos.Scripts.Managers;
+using NeatProjectiles.Core.Scripts.Interfaces;
+using NeatProjectiles.Core.Scripts.SODefinitions;
+using NeatProjectiles.GameExample.Scripts.Managers;
 using SharpNeat.Phenomes;
 using Unity.Mathematics;
 using UnityEngine;
 
-namespace NEATProjectiles.Core.Scripts.WeaponSystem.ProjectileStatePattern {
+namespace NeatProjectiles.Core.Scripts.WeaponSystem.ProjectileStatePattern {
     public class Projectile : MonoBehaviour, IDamagable
     {
         // assign in editor
@@ -141,14 +141,14 @@ namespace NEATProjectiles.Core.Scripts.WeaponSystem.ProjectileStatePattern {
 
             SpriteRenderer.color = Color.HSVToRGB(_hue, WeaponParamsLocal.Saturation, WeaponParamsLocal.Brightness);
             
-            switch (WeaponParamsLocal.PositioningMode) {
-                case PositioningMode.AbsolutePos:
+            switch (WeaponParamsLocal.NetworkControlMode) {
+                case NetworkControlMode.ForceSum:
                     Rigidbody.AddForce(_forceDir * _force);
                     if (WeaponParamsLocal.ForwardForce) 
                         Rigidbody.AddForce(OriginTransform.up * _force);
                     break;
                 
-                case PositioningMode.RelativePos:
+                case NetworkControlMode.VelocitySum:
                     float inverseMass = 1f / Rigidbody.mass;
                     Rigidbody.velocity += _forceDir * (_force * inverseMass * Time.fixedDeltaTime);
                     if (WeaponParamsLocal.ForwardForce)

@@ -1,11 +1,17 @@
-using System.Buffers.Text;
-using Cinemachine.Editor;
-using NEATProjectiles.Core.Scripts.SODefinitions;
-using NEATProjectiles.Core.Scripts.WeaponSystem;
+using System;
+using NeatProjectiles.Core.Scripts.SODefinitions;
+using NeatProjectiles.Core.Scripts.WeaponSystem;
 using UnityEngine;
 
-namespace NEATProjectiles.Demos.Scripts.DemoScene {
+namespace NeatProjectiles.WeaponDemo.Scripts {
     public class DemoWeapon : AbstractWeapon {
+
+        private void Awake() {
+            if (ProjectilesParentTransform == null)
+                ProjectilesParentTransform = GameObject.Find("TemporalObjects").transform;
+            
+            ProjectileSpawnPoint = transform.Find("ProjectileSpawnPoint");
+        }
         
         public void UpdateWeaponSO(WeaponParamsSO weaponSo) {
             

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace NEATProjectiles.Core.Scripts.SODefinitions {
+namespace NeatProjectiles.Core.Scripts.SODefinitions {
     [CreateAssetMenu(menuName = "ScriptableObjects/GlobalVariablesSO")]
     public class GlobalVariablesSO : ScriptableObject
     {

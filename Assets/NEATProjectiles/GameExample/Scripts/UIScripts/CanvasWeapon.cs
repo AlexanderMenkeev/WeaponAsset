@@ -1,11 +1,11 @@
-using NEATProjectiles.Core.Scripts.WeaponSystem;
+using NeatProjectiles.Core.Scripts.WeaponSystem;
 using UnityEngine;
 
-namespace NEATProjectiles.Demos.Scripts.UIScripts {
+namespace NeatProjectiles.GameExample.Scripts.UIScripts {
     public class CanvasWeapon : AbstractWeapon
     {
         private void Awake() {
-            TemporalObjects = GameObject.Find("TemporalObjects");
+            ProjectilesParentTransform = GameObject.Find("TemporalObjects").transform;
             ProjectileSpawnPoint = transform.Find("ProjectileSpawnPoint");
             _weaponSO.UpdateParamsEvent += InitializeParams;
         }

@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
-using NEATProjectiles.Core.Scripts.WeaponSystem.NEAT;
+using NeatProjectiles.Core.Scripts.WeaponSystem.NEAT;
 using SharpNeat.Genomes.Neat;
 using UnityEngine;
 
-namespace NEATProjectiles.Core.Scripts.WeaponSystem {
+namespace NeatProjectiles.Core.Scripts.WeaponSystem {
     public class EvoWeapon : AbstractWeapon
     {
         

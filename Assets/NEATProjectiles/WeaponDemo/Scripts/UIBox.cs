@@ -1,9 +1,9 @@
-using NEATProjectiles.Core.Scripts.SODefinitions;
+using NeatProjectiles.Core.Scripts.SODefinitions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace NEATProjectiles.Demos.Scripts.DemoScene {
+namespace NeatProjectiles.WeaponDemo.Scripts {
     public class UIBox : MonoBehaviour {
         
         // assigned from the editor

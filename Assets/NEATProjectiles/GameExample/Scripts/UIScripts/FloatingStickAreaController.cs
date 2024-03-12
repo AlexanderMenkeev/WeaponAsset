@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.OnScreen;
 using UnityEngine.UI;
 
-namespace NEATProjectiles.Demos.Scripts.UIScripts {
+namespace NeatProjectiles.GameExample.Scripts.UIScripts {
     public class FloatingStickAreaController : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
     {
         public GameObject Joystick;

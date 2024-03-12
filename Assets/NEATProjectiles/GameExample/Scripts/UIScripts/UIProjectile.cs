@@ -1,6 +1,6 @@
-using NEATProjectiles.Core.Scripts.WeaponSystem.ProjectileStatePattern;
+using NeatProjectiles.Core.Scripts.WeaponSystem.ProjectileStatePattern;
 
-namespace NEATProjectiles.Demos.Scripts.UIScripts {
+namespace NeatProjectiles.GameExample.Scripts.UIScripts {
     public class UIProjectile : Projectile {
         // public CanvasDemoWeapon DemoWeapon;
         // private void Awake()

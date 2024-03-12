@@ -1,5 +1,5 @@
 using System;
-using NEATProjectiles.Core.Scripts.WeaponSystem;
+using NeatProjectiles.Core.Scripts.WeaponSystem;
 using UnityEditor;
 using UnityEngine;
 

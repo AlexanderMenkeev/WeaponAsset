@@ -1,7 +1,7 @@
-using NEATProjectiles.Core.Scripts.WeaponSystem;
+using NeatProjectiles.Core.Scripts.WeaponSystem;
 using UnityEngine;
 
-namespace NEATProjectiles.Core.Scripts.Interfaces {
+namespace NeatProjectiles.Core.Scripts.Interfaces {
     
     public interface IWeaponParams {
         WeaponMode WeaponMode { get; set; }
@@ -13,7 +13,7 @@ namespace NEATProjectiles.Core.Scripts.Interfaces {
         float RotationSpeed { get; set; }
         float MoveSpeed { get; set; }
         
-        PositioningMode PositioningMode { get; set; }
+        NetworkControlMode NetworkControlMode { get; set; }
         ReadMode ReadMode { get; set; }
         Vector2 Size { get; set; }
         float Lifespan { get; set; }

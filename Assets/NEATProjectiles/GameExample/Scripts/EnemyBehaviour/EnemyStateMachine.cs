@@ -1,10 +1,10 @@
 using System;
 using System.Collections;
-using NEATProjectiles.Core.Scripts.Interfaces;
-using NEATProjectiles.Demos.Scripts.EnemyBehaviour.States;
+using NeatProjectiles.Core.Scripts.Interfaces;
+using NeatProjectiles.GameExample.Scripts.EnemyBehaviour.States;
 using UnityEngine;
 
-namespace NEATProjectiles.Demos.Scripts.EnemyBehaviour {
+namespace NeatProjectiles.GameExample.Scripts.EnemyBehaviour {
     public class EnemyStateMachine {
         
         public IState CurrentState;
