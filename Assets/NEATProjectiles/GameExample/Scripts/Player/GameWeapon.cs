@@ -18,12 +18,15 @@ namespace NeatProjectiles.GameExample.Scripts.Player {
         
         private void Start() {
             InitializeParams();
+            _weaponParamsLocal.InitialSpeed = 4f;
         }
         
         // Follow player object without rotating with it
         private void LateUpdate() {
             TurretBase.transform.position = _player.transform.position;
         }
+        
+        
         
     }
 }

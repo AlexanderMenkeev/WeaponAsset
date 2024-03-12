@@ -42,7 +42,7 @@ namespace NeatProjectiles.GameExample.Scripts.Player {
             _aimAction = _inputManager.PlayerActionMap.aimAction;
 
             HealthPoints = 1000f;
-            Speed = 4f;
+            Speed = 3.5f;
             _currPos = transform.position;
         }
         
@@ -181,6 +181,7 @@ namespace NeatProjectiles.GameExample.Scripts.Player {
         }
 
         private void OnDeath() {
+            GameManager.Instance.ActivateDeathCanvas();
         }
         
         

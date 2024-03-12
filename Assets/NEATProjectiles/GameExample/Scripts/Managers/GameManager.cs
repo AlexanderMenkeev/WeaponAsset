@@ -105,6 +105,7 @@ namespace NeatProjectiles.GameExample.Scripts.Managers {
         }
 
         [SerializeField] private GameObject _pauseCanvas;
+        [SerializeField] private GameObject _deathCanvas;
         private InputAction _pauseAction;
         private InputManager _inputManager;
 
@@ -147,6 +148,7 @@ namespace NeatProjectiles.GameExample.Scripts.Managers {
             }
         }
         
+        // For resume button
         public void ActivatePauseCanvas() {
             if (!_pauseCanvas.activeSelf) {
                 _pauseCanvas.SetActive(true);
@@ -173,7 +175,20 @@ namespace NeatProjectiles.GameExample.Scripts.Managers {
                 return;
             objectToDamage.TakeDamage(damage);
         }
+        
+        
+        public void ActivateDeathCanvas() {
+            if (!_deathCanvas.activeSelf) {
+                _deathCanvas.SetActive(true);
+                Pause(true);
+            }
+            else {
+                _deathCanvas.SetActive(false);
+                Pause(false);
+            }
+        }
 
+        
 
 
 

@@ -772,11 +772,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5602965353383390450, guid: 962a2dc395d6e6547a8c3818a226aa14, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: WeaponEvolutionScene
+      value: GameScene
       objectReference: {fileID: 0}
     - target: {fileID: 8483845702497041316, guid: 962a2dc395d6e6547a8c3818a226aa14, type: 3}
       propertyPath: m_text
-      value: WeaponEvo Scene
+      value: Game Scene
       objectReference: {fileID: 0}
     - target: {fileID: 8483845702497041316, guid: 962a2dc395d6e6547a8c3818a226aa14, type: 3}
       propertyPath: m_fontSize
