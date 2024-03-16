@@ -5,26 +5,32 @@ using UnityEngine;
 
 namespace NeatProjectiles.WeaponDemo.Scripts {
     public class DemoWeapon : AbstractWeapon {
-
+        
         private void Awake() {
             if (ProjectilesParentTransform == null)
                 ProjectilesParentTransform = GameObject.Find("TemporalObjects").transform;
             
             ProjectileSpawnPoint = transform.Find("ProjectileSpawnPoint");
         }
-        
-        public void UpdateWeaponSO(WeaponParamsSO weaponSo) {
-            
-            if (FireCoroutine != null) 
-                StopCoroutine(FireCoroutine);
-            
-            if (_weaponSO != null)
+
+        private void OnDestroy() {
+            _weaponSO.UpdateParamsEvent -= InitializeParams;
+        }
+
+        public void UpdateWeaponSO(WeaponParamsSO weaponSo, bool startCoroutine) {
+            weaponSo.UpdateParamsEvent += InitializeParams;
+           
+            if (_weaponSO != null) {
+                _weaponSO.UpdateParamsEvent -= InitializeParams;
                 _weaponSO.DestroyProjectilesEvent?.Invoke();
+            }
+            
+            StopAllCoroutines();
             
             _weaponSO = weaponSo;
             base.InitializeParams();
-
-            FireCoroutine = StartCoroutine(Fire());
+            if (startCoroutine)
+                FireCoroutine = StartCoroutine(Fire());
         }
 
         public void LaunchForward() {

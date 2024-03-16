@@ -227,6 +227,8 @@ namespace NeatProjectiles.Core.Scripts.WeaponSystem.ProjectileStatePattern {
         
 
         private void OnDrawGizmosSelected() {
+            if (OriginTransform == null)
+                return;
             Gizmos.DrawRay(OriginTransform.position, RelativePosDir);
         }
         
