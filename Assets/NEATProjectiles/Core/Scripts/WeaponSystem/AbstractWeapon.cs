@@ -75,7 +75,7 @@ namespace NeatProjectiles.Core.Scripts.WeaponSystem {
                     
                     case WeaponMode.Burst:
                         // Wait for FireBurst Coroutine to complete
-                        yield return StartCoroutine(FireBurst());
+                        yield return FireBurst();
                         break;
                     
                     default:
@@ -114,7 +114,7 @@ namespace NeatProjectiles.Core.Scripts.WeaponSystem {
             }
         }
         
-        //public Coroutine FireBurstCoroutine;
+        
         public virtual IEnumerator FireBurst() {
             CoordinateSystem localCoordinateSystem = CreateLocalCoordinateSystem();
             int projectileCount = _weaponParamsLocal.ProjectilesInOneShot;
