@@ -1518,24 +1518,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 489879199548968372, guid: 64bbb57d1fc183145a8c59e3955841fe, type: 3}
-      propertyPath: _yMargin
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 489879199548968372, guid: 64bbb57d1fc183145a8c59e3955841fe, type: 3}
       propertyPath: CellDimensions.x
-      value: 0.5
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 489879199548968372, guid: 64bbb57d1fc183145a8c59e3955841fe, type: 3}
       propertyPath: CellDimensions.y
-      value: 0.5
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 489879199548968372, guid: 64bbb57d1fc183145a8c59e3955841fe, type: 3}
-      propertyPath: _cellDimensions.x
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 489879199548968372, guid: 64bbb57d1fc183145a8c59e3955841fe, type: 3}
-      propertyPath: _cellDimensions.y
-      value: 0.3
+      propertyPath: _showForceMagnitude
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2381520277250328039, guid: 64bbb57d1fc183145a8c59e3955841fe, type: 3}
       propertyPath: m_LocalPosition.x

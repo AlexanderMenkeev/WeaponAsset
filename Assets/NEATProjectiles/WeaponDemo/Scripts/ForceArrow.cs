@@ -11,7 +11,7 @@ namespace NeatProjectiles.WeaponDemo.Scripts {
 
         // Assign from another script
         [SerializeField] public WeaponParams WeaponParamsLocal;
-        [HideInInspector] public Transform OriginTransform;
+        public Transform OriginTransform;
         public float SignX;
         public float SignY;
         public IBlackBox Box;
@@ -28,10 +28,14 @@ namespace NeatProjectiles.WeaponDemo.Scripts {
                 sr.enabled = false;
         }
 
+        public bool InNNControlZone = true;
         public void ActivateBlackBoxCircle() {
             Box.ResetState();
 
             float maxDistance = WeaponParamsLocal.NNControlDistance * math.SQRT2;
+
+            if (DistanceFromOrigin > maxDistance)
+                InNNControlZone = false;
 
             InputArr[0] = Mathf.Lerp(-1f, 1f, Math.Abs(RelativePos.x) / WeaponParamsLocal.NNControlDistance);
             InputArr[1] = Mathf.Lerp(-1f, 1f, Math.Abs(RelativePos.y) / WeaponParamsLocal.NNControlDistance);
@@ -47,6 +51,9 @@ namespace NeatProjectiles.WeaponDemo.Scripts {
             float maxY = WeaponParamsLocal.RectDimensions.y * WeaponParamsLocal.NNControlDistance;
             float maxDistance = maxX > maxY ? maxX : maxY;
 
+            if (Mathf.Abs(RelativePos.x) > maxX || Mathf.Abs(RelativePos.y) > maxY)
+                InNNControlZone = false;
+            
             InputArr[0] = Mathf.Lerp(-1f, 1f, Math.Abs(RelativePos.x) / maxX);
             InputArr[1] = Mathf.Lerp(-1f, 1f, Math.Abs(RelativePos.y) / maxY);
             InputArr[2] = Mathf.Lerp(-1f, 1f, DistanceFromOrigin / maxDistance);
@@ -65,6 +72,9 @@ namespace NeatProjectiles.WeaponDemo.Scripts {
 
             float maxX = maxPhiRad * Mathf.Rad2Deg >= 90f ? NNControlDistance : NNControlDistance * Mathf.Sin(maxPhiRad);
 
+            if (PhiRad > maxPhiRad)
+                InNNControlZone = false;
+            
             InputArr[0] = Mathf.Lerp(-1f, 1f, x / maxX);
             InputArr[1] = Mathf.Lerp(-1f, 1f, y / NNControlDistance);
             InputArr[2] = Mathf.Lerp(-1f, 1f, DistanceFromOrigin / NNControlDistance);
@@ -72,8 +82,9 @@ namespace NeatProjectiles.WeaponDemo.Scripts {
             Box.Activate();
         }
 
-        private float _hue;
+        private float _hue, _force;
         private Vector2 _forceDir;
+        public bool ShowForceMagnitude;
         public void ReadDataFromBlackBox() {
             float x = Mathf.Lerp(-1f, 1f, (float)OutputArr[0]) * SignX;
             float y = Mathf.Lerp(-1f, 1f, (float)OutputArr[1]) * SignY;
@@ -91,19 +102,20 @@ namespace NeatProjectiles.WeaponDemo.Scripts {
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            float angleDeg = Vector3.SignedAngle(transform.up, _forceDir, Vector3.forward);
-            transform.rotation = Quaternion.AngleAxis(angleDeg, Vector3.forward);
-
+            transform.up = _forceDir;
+            
             _hue = Mathf.Lerp(WeaponParamsLocal.HueRange.x, WeaponParamsLocal.HueRange.y, (float)OutputArr[2]);
             foreach (SpriteRenderer sr in SpriteRenderers) {
-                sr.color = Color.HSVToRGB(_hue, WeaponParamsLocal.Saturation, WeaponParamsLocal.Brightness);
+                Color spriteColor = Color.HSVToRGB(_hue, WeaponParamsLocal.Saturation, WeaponParamsLocal.Brightness);
+                sr.color = new Color(spriteColor.r, spriteColor.g, spriteColor.b, 0.3f);
             }
-
-            // transform.localScale = new Vector3(
-            //     Mathf.Lerp(0.2f, ArrowSpawner.CellDimensions.x, (float)OutputArr[4]),
-            //     Mathf.Lerp(0.3f, ArrowSpawner.CellDimensions.y, (float)OutputArr[4]),
-            //     1f
-            // );
+            
+            if (ShowForceMagnitude)
+                transform.localScale = new Vector2(
+                        Mathf.Lerp(ArrowSpawner.ArrowDimensions.x, ArrowSpawner.ArrowDimensions.x * 1.5f, (float)OutputArr[4]),
+                        Mathf.Lerp(ArrowSpawner.ArrowDimensions.y, ArrowSpawner.ArrowDimensions.y * 1.5f, (float)OutputArr[4])
+                    );
+            
         }
 
         public Vector2 RelativePos;
@@ -111,6 +123,7 @@ namespace NeatProjectiles.WeaponDemo.Scripts {
         public float DistanceFromOrigin;
         public float PhiRad;
         public void CalcProjectileStats() {
+            InNNControlZone = true;
             RelativePosDir = transform.position - OriginTransform.position;
             RelativePos = transform.localPosition;
             DistanceFromOrigin = RelativePos.magnitude;

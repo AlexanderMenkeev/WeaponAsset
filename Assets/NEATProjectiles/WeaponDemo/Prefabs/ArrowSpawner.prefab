@@ -44,9 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69a1d9ce00b48064aa315e26e8d6fe40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cellDimensions: {x: 1, y: 1}
+  CellDimensions: {x: 0.33, y: 0.33}
   _arrowPrefab: {fileID: 362870602384493895, guid: bbf16cd68cbdc2b4fbc03389a9463ffc, type: 3}
+  ArrowDimensions: {x: 0.2, y: 0.2}
+  _showForceMagnitude: 1
   ArrowList: []
   _camera: {fileID: 0}
+  _demoWeapon: {fileID: 0}
   _xMargin: 4
-  _yMargin: 2
+  _yMargin: 0

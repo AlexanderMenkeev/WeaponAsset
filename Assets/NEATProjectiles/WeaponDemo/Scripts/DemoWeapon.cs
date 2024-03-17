@@ -17,7 +17,7 @@ namespace NeatProjectiles.WeaponDemo.Scripts {
             _weaponSO.UpdateParamsEvent -= InitializeParams;
         }
 
-        public void UpdateWeaponSO(WeaponParamsSO weaponSo, bool startCoroutine) {
+        public void UpdateWeaponSO(WeaponParamsSO weaponSo) {
             weaponSo.UpdateParamsEvent += InitializeParams;
            
             if (_weaponSO != null) {
@@ -29,8 +29,8 @@ namespace NeatProjectiles.WeaponDemo.Scripts {
             
             _weaponSO = weaponSo;
             base.InitializeParams();
-            if (startCoroutine)
-                FireCoroutine = StartCoroutine(Fire());
+            
+            FireCoroutine = StartCoroutine(Fire());
         }
 
         public void LaunchForward() {

@@ -47,7 +47,7 @@ namespace NeatProjectiles.WeaponDemo.Scripts {
         
         private void Start() {
             _arrowSpawner.CreateForceMap();
-            UpdateTextAndParams();
+            UpdateAll();
         }
 
         private void OnNextBtnClick() {
@@ -56,7 +56,7 @@ namespace NeatProjectiles.WeaponDemo.Scripts {
             else
                 _counter++;
 
-            UpdateTextAndParams();
+            UpdateAll();
         }
         
         private void OnPrevBtnClick() {
@@ -65,21 +65,16 @@ namespace NeatProjectiles.WeaponDemo.Scripts {
             else
                 _counter--;
             
-            UpdateTextAndParams();
+            UpdateAll();
         }
 
         private bool _arrowsVisible = false;
         private void OnForceViewClick() {
-            
-            //_demoWeapon.StopAllCoroutines();
             if (!_arrowsVisible) {
-                _weaponList[_counter].DestroyProjectilesEvent?.Invoke();
-                
                 ArrowsSpritesEnabled(true);
                 _arrowsVisible = true;
             }
             else {
-                //_demoWeapon.FireCoroutine = _demoWeapon.StartCoroutine(_demoWeapon.Fire());
                 ArrowsSpritesEnabled(false);
                 _arrowsVisible = false;
             }
@@ -90,18 +85,18 @@ namespace NeatProjectiles.WeaponDemo.Scripts {
             foreach (GameObject go in _arrowSpawner.ArrowList) {
                 ForceArrow arrow = go.GetComponent<ForceArrow>();
                 foreach (SpriteRenderer sr in arrow.SpriteRenderers) 
-                    sr.enabled = value;
+                    sr.enabled = arrow.InNNControlZone && value;
+                
             }
-            
         }
 
         private void OnLaunchClick() {
             _demoWeapon.LaunchForward();
         }
 
-        private void UpdateTextAndParams() {
+        private void UpdateAll() {
             _weaponText.text = $"{_weaponList[_counter].name}\n#{_counter}";
-            _demoWeapon.UpdateWeaponSO(_weaponList[_counter], !_arrowsVisible);
+            _demoWeapon.UpdateWeaponSO(_weaponList[_counter]);
             UpdateArrows(_weaponList[_counter]);
         }
         
@@ -136,6 +131,9 @@ namespace NeatProjectiles.WeaponDemo.Scripts {
                 arrow.ReadDataFromBlackBox();
             }
             
+            if (_arrowsVisible)
+                // Enable all arrows, except those not in NNControl zone
+                ArrowsSpritesEnabled(true);
         }
         
 

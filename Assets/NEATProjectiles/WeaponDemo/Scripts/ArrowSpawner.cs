@@ -5,12 +5,13 @@ using UnityEngine;
 namespace NeatProjectiles.WeaponDemo.Scripts {
     public class ArrowSpawner : MonoBehaviour
     {
-        [Tooltip ("Cell dimensions in units")]
-        [SerializeField] private Vector2 _cellDimensions;
+        [Tooltip ("Cell dimensions in units, should be larger than arrow dimensions")]
+        [SerializeField] public Vector2 CellDimensions;
 
         [Tooltip ("Prefab to generate grid with")]
         [SerializeField] private GameObject _arrowPrefab;
-        [SerializeField] private Vector2 _arrowDimensions;
+        [SerializeField] public Vector2 ArrowDimensions;
+        [SerializeField] private bool _showForceMagnitude = false;
         public List<GameObject> ArrowList = new List<GameObject>();
         
         [HideInInspector] [SerializeField] private Camera _camera;
@@ -18,7 +19,6 @@ namespace NeatProjectiles.WeaponDemo.Scripts {
         private void Awake() {
             _camera = Camera.main;
             _demoWeapon = FindObjectOfType<DemoWeapon>();
-            // _arrowPrefab.loca
         }
         
         
@@ -35,18 +35,19 @@ namespace NeatProjectiles.WeaponDemo.Scripts {
             float horizontalSpace = p11.x - p00.x;
             float verticalSpace = p11.y - p00.y;
             
-            int columnsCount = Mathf.CeilToInt(horizontalSpace / _cellDimensions.x);
-            int rowsCount = Mathf.CeilToInt(verticalSpace / _cellDimensions.y);
+            int columnsCount = Mathf.CeilToInt(horizontalSpace / CellDimensions.x);
+            int rowsCount = Mathf.CeilToInt(verticalSpace / CellDimensions.y);
             
             for (int row = 0; row < rowsCount; row++) {
                 for (int col = 0; col < columnsCount; col++) {
                     ForceArrow arrow = Instantiate(_arrowPrefab, _demoWeapon.ProjectileSpawnPoint.transform).GetComponent<ForceArrow>();
                     arrow.name = "Arrow" + row + col;
                     arrow.transform.position = new Vector3(
-                        p00.x + col * _cellDimensions.x + _cellDimensions.x * 0.5f,
-                        p00.y + row * _cellDimensions.y + _cellDimensions.y * 0.5f);
+                        p00.x + col * CellDimensions.x + CellDimensions.x * 0.5f,
+                        p00.y + row * CellDimensions.y + CellDimensions.y * 0.5f);
                     arrow.ArrowSpawner = this;
-                    
+                    arrow.transform.localScale = ArrowDimensions;
+                    arrow.ShowForceMagnitude = _showForceMagnitude;
                     ArrowList.Add(arrow.gameObject);
                 }
             }
