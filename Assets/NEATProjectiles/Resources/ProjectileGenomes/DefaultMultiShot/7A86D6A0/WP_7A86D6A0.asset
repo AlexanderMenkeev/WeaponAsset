@@ -21,10 +21,10 @@ MonoBehaviour:
   <ProjectilesInOneShot>k__BackingField: 4
   <RotationSpeed>k__BackingField: 0
   <MoveSpeed>k__BackingField: 10
-  <PositioningMode>k__BackingField: 0
+  <NetworkControlMode>k__BackingField: 0
   <ReadMode>k__BackingField: 0
   <Size>k__BackingField: {x: 0.07, y: 0.07}
-  <Lifespan>k__BackingField: 8
+  <Lifespan>k__BackingField: 10
   <HueRange>k__BackingField: {x: 0.41158354, y: 0.7891817}
   <Saturation>k__BackingField: 0.803
   <Brightness>k__BackingField: 1

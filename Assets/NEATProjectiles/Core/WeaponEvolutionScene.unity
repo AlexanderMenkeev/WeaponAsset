@@ -768,10 +768,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8313705561352802141, guid: e63013981d0704e489849a64654f9ad3, type: 3}
-      propertyPath: m_Icon
-      value: 
-      objectReference: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
-    - target: {fileID: 8313705561352802141, guid: e63013981d0704e489849a64654f9ad3, type: 3}
       propertyPath: m_Name
       value: LevelManager
       objectReference: {fileID: 0}
