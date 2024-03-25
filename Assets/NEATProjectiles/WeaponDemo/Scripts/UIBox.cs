@@ -95,7 +95,14 @@ namespace NeatProjectiles.WeaponDemo.Scripts {
         }
 
         private void UpdateAll() {
-            _weaponText.text = $"{_weaponList[_counter].name}\n#{_counter}";
+            string weaponMode = _weaponList[_counter].WeaponMode.ToString();
+            string reflectionMode = _weaponList[_counter].Mode.ToString();
+            string readMode = _weaponList[_counter].ReadMode.ToString();
+            string burstMode = _weaponList[_counter].WeaponMode == WeaponMode.Burst ? _weaponList[_counter].BurstMode.ToString() : "";
+            
+            _weaponText.text = $"{_weaponList[_counter].name}\n" +
+                               $"{weaponMode}{burstMode}\n{reflectionMode}\n{readMode}\n" +
+                               $"#{_counter}";
             _demoWeapon.UpdateWeaponSO(_weaponList[_counter]);
             UpdateArrows(_weaponList[_counter]);
         }
