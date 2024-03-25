@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GenomeXml: {fileID: 0}
   WeaponParamsJson: {fileID: 0}
-  <WeaponMode>k__BackingField: 1
+  <WeaponMode>k__BackingField: 0
   <BurstMode>k__BackingField: 2
   <BurstRate>k__BackingField: 0.03
   <FireRate>k__BackingField: 0.9

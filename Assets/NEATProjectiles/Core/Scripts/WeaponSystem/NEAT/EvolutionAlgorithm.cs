@@ -42,13 +42,14 @@ namespace NeatProjectiles.Core.Scripts.WeaponSystem.NEAT {
         }
     
         private void InitializeEvolutionAlgorithmParams() {
-            PopulationSize = 6;
             _activationScheme = NetworkActivationScheme.CreateAcyclicScheme();
+            
+            PopulationSize = 6;
             Generation = 0;
             InputCount = 3;
             OutputCount = 5;
             CloneOffspringCount = 2;
-            SexualOffspringCount = PopulationSize - 2;
+            SexualOffspringCount = PopulationSize - CloneOffspringCount;
         }
         
         private void InitializeEvolutionAlgorithm() {
@@ -67,15 +68,17 @@ namespace NeatProjectiles.Core.Scripts.WeaponSystem.NEAT {
             fnList.Add(new ActivationFunctionInfo(9, 0.1, ReLU.__DefaultInstance));
         
             _activationFunctionLib = new DefaultActivationFunctionLibrary(fnList);;
-            NeatGenomeParameters neatGenomeParams = new NeatGenomeParameters();
-            neatGenomeParams.InitialInterconnectionsProportion = 0.99;
-            neatGenomeParams.AddConnectionMutationProbability = 0.7;
-            neatGenomeParams.AddNodeMutationProbability = 0.7;
-            neatGenomeParams.ConnectionWeightMutationProbability = 0.7;
-            neatGenomeParams.DisjointExcessGenesRecombinedProbability = 0.4;
-            neatGenomeParams.NodeAuxStateMutationProbability = 0.2;
-            neatGenomeParams.FeedforwardOnly = true;
-        
+            NeatGenomeParameters neatGenomeParams = new NeatGenomeParameters {
+                FeedforwardOnly = true,
+                InitialInterconnectionsProportion = 0.8,
+                DisjointExcessGenesRecombinedProbability = 0.3,
+                ConnectionWeightMutationProbability = 0.8,
+                AddNodeMutationProbability = 0.6,
+                AddConnectionMutationProbability = 0.6,
+                NodeAuxStateMutationProbability = 0.1,
+                DeleteConnectionMutationProbability = 0.1
+            };
+
             CppnGenomeFactory = new CppnGenomeFactory(InputCount, OutputCount, _activationFunctionLib, neatGenomeParams);
             GenomeList = CppnGenomeFactory.CreateGenomeList(PopulationSize, Generation);
         }

@@ -180,8 +180,8 @@ namespace NeatProjectiles.Core.Scripts.WeaponSystem.ProjectileStatePattern {
 
         private void LateUpdate() {
             // Transition to PauseState is common to any state, so we check it here
-            // Do not pause if it's already paused or it's on UI layer
-            if (GlobalVariables.IsPaused && StateMachine.CurrentState != StateMachine.Pause && gameObject.layer != 5)
+            // Do not transit if it's already in paused state (otherwise StateMachine.PreviousState will be overriden)
+            if (GlobalVariables.IsPaused && StateMachine.CurrentState != StateMachine.Pause)
                 StateMachine.TransitionTo(StateMachine.Pause);
             
             StateMachine.LateUpdate();
