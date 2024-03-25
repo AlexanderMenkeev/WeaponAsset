@@ -116,7 +116,6 @@ namespace NeatProjectiles.Core.Scripts.WeaponSystem {
         
         
         public virtual IEnumerator FireBurst() {
-            CoordinateSystem localCoordinateSystem = CreateLocalCoordinateSystem();
             int projectileCount = _weaponParamsLocal.ProjectilesInOneShot;
             BurstMode burstMode = _weaponParamsLocal.BurstMode;
             
@@ -132,9 +131,7 @@ namespace NeatProjectiles.Core.Scripts.WeaponSystem {
             int posIdx = projectileCount / 2;
             for (int i = 0; i < projectileCount; i++) {
                 
-                if (localCoordinateSystem == null)
-                    yield break;
-                
+                CoordinateSystem localCoordinateSystem = CreateLocalCoordinateSystem();
                 Projectile projectile = Instantiate(ProjectilePrefab, ProjectileSpawnPoint.position, Quaternion.identity, localCoordinateSystem.transform).GetComponent<Projectile>();
 
                 // initialize projectile with necessary data
@@ -212,11 +209,11 @@ namespace NeatProjectiles.Core.Scripts.WeaponSystem {
         }
         
         private CoordinateSystem CreateLocalCoordinateSystem() {
-            // Projectiles instantiated in the same shot or burst will use their localCoordinateSystem to calculate their local coordinates. 
+            // Projectiles instantiated in the same multishot will use their localCoordinateSystem to calculate their local coordinates. 
             CoordinateSystem localCoordinateSystem = Instantiate(CoordinateSystemPrefab, ProjectilesParentTransform);
             localCoordinateSystem.Weapon = this;
             
-            // localCoordinateSystem has the same rotation and position as ProjectileSpawnPoint
+            // localCoordinateSystem has the same rotation and position as ProjectileSpawnPoint at the moment of the shot
             localCoordinateSystem.transform.up = ProjectileSpawnPoint.up;            
             localCoordinateSystem.transform.right = ProjectileSpawnPoint.right;      
             localCoordinateSystem.transform.rotation = ProjectileSpawnPoint.rotation;
