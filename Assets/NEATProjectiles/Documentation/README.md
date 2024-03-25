@@ -4,9 +4,15 @@ NEAT Projectiles is a tool for Unity that allows you to create weapons that have
 
 ---
 
+[Online Documentation](https://alexandermenkeev.github.io/NEAT-Projectiles-docs/)
+
+[Contact](mailto:alexander.menkeev@gmail.com)
+
+---
+
 ## General Idea
 
-![picture](diagrams/output1.svg)
+<img src="diagrams/output1.svg" alt="drawing" width="500"/>
 
 + Each weapon contains a single network evolved by the NEAT.
 
@@ -83,7 +89,7 @@ Lets suppose you evolved and saved a lot of weapons, now you have a bunch of fol
 
 IWeaponParams interface is implemented by ScriptableObject __WeaponParamsSO__ and class __WeaponParams__. These classes act as containers for variables that change the behaviour of a weapon. The main difference between these two classes is that the __WeaponParams__ is not persistent, meaning that its data is deleted after leaving play mode, while the __WeaponParamsSO__ is persistent (because it's a ScriptableObject).
 
-![picture](diagrams/output2.svg)
+<img src="diagrams/output2.svg" alt="drawing" width="500"/>
 
 ## IWeaponParams properties
 
