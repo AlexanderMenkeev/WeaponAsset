@@ -73,7 +73,7 @@ namespace NeatProjectiles.Core.Scripts.SODefinitions {
             Size = new Vector2(0.07f, 0.07f);
             Lifespan = 8f;
             
-            HueRange = new Vector2(0.1f, 0.5f);
+            HueRange = new Vector2(0.4f, 0.8f);
             Saturation = 0.8f;
             Brightness = 0.9f;
             

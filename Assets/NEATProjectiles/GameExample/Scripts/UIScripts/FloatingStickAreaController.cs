@@ -10,7 +10,7 @@ namespace NeatProjectiles.GameExample.Scripts.UIScripts {
         private OnScreenStick _screenStick;
         private RectTransform _joystickRect;
 
-        // список images, которые мы скрываем
+        // images that we hide
         private Image[] _images;
     
         private void Awake() {
