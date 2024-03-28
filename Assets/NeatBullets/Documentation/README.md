@@ -1,6 +1,6 @@
-# About NEAT Projectiles
+# About NEAT Bullets
 
-NEAT Projectiles is a tool for Unity that allows you to create weapons that have unique 2D projectile flight patterns. Trajectory of projectiles is determined by a set of parameters and an artificial neural network generated using the NEAT algorithm[^1].
+NEAT Bullets is a tool for Unity that allows you to create weapons that have unique 2D projectile flight patterns. Trajectory of projectiles is determined by a set of parameters and an artificial neural network generated using the NEAT algorithm[^1].
 
 ---
 
