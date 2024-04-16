@@ -27,6 +27,8 @@ namespace NeatBullets.WeaponDemo.Scripts {
 
             foreach (WeaponParamsSO so in _weaponList) {
                 so.LoadParamsFromJson();
+                so.Brightness = 1f;
+                so.Saturation = 1f;
                 so.Lifespan = 10f;
             }
             

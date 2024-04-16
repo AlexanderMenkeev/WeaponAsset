@@ -234,6 +234,7 @@ namespace NeatBullets.Core.Scripts.WeaponSystem {
         } 
         
         
+        
         // Visualization of initial flight circle radius, reflection borders and network control distance
         private float _borderRayDirX, _borderRayDirY;
         private Vector2 _upperBorderRayDir, _lowerBorderRayDir;

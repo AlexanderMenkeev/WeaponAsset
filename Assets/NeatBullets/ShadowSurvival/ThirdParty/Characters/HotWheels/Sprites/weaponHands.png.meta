@@ -1,0 +1,549 @@
+fileFormatVersion: 2
+guid: 6af7b7e46c92c114380b19b6089e4fde
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: weaponHands_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 104
+        width: 46
+        height: 26
+      alignment: 9
+      pivot: {x: 0.38, y: 0.52}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 273a9c5f9c6363847ab839c7876916b0
+      internalID: 1836778616
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: weaponHands_1
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 104
+        width: 46
+        height: 26
+      alignment: 9
+      pivot: {x: 0.38, y: 0.52}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 192a2a86f90d28c45918e0637566a3e7
+      internalID: -1060261804
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: weaponHands_2
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 104
+        width: 46
+        height: 26
+      alignment: 9
+      pivot: {x: 0.38, y: 0.52}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2081b57e3c0bb844397caa7eb695b602
+      internalID: 17367925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: weaponHands_3
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 104
+        width: 46
+        height: 26
+      alignment: 9
+      pivot: {x: 0.38, y: 0.52}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f966c10f30c13b4eab8bc46859e4b79
+      internalID: 2108429430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: weaponHands_4
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 104
+        width: 46
+        height: 26
+      alignment: 9
+      pivot: {x: 0.38, y: 0.52}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4318378b823c9904e91003c4558f4901
+      internalID: 564459471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: weaponHands_5
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 104
+        width: 46
+        height: 26
+      alignment: 9
+      pivot: {x: 0.38, y: 0.52}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6142b61bce45e1042af4ce74c3a6192e
+      internalID: 2146576372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: weaponHands_6
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 104
+        width: 46
+        height: 26
+      alignment: 9
+      pivot: {x: 0.38, y: 0.52}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d6af9af9469fa14e95c380ce67e7cb0
+      internalID: -1994169098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: weaponHands_7
+      rect:
+        serializedVersion: 2
+        x: 322
+        y: 104
+        width: 46
+        height: 26
+      alignment: 9
+      pivot: {x: 0.38, y: 0.52}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 317d04337eca7f249a5f7228eac15d73
+      internalID: -1610478453
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: weaponHands_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 78
+        width: 46
+        height: 26
+      alignment: 9
+      pivot: {x: 0.38, y: 0.52}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 078ba54ddc3d94c459ec24465f2b3524
+      internalID: -1664704471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: weaponHands_9
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 78
+        width: 46
+        height: 26
+      alignment: 9
+      pivot: {x: 0.38, y: 0.52}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75f22dd4ba0499243aa13aaf63279be5
+      internalID: -926898127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: weaponHands_10
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 78
+        width: 46
+        height: 26
+      alignment: 9
+      pivot: {x: 0.38, y: 0.52}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5feb12f328aa9b743947b0eaafd09109
+      internalID: 1782541582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: weaponHands_11
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 78
+        width: 46
+        height: 26
+      alignment: 9
+      pivot: {x: 0.38, y: 0.52}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f939b8a60866ccf488b7cee94494d03f
+      internalID: 1794228023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: weaponHands_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 52
+        width: 46
+        height: 26
+      alignment: 9
+      pivot: {x: 0.38, y: 0.52}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3223ed3646576bb4ea12c8bdd055f859
+      internalID: -1951784360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: weaponHands_13
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 52
+        width: 46
+        height: 26
+      alignment: 9
+      pivot: {x: 0.38, y: 0.52}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65c12525c9baa9643a0ad7466d707627
+      internalID: -2061613453
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: weaponHands_14
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 52
+        width: 46
+        height: 26
+      alignment: 9
+      pivot: {x: 0.38, y: 0.52}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51e4a229a7c3e00479c67a4a9bbe7e43
+      internalID: -249294559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: weaponHands_15
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 52
+        width: 46
+        height: 26
+      alignment: 9
+      pivot: {x: 0.38, y: 0.52}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6048e90b5a3b7254ba0a91f67082d3c0
+      internalID: -31792653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: weaponHands_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 26
+        width: 46
+        height: 26
+      alignment: 9
+      pivot: {x: 0.38, y: 0.52}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b138671b64e2934ba17181bac43615c
+      internalID: -2098683066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: weaponHands_17
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 26
+        width: 46
+        height: 26
+      alignment: 9
+      pivot: {x: 0.38, y: 0.52}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 81776718c03ac164ba4c69ec7afa82d8
+      internalID: -273608220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      weaponHands_0: 1836778616
+      weaponHands_1: -1060261804
+      weaponHands_10: 1782541582
+      weaponHands_11: 1794228023
+      weaponHands_12: -1951784360
+      weaponHands_13: -2061613453
+      weaponHands_14: -249294559
+      weaponHands_15: -31792653
+      weaponHands_16: -2098683066
+      weaponHands_17: -273608220
+      weaponHands_2: 17367925
+      weaponHands_3: 2108429430
+      weaponHands_4: 564459471
+      weaponHands_5: 2146576372
+      weaponHands_6: -1994169098
+      weaponHands_7: -1610478453
+      weaponHands_8: -1664704471
+      weaponHands_9: -926898127
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

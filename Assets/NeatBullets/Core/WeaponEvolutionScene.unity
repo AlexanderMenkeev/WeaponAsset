@@ -841,6 +841,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1258397522}
     m_Modifications:
+    - target: {fileID: 78697178325471951, guid: 034c7b2da7c37324a8a6e9cbba74166e, type: 3}
+      propertyPath: m_text
+      value: Shadow Survival
+      objectReference: {fileID: 0}
     - target: {fileID: 1871504872670726007, guid: 034c7b2da7c37324a8a6e9cbba74166e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -849,6 +853,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2077380212}
+    - target: {fileID: 4137261391064712601, guid: 034c7b2da7c37324a8a6e9cbba74166e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: ShadowSurvivalScene
+      objectReference: {fileID: 0}
     - target: {fileID: 4769874031793494002, guid: 034c7b2da7c37324a8a6e9cbba74166e, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using NeatBullets.Core.Scripts.Interfaces;
 using NeatBullets.Core.Scripts.SODefinitions;
-using NeatBullets.GameExample.Scripts.Managers;
+using NeatBullets.SpaceShooter.Scripts.Managers;
 using SharpNeat.Phenomes;
 using Unity.Mathematics;
 using UnityEngine;
@@ -35,6 +35,7 @@ namespace NeatBullets.Core.Scripts.WeaponSystem.ProjectileStatePattern {
             Rigidbody = GetComponent<Rigidbody2D>();
             SpriteRenderer = GetComponent<SpriteRenderer>();
             _tipTransform = transform.Find("Tip");
+            
             BirthTime = Time.time;
             
             StateMachine = new ProjectileStateMachine(this);
@@ -181,7 +182,7 @@ namespace NeatBullets.Core.Scripts.WeaponSystem.ProjectileStatePattern {
         private void LateUpdate() {
             // Transition to PauseState is common to any state, so we check it here
             // Do not transit if it's already in paused state (otherwise StateMachine.PreviousState will be overriden)
-            if (GlobalVariables.IsPaused && StateMachine.CurrentState != StateMachine.Pause)
+            if (GlobalVariables.IsPaused && StateMachine.CurrentState != StateMachine.Pause && gameObject.layer != 5) // layer 5: UI
                 StateMachine.TransitionTo(StateMachine.Pause);
             
             StateMachine.LateUpdate();
@@ -201,7 +202,7 @@ namespace NeatBullets.Core.Scripts.WeaponSystem.ProjectileStatePattern {
         
         
         [SerializeField] private int _layerMask = 0b_0000_0000_1000;
-        private void CheckCollision() {
+        protected void CheckCollision() {
             Vector2 startPoint = _tipTransform.position;
             RaycastHit2D hit = Physics2D.CircleCast(startPoint, transform.localScale.x, -transform.up, transform.localScale.y, _layerMask);
             
@@ -216,7 +217,7 @@ namespace NeatBullets.Core.Scripts.WeaponSystem.ProjectileStatePattern {
             if (objectToDamage.HealthPoints > 0)
                 GameManager.Instance.DamageObject(this, HealthPoints);
         }
-
+        
         
         [field: SerializeField] public float HealthPoints { get; set; } = 2f;
         public void TakeDamage(float damage) {

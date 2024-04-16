@@ -820,6 +820,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Box
       objectReference: {fileID: 0}
+    - target: {fileID: 6868872878896484083, guid: c9ddf2edc3971fd44baeb99daa387eaa, type: 3}
+      propertyPath: m_text
+      value: Space Shooter
+      objectReference: {fileID: 0}
+    - target: {fileID: 7434937791848585637, guid: c9ddf2edc3971fd44baeb99daa387eaa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: SpaceShooterScene
+      objectReference: {fileID: 0}
     - target: {fileID: 7866860741438242906, guid: c9ddf2edc3971fd44baeb99daa387eaa, type: 3}
       propertyPath: m_text
       value: 'Weapon name

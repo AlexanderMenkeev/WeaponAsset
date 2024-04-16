@@ -102,7 +102,6 @@ MonoBehaviour:
   _weaponSO: {fileID: 0}
   ProjectilePrefab: {fileID: 7750301855671846271, guid: e589d491ebef9bd489845df13bf2078c, type: 3}
   CoordinateSystemPrefab: {fileID: 7264189112268356630, guid: 05c49644aa693224a863e69a1e909494, type: 3}
-  CoordinateSystems: []
   _weaponParamsLocal:
     <WeaponMode>k__BackingField: 0
     <BurstMode>k__BackingField: 0
@@ -111,7 +110,7 @@ MonoBehaviour:
     <ProjectilesInOneShot>k__BackingField: 0
     <RotationSpeed>k__BackingField: 0
     <MoveSpeed>k__BackingField: 0
-    <PositioningMode>k__BackingField: 0
+    <NetworkControlMode>k__BackingField: 0
     <ReadMode>k__BackingField: 0
     <Size>k__BackingField: {x: 0, y: 0}
     <Lifespan>k__BackingField: 0
@@ -139,7 +138,7 @@ MonoBehaviour:
     ConnectionCount: 0
     NodeCount: 0
     IsEvaluated: 0
-  TemporalObjects: {fileID: 0}
+  ProjectilesParentTransform: {fileID: 0}
   ProjectileSpawnPoint: {fileID: 7607834674828563831}
 --- !u!50 &6572894877007919239
 Rigidbody2D:

@@ -25,7 +25,7 @@ MonoBehaviour:
   <ReadMode>k__BackingField: 0
   <Size>k__BackingField: {x: 0.07, y: 0.07}
   <Lifespan>k__BackingField: 8
-  <HueRange>k__BackingField: {x: 0.1, y: 0.5}
+  <HueRange>k__BackingField: {x: 0.3028051, y: 0.7028053}
   <Saturation>k__BackingField: 0.8
   <Brightness>k__BackingField: 0.9
   <SpeedRange>k__BackingField: {x: 3, y: 6}

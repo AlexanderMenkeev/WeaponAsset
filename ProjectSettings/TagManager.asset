@@ -7,7 +7,6 @@ TagManager:
   - Enemy
   - Area
   - FriendlyProjectile
-  - TemporalObjects
   layers:
   - Default
   - TransparentFX
@@ -42,6 +41,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Tilemap
+    uniqueID: 2010582769
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

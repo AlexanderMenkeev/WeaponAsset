@@ -82,7 +82,7 @@ MonoBehaviour:
   ArrowSpawner: {fileID: 0}
   SpriteRenderers: []
   InNNControlZone: 1
-  ShowForceMagnitudeAsColor: 0
+  ShowForceMagnitude: 0
   RelativePos: {x: 0, y: 0}
   RelativePosDir: {x: 0, y: 0}
   DistanceFromOrigin: 0

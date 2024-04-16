@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2427965623729912627}
   - component: {fileID: 7264189112268356630}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CoordinateSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,5 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9185ebea653396445a7504d5b4d2fbf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Parent: {fileID: 0}
-  Move: 0
+  Weapon: {fileID: 0}
+  IsMoving: 0
+  Direction: {x: 0, y: 0, z: 0}
+  MoveSpeed: 0
+  IsRotating: 0
+  RotatingSpeed: 0

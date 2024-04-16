@@ -14,29 +14,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GenomeXml: {fileID: 4900000, guid: 045dd3115bc56fa4fa2c0eb0693936f2, type: 3}
   WeaponParamsJson: {fileID: 4900000, guid: a31484dddea06824693aaa680fec066f, type: 3}
-  <WeaponMode>k__BackingField: 1
-  <BurstMode>k__BackingField: 0
+  <WeaponMode>k__BackingField: 0
+  <BurstMode>k__BackingField: 2
   <BurstRate>k__BackingField: 0.03
-  <FireRate>k__BackingField: 1
+  <FireRate>k__BackingField: 0.9
   <ProjectilesInOneShot>k__BackingField: 20
   <RotationSpeed>k__BackingField: 0
   <MoveSpeed>k__BackingField: 10
   <NetworkControlMode>k__BackingField: 0
-  <ReadMode>k__BackingField: 1
+  <ReadMode>k__BackingField: 0
   <Size>k__BackingField: {x: 0.07, y: 0.07}
-  <Lifespan>k__BackingField: 10
-  <HueRange>k__BackingField: {x: 0.40549934, y: 0.80549943}
-  <Saturation>k__BackingField: 0.614
-  <Brightness>k__BackingField: 1
+  <Lifespan>k__BackingField: 8
+  <HueRange>k__BackingField: {x: 0.3028051, y: 0.7028053}
+  <Saturation>k__BackingField: 0.8
+  <Brightness>k__BackingField: 0.9
   <SpeedRange>k__BackingField: {x: 3, y: 6}
   <ForceRange>k__BackingField: {x: 1, y: 3}
-  <NNControlDistance>k__BackingField: 3
+  <NNControlDistance>k__BackingField: 1
   <SignX>k__BackingField: 1
-  <SignY>k__BackingField: 1
+  <SignY>k__BackingField: -1
   <ForwardForce>k__BackingField: 0
-  <InitialFlightRadius>k__BackingField: 0.05
-  <InitialSpeed>k__BackingField: 0.5
-  <Angle>k__BackingField: 1
+  <InitialFlightRadius>k__BackingField: 0.1
+  <InitialSpeed>k__BackingField: 2
+  <Angle>k__BackingField: 60
   <FlipXOnReflect>k__BackingField: 1
   <FlipYOnReflect>k__BackingField: 1
   <Mode>k__BackingField: 0

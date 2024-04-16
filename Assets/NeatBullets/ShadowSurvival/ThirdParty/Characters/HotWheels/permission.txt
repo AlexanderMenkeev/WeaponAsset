@@ -1,0 +1,17 @@
+
+###############################################################################
+
+	Wheel Bot Dark Edition (idle, wake, move, charge, shoot, damaged, and death animations)
+		    by penusbmic (https://penusbmic.itch.io/)
+			
+			------------------------------
+
+	I have been granted permission to distribute this asset, under the condition 
+	    that I give appropriate credit to the original creator.
+
+			------------------------------
+	
+	You can get this asset for free here (https://penusbmic.itch.io/sci-fi-platformer-dark-edition)
+  
+    
+###############################################################################

@@ -21,15 +21,15 @@ MonoBehaviour:
   <ProjectilesInOneShot>k__BackingField: 20
   <RotationSpeed>k__BackingField: 0
   <MoveSpeed>k__BackingField: 10
-  <PositioningMode>k__BackingField: 0
+  <NetworkControlMode>k__BackingField: 0
   <ReadMode>k__BackingField: 0
   <Size>k__BackingField: {x: 0.07, y: 0.07}
   <Lifespan>k__BackingField: 8
-  <HueRange>k__BackingField: {x: 0, y: 0.097867146}
+  <HueRange>k__BackingField: {x: 0.3028051, y: 0.7028053}
   <Saturation>k__BackingField: 0.803
   <Brightness>k__BackingField: 1
-  <SpeedRange>k__BackingField: {x: 2.5092173, y: 5.5092163}
-  <ForceRange>k__BackingField: {x: 1.49734, y: 3.4973397}
+  <SpeedRange>k__BackingField: {x: 3, y: 6}
+  <ForceRange>k__BackingField: {x: 1, y: 3}
   <NNControlDistance>k__BackingField: 8
   <SignX>k__BackingField: 0
   <SignY>k__BackingField: 1

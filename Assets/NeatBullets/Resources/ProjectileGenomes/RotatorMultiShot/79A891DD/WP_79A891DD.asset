@@ -17,25 +17,25 @@ MonoBehaviour:
   <WeaponMode>k__BackingField: 0
   <BurstMode>k__BackingField: 2
   <BurstRate>k__BackingField: 0.05
-  <FireRate>k__BackingField: 1
+  <FireRate>k__BackingField: 0.3
   <ProjectilesInOneShot>k__BackingField: 20
   <RotationSpeed>k__BackingField: 80
   <MoveSpeed>k__BackingField: 0
-  <PositioningMode>k__BackingField: 0
+  <NetworkControlMode>k__BackingField: 0
   <ReadMode>k__BackingField: 1
-  <Size>k__BackingField: {x: 0.07, y: 0.07}
-  <Lifespan>k__BackingField: 8
+  <Size>k__BackingField: {x: 0.02, y: 0.08}
+  <Lifespan>k__BackingField: 10
   <HueRange>k__BackingField: {x: 0, y: 0.4}
-  <Saturation>k__BackingField: 0.8
-  <Brightness>k__BackingField: 0.9
+  <Saturation>k__BackingField: 1
+  <Brightness>k__BackingField: 1
   <SpeedRange>k__BackingField: {x: 3, y: 6}
-  <ForceRange>k__BackingField: {x: 1, y: 3}
-  <NNControlDistance>k__BackingField: 3
+  <ForceRange>k__BackingField: {x: 0.5, y: 2.5}
+  <NNControlDistance>k__BackingField: 3.5
   <SignX>k__BackingField: -1
   <SignY>k__BackingField: 1
   <ForwardForce>k__BackingField: 0
   <InitialFlightRadius>k__BackingField: 0.05
-  <InitialSpeed>k__BackingField: 0.5
+  <InitialSpeed>k__BackingField: 2
   <Angle>k__BackingField: 179
   <FlipXOnReflect>k__BackingField: 0
   <FlipYOnReflect>k__BackingField: 0

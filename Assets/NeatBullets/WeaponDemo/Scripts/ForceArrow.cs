@@ -7,7 +7,7 @@ using UnityEngine;
 namespace NeatBullets.WeaponDemo.Scripts {
     public class ForceArrow : MonoBehaviour {
 
-        // Assign from another script
+        // Assigned from UIBox script
         [SerializeField] public WeaponParams WeaponParamsLocal;
         public Transform OriginTransform;
         public float SignX;
@@ -15,6 +15,7 @@ namespace NeatBullets.WeaponDemo.Scripts {
         public IBlackBox Box;
         public ISignalArray InputArr;
         public ISignalArray OutputArr;
+        
         [HideInInspector] public ArrowSpawner ArrowSpawner;
 
         public SpriteRenderer[] SpriteRenderers;
